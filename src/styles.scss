@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/base/index' as b;
+
+html {
+  background-color: b.$black;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
