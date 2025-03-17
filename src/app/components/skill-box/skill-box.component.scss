@@ -1,0 +1,20 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.skill-box-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px 20px;
+
+  &__item {
+    border: 1px solid b.$strokeColor;
+    border-radius: b.$defaultBorderRadius;
+    width: 25%;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

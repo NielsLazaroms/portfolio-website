@@ -1,0 +1,13 @@
+@use '../../../styles/base/index' as b;
+
+.section-text {
+  &__heading {
+    font-size: b.$headingText;
+    font-weight: bold;
+    color: b.$textColor;
+
+    &--green {
+      color: b.$lightgreen
+    }
+  }
+}

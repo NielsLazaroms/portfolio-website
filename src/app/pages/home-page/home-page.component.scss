@@ -1,0 +1,135 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.quote-section {
+  width: 100%;
+  margin-top: b.$sectionSpacing;
+  display: flex;
+  justify-content: center;
+
+  &__quote {
+    width: 30%;
+    text-align: center;
+    color: b.$textColor;
+    font-size: b.$navbarFont;
+    padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+    font-weight: bold;
+  }
+
+  @include u.respond-to(tablet) {
+    .quote-section {
+      &__quote {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.about-me-section {
+  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  margin-top: b.$sectionSpacing;
+
+  &__container {
+    margin-top: b.$defaultSectionSpacing;
+    display: flex;
+    flex-direction: row;
+    height: 50vh;
+
+
+    &__information {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 70%;
+      gap: 40px;
+
+      &__text {
+        color: b.$textColor;
+        max-width: 60%;
+        font-size: b.$navbarFont;
+
+        &--green {
+          color: b.$lightgreen;
+          font-weight: bold;
+        }
+
+      }
+    }
+
+    &__about-me-image {
+      width: 30%;
+      background-color: b.$darkBox;
+      height: auto;
+      border-radius: b.$defaultBorderRadius;
+    }
+
+  }
+
+  @include u.respond-to(tablet) {
+    .about-me-section {
+
+      &__container {
+        &__information {
+          width: 50%;
+          height: auto;
+
+          &__text {
+            max-width: 90%;
+          }
+        }
+
+        &__about-me-image {
+          width: 50%;
+        }
+      }
+    }
+  }
+  @include u.respond-to(mobile) {
+    .about-me-section {
+      &__container {
+        flex-direction: column;
+        min-height: 50vh;
+        align-items: center;
+        height: auto;
+
+        &__information {
+          width: 100%;
+          height: auto;
+
+          &__text {
+            max-width: 100%;
+          }
+        }
+
+        &__about-me-image {
+          margin-top: b.$defaultSectionSpacing;
+          width: 50%;
+          min-height: 300px;
+
+        }
+      }
+    }
+  }
+}
+
+.my-skills-section {
+  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  margin-top: b.$sectionSpacing;
+
+  &__container {
+    width: 100%;
+    margin-top: b.$defaultSectionSpacing;
+    display: flex;
+    flex-direction: row;
+
+    &__total {
+      &__year {
+        color: b.$lightgreen;
+        font-size: b.$yearText;
+        font-weight: bold;
+      }
+    }
+
+  }
+}
+

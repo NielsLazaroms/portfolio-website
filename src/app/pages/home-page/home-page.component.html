@@ -1,0 +1,44 @@
+<section class="top-section">
+  <app-navbar></app-navbar>
+  <app-top-view></app-top-view>
+</section>
+<section class="quote-section">
+  <p class="quote-section__quote">
+    Whether I’m on the trails or behind the screen,
+    it’s about the same thing momentum, precision, and the drive to keep improving.
+  </p>
+</section>
+<section class="about-me-section">
+  <app-section-title class="about-me-section__title" [titleText]="'Some information'"
+                     [subtitleText]="'About me'"></app-section-title>
+  <div class="about-me-section__container">
+    <div class="about-me-section__container__information">
+      <p class="about-me-section__container__information__text">I am a 22 year old student. Living in Brabant, the Netherlands.
+        Currently I am studying <span class="about-me-section__information__text--green">ICT & Media Design</span> at
+        Fontys university of Applied Sciences. </p>
+      <p class="about-me-section__container__information__text">During my studies, I developed a strong passion for interactive
+        design and development. I have experience working with various tools and frameworks, including<span
+          class="about-me-section__container__information__text--green"> Figma & Adobe</span>, but
+        my favourite framework is <span class="about-me-section__information__text--green">Angular</span>.</p>
+      <p class="about-me-section__container__information__text">Additionally, I enjoy mountain biking, fitness, and playing PC
+        games
+        in my free time, which I find both fun and relaxing.</p>
+    </div>
+    <img class="about-me-section__container__about-me-image" src="assets/about-me-forward.svg" alt="picture of me facing forward">
+  </div>
+</section>
+<section class="my-skills-section">
+  <app-section-title [titleText]="'These are'" [subtitleText]="'My skills'"></app-section-title>
+  <div class="my-skills-section__container">
+    <div class="my-skills-section__container__specific">
+      <app-skill-box [images]="images"></app-skill-box>
+    </div>
+    <div class="my-skills-section__container__total">
+      <p id="years" class="my-skills-section__container__total__year"></p> <!-- Startwaarde op 0 -->
+      <p class="my-skills-section__container__total__text"></p>
+      <button class="my-skills-section__container__total__button"></button>
+    </div>
+  </div>
+</section>
+
+

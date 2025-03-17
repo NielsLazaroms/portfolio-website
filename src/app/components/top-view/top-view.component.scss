@@ -1,0 +1,119 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.top-view {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  align-items: center;
+  top: 90px;
+  justify-content: center;
+
+  &__center {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 70%;
+  }
+
+  &__center-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  &__center-text {
+    text-align: center;
+    z-index: 2;
+    color: b.$textColor;
+    font-size: b.$nameTitle;
+    font-weight: bold;
+    max-width: 60%;
+  }
+
+  #typewriter {
+    font-weight: bold;
+    color: b.$lightgreen;
+    border-right: 2px solid b.$lightgreen;
+    padding-right: 5px;
+    animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  .highlight {
+    color: b.$lightgreen;
+    font-size: b.$highlightText;
+    font-weight: 600;
+  }
+
+  &__small-circle {
+    position: absolute;
+    display: block;
+    z-index: 0;
+  }
+
+  &__small-circle--left {
+    left: 15%;
+    width: 25%;
+    top: 3%;
+  }
+
+  &__small-circle--right {
+    right: 15%;
+    width: 25%;
+    top: 3%;
+  }
+
+  &__small-circle--bottom-left {
+    left: 0;
+    bottom: 0;
+  }
+
+  &__small-circle--bottom-right {
+    right: 0;
+    bottom: 0;
+  }
+  @include u.respond-to(tablet) {
+    &__small-circle--right {
+      top: 7%;
+      right: 1%;
+      width: 40%;
+    }
+    &__small-circle--left {
+      top: 7%;
+      left: 1%;
+      width: 40%;
+    }
+
+    &__small-circle--bottom-left,
+    &__small-circle--bottom-right {
+      display: none;
+    }
+  }
+
+  @include u.respond-to(mobile) {
+    &__small-circle {
+      display: none;
+    }
+
+    &__center {
+      width: 90%;
+      height: 90%;
+    }
+
+    &__center-text {
+      max-width: 80%;
+    }
+  }
+}

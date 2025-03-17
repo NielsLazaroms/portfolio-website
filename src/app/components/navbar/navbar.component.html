@@ -1,0 +1,23 @@
+<nav class="navbar" [class.navbar--open]="menuOpen">
+    <div class="navbar__logo">
+      <p>Niels Lazaroms</p>
+    </div>
+    <ul class="navbar__list" [class.navbar__list--open]="menuOpen">
+      <li class="navbar__list__item"><a>Home</a></li>
+      <li class="navbar__list__item"><a>About</a></li>
+      <li class="navbar__list__item"><a>Projects</a></li>
+
+      <div class="navbar__contact" *ngIf="menuOpen">
+        <p>Contact</p>
+      </div>
+    </ul>
+    <div class="navbar__contact" *ngIf="!menuOpen">
+      <p>Contact</p>
+    </div>
+  <div class="navbar__toggle" (click)="toggleMenu()" [class.navbar__toggle--open]="menuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+</nav>
