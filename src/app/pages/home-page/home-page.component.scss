@@ -40,7 +40,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 70%;
+      width: 65%;
       gap: 40px;
 
       &__text {
@@ -103,7 +103,7 @@
 
         &__about-me-image {
           margin-top: b.$defaultSectionSpacing;
-          width: 50%;
+          width: 70%;
           min-height: 300px;
 
         }
@@ -122,14 +122,65 @@
     display: flex;
     flex-direction: row;
 
-    &__total {
-      &__year {
-        color: b.$lightgreen;
-        font-size: b.$yearText;
-        font-weight: bold;
-      }
+    &__specific {
+      width: 70%;
     }
 
+    &__total {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      min-height: 35vh;
+      width: 30%;
+      border-radius: b.$defaultBorderRadius;
+      border: 1px solid b.$strokeColor;
+
+      &__data {
+        &__year {
+          color: b.$lightgreen;
+          font-size: b.$yearText;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        &__text {
+          color: b.$textColor;
+          font-size: b.$experienceText;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+
+      &__button {
+        width: 40%;
+      }
+    }
+  }
+
+  @include u.respond-to(tablet) {
+    &__container {
+      flex-direction: column;
+
+      &__specific {
+        width: 100%;
+      }
+
+      &__total {
+        margin-top: b.$defaultSectionSpacing;
+        width: 100%;
+      }
+    }
   }
 }
 
+.projects-section {
+  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  margin-top: b.$sectionSpacing;
+
+  &__list {
+    margin-top: b.$defaultSectionSpacing;
+
+  }
+
+}

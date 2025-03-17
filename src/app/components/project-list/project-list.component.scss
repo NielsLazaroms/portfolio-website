@@ -1,0 +1,104 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.project-card-list {
+  &__item {
+    border-top: 1px solid b.$strokeColor;
+    border-left: 1px solid b.$strokeColor;
+    border-right: 1px solid b.$strokeColor;
+    overflow: hidden;
+    padding: 20px;
+
+  &:nth-child(1) {
+    border-top-right-radius: b.$defaultBorderRadius;
+    border-top-left-radius: b.$defaultBorderRadius;
+  }
+  &:nth-last-child(1) {
+    border-bottom-right-radius: b.$defaultBorderRadius;
+    border-bottom-left-radius: b.$defaultBorderRadius;
+    border-bottom: 1px solid b.$strokeColor;
+  }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+
+      &__container {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        align-content: center;
+
+        &__title {
+          color: b.$textColor;
+          font-size: 18px;
+        }
+        .arrow {
+          transition: transform 0.3s ease;
+          font-size: 36px;
+          color: b.$lightgreen
+        }
+        .rotated {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &__content {
+      color: #ddd;
+      font-size: 14px;
+      animation: fadeIn 0.3s ease-in-out;
+
+      &__skills {
+        margin-top: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+
+        span {
+          background: transparent;
+          padding: 16px;
+          border-radius: b.$defaultBorderRadius;
+          font-size: 14px;
+          font-weight: bold;
+          color: b.$textColor;
+          border: 1px solid b.$lightgreen;
+          -webkit-text-stroke: 0.3px b.$lightgreen;
+        }
+        &__year {
+          color: b.$textColor;
+          margin-left: 10px;
+          font-size: b.$buttonText;
+          font-weight: bold;
+        }
+      }
+
+      img {
+        margin-top: 10px;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 6px;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

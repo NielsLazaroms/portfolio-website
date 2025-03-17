@@ -137,12 +137,13 @@
   }
 
   @include u.respond-to(mobile) {
-    &__toggle {
-      display: flex;
-    }
     flex-direction: row;
     padding: 10px 15px;
     position: relative;
+
+    &__toggle {
+      display: flex;
+    }
 
     &__logo {
       width: 80%;

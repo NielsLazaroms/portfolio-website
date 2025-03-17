@@ -1,0 +1,18 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.download-button {
+  width: 100%;
+  border: 1px solid green;
+  padding: 15px;
+  color: b.$textColor;
+  background-color: transparent;
+  font-size: b.$buttonText;
+  border-radius: b.$defaultBorderRadius;
+
+&:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
+
+}
