@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component } from '@angular/core';
 import {TopViewComponent} from '../../components/top-view/top-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {NgStyle} from '@angular/common';
@@ -32,8 +32,6 @@ export class HomePageComponent implements AfterViewInit {
     'assets/angular-icon.svg',
     'assets/figma-icon.svg'
   ]
-  @ViewChild('counter', { static: true }) counter!: ElementRef;
-
 
   ngAfterViewInit() {
     gsap.to("#years",{
