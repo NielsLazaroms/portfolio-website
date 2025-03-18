@@ -4,7 +4,7 @@
 .download-button {
   width: 100%;
   border: 1px solid green;
-  padding: 15px;
+  padding: b.$buttonPadding;
   color: b.$textColor;
   background-color: transparent;
   font-size: b.$buttonText;

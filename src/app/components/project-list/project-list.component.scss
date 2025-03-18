@@ -9,6 +9,9 @@
     overflow: hidden;
     padding: 20px;
 
+    &:hover .project-card-list__item__header__container::before {
+      opacity: 1;
+    }
   &:nth-child(1) {
     border-top-right-radius: b.$defaultBorderRadius;
     border-top-left-radius: b.$defaultBorderRadius;
@@ -27,14 +30,36 @@
       cursor: pointer;
 
       &__container {
-        display: flex;
-        gap: 30px;
+        position: relative;
+        display: inline-flex;
         align-items: center;
-        align-content: center;
+        gap: 30px;
+
+        &::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          width: 200%;
+          height: 300%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          top: 50%;
+          background: radial-gradient(
+              ellipse at 50% 50%,
+              rgba(b.$lightgreen, 0.7) 10%,
+              transparent 60%
+          );
+          filter: blur(20px);
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+        }
 
         &__title {
           color: b.$textColor;
           font-size: 18px;
+          position: relative;
+          display: inline-block;
+
         }
         .arrow {
           transition: transform 0.3s ease;

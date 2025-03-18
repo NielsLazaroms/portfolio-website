@@ -182,5 +182,150 @@
     margin-top: b.$defaultSectionSpacing;
 
   }
+}
 
+.sliding-text-section {
+  margin-top: b.$sectionSpacing;
+}
+
+.mouse-spotlight-section {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(b.$lightgreen, 0.5), rgba(b.$darkgreen, 0.1) 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    top: var(--spotlight-y, 50%);
+    left: var(--spotlight-x, 50%);
+  }
+
+  &:hover::before {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.contact-section {
+  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  margin-top: b.$sectionSpacing;
+
+  &__container {
+    margin-top: b.$defaultSectionSpacing;
+    display: flex;
+    flex-direction: row;
+
+    &__image {
+      width: 60%;
+
+      &__size {
+        width: 50%;
+      }
+    }
+    &__form {
+      position: relative;
+      color: b.$textColor;
+      background-color: b.$black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid b.$strokeColor;
+      border-radius: b.$defaultBorderRadius;
+      width: 40%;
+      padding: b.$defaultSectionSpacing;
+
+      label {
+        display: block;
+        align-self: flex-start;
+        margin: 1rem 0 0.25rem;
+        font-weight: 500;
+        color: b.$textColor
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: b.$buttonPadding;
+        border: 1px solid b.$strokeColor;
+        background-color: transparent;
+        color: b.$textColor;
+        font-size: 1rem;
+        outline: none;
+        border-radius: b.$defaultBorderRadius;
+
+        &:focus {
+          border-color: b.$lightgreen;
+        }
+      }
+
+      textarea {
+        height: 40%;
+      }
+
+      &__button {
+        width: 100%;
+        margin-top: b.$defaultSectionSpacing;
+        color: b.$textColor;
+        padding: b.$buttonPadding;
+        border-radius: b.$defaultBorderRadius;
+        background-color: transparent;
+        border: 1px solid b.$strokeColor;
+        font-weight: bold;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(b.$lightgreen, 0.6);
+        }
+      }
+    }
+  }
+  @include u.respond-to(tablet) {
+    &__container {
+      &__image {
+        width: 50%;
+
+        &__size {
+          width: 80%;
+        }
+      }
+      &__form {
+        width: 50%;
+
+        textarea {
+          height: 20%;
+        }
+
+      }
+    }
+  }
+
+  @include u.respond-to(mobile) {
+    &__container {
+      flex-direction: column-reverse;
+
+      &__image {
+        margin-top: b.$defaultSectionSpacing;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        &__size {
+          width: 50%;
+        }
+      }
+      &__form {
+        width: 100%;
+      }
+    }
+
+  }
 }

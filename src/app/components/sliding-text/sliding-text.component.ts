@@ -1,16 +1,17 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import {NgClass, NgForOf} from '@angular/common';
+import { NgClass, NgForOf } from '@angular/common';
 import gsap from 'gsap';
 
 @Component({
   selector: 'app-sliding-text',
+  standalone: true,
   imports: [NgForOf, NgClass],
   templateUrl: './sliding-text.component.html',
-  standalone: true,
   styleUrls: ['./sliding-text.component.scss']
 })
 export class SlidingTextComponent implements OnInit, AfterViewInit {
   @Input() words: string[] = [];
+  @Input() direction: 'rtl' | 'ltr' = 'rtl';
   marqueeWords: string[] = [];
   @ViewChild('textWrapper', { static: true }) textWrapper!: ElementRef;
 
@@ -22,31 +23,44 @@ export class SlidingTextComponent implements OnInit, AfterViewInit {
     this.createMarqueeEffect();
   }
 
-  createMarqueeEffect() {
+  private createMarqueeEffect() {
     if (!this.textWrapper) return;
     const wrapper = this.textWrapper.nativeElement;
 
-    // Remove modifying the input property; use marqueeWords already set.
-    // this.words = [...this.words, ...this.words]; <-- Remove this line
-
     setTimeout(() => {
-      const animateWord = () => {
-        const firstWord = wrapper.children[0] as HTMLElement;
-        const firstWordWidth = firstWord.offsetWidth;
+      const totalWidth = wrapper.scrollWidth;
+      const halfWidth = totalWidth / 2;
+      const duration = 50;
 
-        gsap.to(wrapper, {
-          x: `-=${firstWordWidth}`,
-          duration: firstWordWidth / 100, // Adjust speed as needed.
-          ease: "linear",
-          onComplete: () => {
-            wrapper.appendChild(firstWord);
-            gsap.set(wrapper, { x: `+=${firstWordWidth}` });
-            animateWord();
+      if (this.direction === 'rtl') {
+        gsap.fromTo(
+          wrapper,
+          { x: 0 },
+          {
+            x: -halfWidth,
+            duration,
+            ease: 'none',
+            repeat: -1,
+            onRepeat: () => {
+              gsap.set(wrapper, { x: 0 });
+            }
           }
-        });
-      };
-
-      animateWord();
+        );
+      } else {
+        gsap.fromTo(
+          wrapper,
+          { x: -halfWidth },
+          {
+            x: 0,
+            duration,
+            ease: 'none',
+            repeat: -1,
+            onRepeat: () => {
+              gsap.set(wrapper, { x: -halfWidth });
+            }
+          }
+        );
+      }
     }, 0);
   }
 }

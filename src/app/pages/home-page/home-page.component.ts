@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {TopViewComponent} from '../../components/top-view/top-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {SectionTitleComponent} from '../../components/section-title/section-title.component';
@@ -9,6 +9,7 @@ import {DownloadButtonComponent} from '../../components/download-button/download
 import {ProjectInfo} from '../../models/interface';
 import {ProjectListComponent} from '../../components/project-list/project-list.component';
 import {SlidingTextComponent} from '../../components/sliding-text/sliding-text.component';
+import {SpotlightDirective} from '../../directives/spotlight.directive';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,12 +24,29 @@ gsap.registerPlugin(ScrollTrigger);
     DownloadButtonComponent,
     ProjectListComponent,
     SlidingTextComponent,
+    SpotlightDirective,
   ],
   templateUrl: './home-page.component.html',
   standalone: true,
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements AfterViewInit {
+  constructor(private hostRef: ElementRef<HTMLElement>) {}
+
+  // @ViewChild('spotlightSection', { static: true })
+  // spotlightSection!: ElementRef<HTMLElement>;
+  //
+  // @HostListener('mousemove', ['$event'])
+  // onMouseMove(event: MouseEvent) {
+  //   // Gebruik de spotlightSection in plaats van de host
+  //   const rect = this.spotlightSection.nativeElement.getBoundingClientRect();
+  //   const x = event.clientX - rect.left;
+  //   const y = event.clientY - rect.top;
+  //
+  //   this.spotlightSection.nativeElement.style.setProperty('--spotlight-x', `${x}px`);
+  //   this.spotlightSection.nativeElement.style.setProperty('--spotlight-y', `${y}px`);
+  // }
+
   images: string[] = [
     'assets/github-icon.svg',
     'assets/indesign-icon.svg',
@@ -79,10 +97,17 @@ export class HomePageComponent implements AfterViewInit {
   ]
 
   wordList: string[] = [
-    'High-Quality',
-    'User-Focused',
-    'Innovative',
-    'Interactive Design',
+    'high-quality',
+    'user-focused',
+    'innovative',
+    'interactive design',
+  ]
+
+  secondWordList: string[] = [
+    'high-end',
+    'responsive',
+    'accurate',
+    'dynamic',
   ]
 
 

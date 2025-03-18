@@ -1,4 +1,4 @@
-<section class="top-section">
+<section class="top-section mouse-spotlight-section" appSpotlight>
   <app-navbar></app-navbar>
   <app-top-view></app-top-view>
 </section>
@@ -9,48 +9,75 @@
   </p>
 </section>
 <section class="about-me-section">
-  <app-section-title class="about-me-section__title" [titleText]="'Some information'"
-                     [subtitleText]="'About me'"></app-section-title>
+  <app-section-title class="about-me-section__title" [titleText]="'Some information'" [subtitleText]="'about me'"></app-section-title>
   <div class="about-me-section__container">
     <div class="about-me-section__container__information">
-      <p class="about-me-section__container__information__text">I am a 22 year old student. Living in Brabant, the Netherlands.
-        Currently I am studying <span class="about-me-section__container__information__text--green">ICT & Media Design</span> at
+      <p class="about-me-section__container__information__text">I am a 22 year old student. Living in Brabant, the
+        Netherlands.
+        Currently I am studying <span
+          class="about-me-section__container__information__text--green">ICT & Media Design</span> at
         Fontys university of Applied Sciences. </p>
-      <p class="about-me-section__container__information__text">During my studies, I developed a strong passion for interactive
+      <p class="about-me-section__container__information__text">During my studies, I developed a strong passion for
+        interactive
         design and development. I have experience working with various tools and frameworks, including<span
           class="about-me-section__container__information__text--green"> Figma & Adobe</span>, but
-        my favourite framework is <span class="about-me-section__container__information__text--green">Angular</span>.</p>
-      <p class="about-me-section__container__information__text">Additionally, I enjoy mountain biking, fitness, and playing PC
+        my favourite framework is <span class="about-me-section__container__information__text--green">Angular</span>.
+      </p>
+      <p class="about-me-section__container__information__text">Additionally, I enjoy mountain biking, fitness, and
+        playing PC
         games
         in my free time, which I find both fun and relaxing.</p>
     </div>
-    <img class="about-me-section__container__about-me-image" src="assets/about-me-forward.svg" alt="picture of me facing forward">
+    <img class="about-me-section__container__about-me-image" src="assets/about-me-forward.svg"
+         alt="picture of me facing forward">
   </div>
 </section>
 <section class="my-skills-section">
-  <app-section-title [titleText]="'These are'" [subtitleText]="'My skills'"></app-section-title>
+  <app-section-title [titleText]="'These are'" [subtitleText]="'my skills'"></app-section-title>
   <div class="my-skills-section__container">
     <div class="my-skills-section__container__specific">
       <app-skill-box [images]="images"></app-skill-box>
     </div>
     <div class="my-skills-section__container__total">
       <div class="my-skills-section__container__total__data">
-      <p id="years" class="my-skills-section__container__total__data__year">0</p>
-      <p class="my-skills-section__container__total__data__text">Years</p>
-      <p class="my-skills-section__container__total__data__text">Experience</p>
+        <p id="years" class="my-skills-section__container__total__data__year">0</p>
+        <p class="my-skills-section__container__total__data__text">Years</p>
+        <p class="my-skills-section__container__total__data__text">Experience</p>
       </div>
-      <app-download-button class="my-skills-section__container__total__button" [buttonText]="'Download cv'"></app-download-button>
+      <app-download-button class="my-skills-section__container__total__button"
+                           [buttonText]="'Download cv'"></app-download-button>
     </div>
   </div>
 </section>
 <section class="projects-section">
-  <app-section-title [titleText]="'Here are'" [subtitleText]="'My projects'"></app-section-title>
+  <app-section-title [titleText]="'Here are'" [subtitleText]="'my projects'"></app-section-title>
   <div class="projects-section__list">
-  <app-project-list  [projects]="projects"></app-project-list>
+    <app-project-list [projects]="projects"></app-project-list>
   </div>
 </section>
-<section class="sliding-text-secion">
-<app-sliding-text [words]="wordList"></app-sliding-text>
+<section class="sliding-text-section">
+  <app-sliding-text [words]="wordList" [direction]="'ltr'"></app-sliding-text>
+  <app-sliding-text [words]="secondWordList" [direction]="'rtl'"></app-sliding-text>
 </section>
 
+<section class="contact-section mouse-spotlight-section" appSpotlight>
+<app-section-title [titleText]="'Lets get'" [subtitleText]="'in touch!'"></app-section-title>
+  <div class="contact-section__container">
+    <div class="contact-section__container__image">
+      <img src="assets/contact-me-image.svg" class="contact-section__container__image__size" alt="Contact Image">
+    </div>
+    <form class="contact-section__container__form">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Email" />
+
+      <label for="chat">Chat</label>
+      <textarea id="chat" placeholder="Type your message..."></textarea>
+
+      <button class="contact-section__container__form__button">Send</button>
+    </form>
+  </div>
+</section>
 

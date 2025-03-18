@@ -1,20 +1,20 @@
 <ul class="project-card-list">
-<li *ngFor="let project of projects" class="project-card-list__item">
-  <div class="project-card-list__item__header" (click)="toggleProject(project)">
-    <div class="project-card-list__item__header__container">
-      <span class="arrow" [ngClass]="{'rotated': project.isExpanded}">»</span>
-      <span class="project-card-list__item__header__container__title">{{ project.name }}</span>
+  <li *ngFor="let project of projects" class="project-card-list__item">
+    <div class="project-card-list__item__header" (click)="toggleProject(project)">
+      <div class="project-card-list__item__header__container">
+        <span class="arrow" [ngClass]="{'rotated': project.isExpanded}">»</span>
+        <span class="project-card-list__item__header__container__title">{{ project.name }}</span>
+      </div>
+      <div class="project-card-list__item__content__skills">
+        <span *ngFor="let skill of project.skills">{{ skill }}</span>
+        <p class="project-card-list__item__content__skills__year">{{ project.year }}</p>
+      </div>
     </div>
-    <div class="project-card-list__item__content__skills">
-      <span *ngFor="let skill of project.skills">{{ skill }}</span>
-      <p class="project-card-list__item__content__skills__year">{{project.year}}</p>
+
+    <div class="project-card-list__item__content" *ngIf="project.isExpanded">
+      <p>{{ project.description }}</p>
+
+      <img *ngFor="let img of project.images" [src]="img" alt="Project Image">
     </div>
-  </div>
-
-  <div class="project-card-list__item__content" *ngIf="project.isExpanded">
-    <p>{{ project.description }}</p>
-
-    <img *ngFor="let img of project.images" [src]="img" alt="Project Image">
-  </div>
-</li>
+  </li>
 </ul>

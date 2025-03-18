@@ -1,11 +1,10 @@
-<section class="sliding-text-section">
-  <div class="sliding-text-container">
-    <div class="sliding-text">
-      <div #textWrapper class="text-wrapper">
-  <span *ngFor="let word of marqueeWords; let i = index" [ngClass]="i % 2 === 0 ? 'green' : 'green-outline'">
-  {{ word }}
-</span>
-      </div>
+<div class="sliding-text-container">
+  <div class="sliding-text-container__text">
+    <div #textWrapper class="sliding-text-container__text__wrapper">
+        <span *ngFor="let word of marqueeWords; let i = index"
+              [ngClass]="i % 2 === 0 ? 'sliding-text-container__text__wrapper--textColor' : 'sliding-text-container__text__wrapper--textColorStroke'">
+          {{ word }} &nbsp;&nbsp;
+        </span>
     </div>
   </div>
-</section>
+</div>
