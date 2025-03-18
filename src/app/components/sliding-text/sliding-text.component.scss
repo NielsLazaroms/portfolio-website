@@ -1,0 +1,41 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.sliding-text-container {
+  overflow: hidden; // Prevents horizontal scrollbars
+  white-space: nowrap;
+  position: relative;
+}
+
+.sliding-text {
+  display: flex;
+  font-size: clamp(2rem, 5vw, 6rem);
+  font-weight: bold;
+  will-change: transform;
+}
+
+.text-wrapper {
+  display: flex;
+  min-width: max-content; // Ensure it grows dynamically
+}
+.text-wrapper span:not(:last-child)::after {
+  content: "|";
+  padding: 0 5px; // pas de padding aan naar wens
+  color: b.$textColor;
+  -webkit-text-stroke: 0 transparent;
+
+
+}
+.green {
+  color: b.$lightgreen;
+}
+
+.green-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px b.$lightgreen;
+}
+
+.div-bar {
+  color: b.$textColor;
+  border: none
+}

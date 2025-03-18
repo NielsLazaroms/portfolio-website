@@ -8,6 +8,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {DownloadButtonComponent} from '../../components/download-button/download-button.component';
 import {ProjectInfo} from '../../models/interface';
 import {ProjectListComponent} from '../../components/project-list/project-list.component';
+import {SlidingTextComponent} from '../../components/sliding-text/sliding-text.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
     SkillBoxComponent,
     DownloadButtonComponent,
     ProjectListComponent,
+    SlidingTextComponent,
   ],
   templateUrl: './home-page.component.html',
   standalone: true,
@@ -74,6 +76,13 @@ export class HomePageComponent implements AfterViewInit {
       year: 2024,
       isExpanded: false
     },
+  ]
+
+  wordList: string[] = [
+    'High-Quality',
+    'User-Focused',
+    'Innovative',
+    'Interactive Design',
   ]
 
 
