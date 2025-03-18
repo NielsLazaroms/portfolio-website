@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {TopViewComponent} from '../../components/top-view/top-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {SectionTitleComponent} from '../../components/section-title/section-title.component';
@@ -10,6 +10,7 @@ import {ProjectInfo} from '../../models/interface';
 import {ProjectListComponent} from '../../components/project-list/project-list.component';
 import {SlidingTextComponent} from '../../components/sliding-text/sliding-text.component';
 import {SpotlightDirective} from '../../directives/spotlight.directive';
+import {FormsModule} from '@angular/forms';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,27 +26,19 @@ gsap.registerPlugin(ScrollTrigger);
     ProjectListComponent,
     SlidingTextComponent,
     SpotlightDirective,
+    FormsModule,
   ],
   templateUrl: './home-page.component.html',
   standalone: true,
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements AfterViewInit {
-  constructor(private hostRef: ElementRef<HTMLElement>) {}
 
-  // @ViewChild('spotlightSection', { static: true })
-  // spotlightSection!: ElementRef<HTMLElement>;
-  //
-  // @HostListener('mousemove', ['$event'])
-  // onMouseMove(event: MouseEvent) {
-  //   // Gebruik de spotlightSection in plaats van de host
-  //   const rect = this.spotlightSection.nativeElement.getBoundingClientRect();
-  //   const x = event.clientX - rect.left;
-  //   const y = event.clientY - rect.top;
-  //
-  //   this.spotlightSection.nativeElement.style.setProperty('--spotlight-x', `${x}px`);
-  //   this.spotlightSection.nativeElement.style.setProperty('--spotlight-y', `${y}px`);
-  // }
+  formData = {
+    name: '',
+    subject: '',
+    chat: ''
+  };
 
   images: string[] = [
     'assets/github-icon.svg',
@@ -123,5 +116,18 @@ export class HomePageComponent implements AfterViewInit {
       duration: 3,
       snap: "innerText"
     });
+  }
+
+  openMail() {
+    const email = 'niels.lazaroms@live.nl';
+    const subject = encodeURIComponent(this.formData.subject);
+    const body = encodeURIComponent(
+      `Dear Niels,\n\n${this.formData.chat}\n\n Kind regards,\n${this.formData.name}`
+    );
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+    this.formData = { name: '', subject: '', chat: '' };
+
   }
 }

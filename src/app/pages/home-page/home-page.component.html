@@ -66,18 +66,18 @@
     <div class="contact-section__container__image">
       <img src="assets/contact-me-image.svg" class="contact-section__container__image__size" alt="Contact Image">
     </div>
-    <form class="contact-section__container__form">
+    <form #contactForm="ngForm" class="contact-section__container__form">
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Name" />
-
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Email" />
-
+      <input type="text" id="name" placeholder="Name" [(ngModel)]="formData.name" name="name" required />
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" placeholder="Subject" [(ngModel)]="formData.subject" name="subject" required />
       <label for="chat">Chat</label>
-      <textarea id="chat" placeholder="Type your message..."></textarea>
-
-      <button class="contact-section__container__form__button">Send</button>
+      <textarea id="chat" placeholder="Type your message..." [(ngModel)]="formData.chat" name="chat" required></textarea>
+      <button class="contact-section__container__form__button" (click)="openMail()" [disabled]="contactForm.invalid">
+        Send
+      </button>
     </form>
+
   </div>
 </section>
 

@@ -3,16 +3,38 @@
 
 .download-button {
   width: 100%;
-  border: 1px solid green;
   padding: b.$buttonPadding;
   color: b.$textColor;
-  background-color: transparent;
   font-size: b.$buttonText;
   border-radius: b.$defaultBorderRadius;
+  animation: spin 2.5s infinite linear paused;
+  background:
+    linear-gradient(
+        to bottom,
+        b.$black,
+        b.$black
+    ) padding-box,
+    conic-gradient(
+        from var(--bg-angle),
+        b.$lightgreen,
+        b.$darkgreen 100%
+    ) border-box;
+  border: 1px solid transparent;
 
-&:hover {
-  cursor: pointer;
-  scale: 1.1;
+  &:hover {
+    animation-play-state: running;
+    cursor: pointer;
+    scale: 1.1;
+  }
 }
 
+@property --bg-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+@keyframes spin {
+  to {
+    --bg-angle: 360deg;
+  }
 }
