@@ -10,6 +10,7 @@
   align-items: center;
   top: 90px;
   justify-content: center;
+  perspective: 800px;
 
   &__center {
     position: relative;
@@ -18,6 +19,8 @@
     justify-content: center;
     width: 70%;
     height: 70%;
+    transform-style: preserve-3d;
+
   }
 
   &__center-image {
