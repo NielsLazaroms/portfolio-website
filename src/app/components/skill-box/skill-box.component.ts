@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
-import {Skill} from '../../models/interface';
+import {Skill} from '../../interfaces/interface';
 
 @Component({
   selector: 'app-skill-box',

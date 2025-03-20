@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ProjectInfo} from '../../models/interface';
+import {ProjectInfo} from '../../interfaces/interface';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 
 @Component({

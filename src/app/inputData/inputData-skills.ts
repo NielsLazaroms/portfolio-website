@@ -39,9 +39,9 @@ export const skills: Skill[] = [
     maxHoursPracticed: maxHoursPractised
   },
   {
-    image: 'assets/github-icon.svg',
-    name: 'GitHub',
-    quote: 'My favorite collaboration code tool.',
+    image: 'assets/git.svg',
+    name: 'Git',
+    quote: 'My favorite version control tool.',
     yearsExperience: 4,
     maxExperience: maxExperience,
     projectsMade: 50,
