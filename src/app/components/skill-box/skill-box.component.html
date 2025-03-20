@@ -1,5 +1,10 @@
 <ul class="skill-box-list">
-  <li class="skill-box-list__item" *ngFor="let image of images">
-    <img class="skill-box-list__image" [src]="image" alt="Dynamic Image">
+  <li class="skill-box-list__item"
+      *ngFor="let skill of skills; let i = index"
+      (click)="setActive(i)"
+      [class.active]="i === activeIndex"
+      [class.disabled]="isDisabled"
+  >
+    <img class="skill-box-list__image" [src]="skill.image" [alt]="skill.name + ' icon'">
   </li>
 </ul>

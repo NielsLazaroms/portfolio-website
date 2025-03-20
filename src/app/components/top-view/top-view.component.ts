@@ -17,43 +17,50 @@ export class TopViewComponent implements OnInit {
   charIndex = 0;
   isDeleting = false;
 
+
   ngOnInit() {
     this.typeEffect();
     document.addEventListener("DOMContentLoaded", function() {
       const tl = gsap.timeline();
-
+      const bigCircleDuration: number = 4;
+      const smallCirclesDuration: number = 2;
       tl.fromTo(
         ".top-view__center",
         { scale: 0.1, z: -500 },
-        { duration: 2, scale: 1, z: 0, ease: "power3.out" }
+        { duration: bigCircleDuration, scale: 1, z: 0, ease: "power3.out" }
       );
 
       tl.fromTo(
         ".top-view__small-circle--left",
         { x: -500, y: -500 },
-        { duration: 1, x: 0, y: 0, ease: "power3.out" },
+        { duration: smallCirclesDuration, x: 0, y: 0, ease: "power3.out" },
         "<"
-
-
       );
 
       tl.fromTo(
         ".top-view__small-circle--right",
         { x: 500, y: -500 },
-        { duration: 1, x: 0, y: 0, ease: "power3.out" },
+        { duration: smallCirclesDuration, x: 0, y: 0, ease: "power3.out" },
         "<"
       );
       tl.fromTo(
         ".top-view__small-circle--bottom-left",
         { x: -500},
-        { duration: 1, x: 0, y: 0, ease: "power3.out" },
+        { duration: smallCirclesDuration, x: 0, y: 0, ease: "power3.out" },
         "<"
       );
       tl.fromTo(
         ".top-view__small-circle--bottom-right",
         { x: 500},
-        { duration: 1, x: 0, y: 0, ease: "power3.out" },
+        { duration: smallCirclesDuration, x: 0, y: 0, ease: "power3.out" },
         "<"
+      );
+
+      tl.fromTo(
+        ".top-view__center-text",
+        {opacity: 0},
+        {duration: 2, opacity: 1, ease: "power3.out"},
+        "-=2"
       );
     });
   }

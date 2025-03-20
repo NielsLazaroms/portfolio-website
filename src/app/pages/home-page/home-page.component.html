@@ -9,7 +9,8 @@
   </p>
 </section>
 <section class="about-me-section">
-  <app-section-title class="about-me-section__title" [titleText]="'Some information'" [subtitleText]="'about me'"></app-section-title>
+  <app-section-title class="about-me-section__title" [titleText]="'Some information'"
+                     [subtitleText]="'about me'"></app-section-title>
   <div class="about-me-section__container">
     <div class="about-me-section__container__information">
       <p class="about-me-section__container__information__text">I am a 22 year old student. Living in Brabant, the
@@ -36,16 +37,35 @@
   <app-section-title [titleText]="'These are'" [subtitleText]="'my skills'"></app-section-title>
   <div class="my-skills-section__container">
     <div class="my-skills-section__container__specific">
-      <app-skill-box [images]="images"></app-skill-box>
+      <app-skill-box [skills]="skills" [isDisabled]="isAnimating"
+                     (skillSelected)="setActiveSkill($event)"></app-skill-box>
     </div>
     <div class="my-skills-section__container__total">
-      <div class="my-skills-section__container__total__data">
-        <p id="years" class="my-skills-section__container__total__data__year">0</p>
-        <p class="my-skills-section__container__total__data__text">Years</p>
-        <p class="my-skills-section__container__total__data__text">Experience</p>
+      <div class="my-skills-section__container__total__data" #totalContainer>
+        <p id="" class="my-skills-section__container__total__data__name">{{ activeSkill.name }}</p>
+        <p class="my-skills-section__container__total__data__quote">"{{ activeSkill.quote }}"</p>
       </div>
-      <app-download-button class="my-skills-section__container__total__button"
-                           [buttonText]="'Download cv'"></app-download-button>
+      <div class="my-skills-section__container__total__progress">
+        <app-skill-progress
+          [title]="'Years Experience'"
+          [min]="0"
+          [max]="activeSkill.maxExperience"
+          [value]="activeSkill.yearsExperience">
+        </app-skill-progress>
+
+        <app-skill-progress
+          [title]="'Projects made'"
+          [min]="0"
+          [max]="activeSkill.maxProjects"
+          [value]="activeSkill.projectsMade">
+        </app-skill-progress>
+        <app-skill-progress
+          [title]="'Hours practiced'"
+          [min]="0"
+          [max]="activeSkill.maxHoursPracticed"
+          [value]="activeSkill.hoursPracticed">
+        </app-skill-progress>
+      </div>
     </div>
   </div>
 </section>
@@ -61,18 +81,19 @@
 </section>
 
 <section class="contact-section mouse-spotlight-section" appSpotlight>
-<app-section-title [titleText]="'Lets get'" [subtitleText]="'in touch!'"></app-section-title>
+  <app-section-title [titleText]="'Lets get'" [subtitleText]="'in touch!'"></app-section-title>
   <div class="contact-section__container">
     <div class="contact-section__container__image">
       <img src="assets/contact-me-image.svg" class="contact-section__container__image__size" alt="Contact Image">
     </div>
     <form #contactForm="ngForm" class="contact-section__container__form">
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Name" [(ngModel)]="formData.name" name="name" required />
+      <input type="text" id="name" placeholder="Name" [(ngModel)]="formData.name" name="name" required/>
       <label for="subject">Subject</label>
-      <input type="text" id="subject" placeholder="Subject" [(ngModel)]="formData.subject" name="subject" required />
+      <input type="text" id="subject" placeholder="Subject" [(ngModel)]="formData.subject" name="subject" required/>
       <label for="chat">Chat</label>
-      <textarea id="chat" placeholder="Type your message..." [(ngModel)]="formData.chat" name="chat" required></textarea>
+      <textarea id="chat" placeholder="Type your message..." [(ngModel)]="formData.chat" name="chat"
+                required></textarea>
       <button class="contact-section__container__form__button" (click)="openMail()" [disabled]="contactForm.invalid">
         Send
       </button>

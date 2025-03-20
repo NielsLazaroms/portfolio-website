@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
+import {Skill} from '../../models/interface';
 
 @Component({
   selector: 'app-skill-box',
@@ -10,6 +11,25 @@ import {NgForOf} from '@angular/common';
   standalone: true,
   styleUrl: './skill-box.component.scss'
 })
-export class SkillBoxComponent {
-@Input() images: string[] = [];
+export class SkillBoxComponent implements OnInit {
+  @Input() skills: Skill[] = [];
+  @Output() skillSelected = new EventEmitter<Skill>();
+  @Input() isDisabled: boolean = false;
+
+  activeIndex: number = 0;
+
+  ngOnInit(): void {
+    // Standaard de eerste skill selecteren
+    if (this.skills.length) {
+      this.skillSelected.emit(this.skills[0]);
+    }
+  }
+
+  setActive(index: number): void {
+    if (this.isDisabled || index === this.activeIndex) {
+      return
+    }
+    this.activeIndex = index;
+    this.skillSelected.emit(this.skills[index]);
+  }
 }

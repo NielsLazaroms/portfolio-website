@@ -1,0 +1,67 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+
+.skill-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: b.$defaultSectionSpacing;
+  width: 100%;
+
+  &__title {
+    font-weight: bold;
+    font-size: b.$navbarFont;
+    color: b.$textColor;
+  }
+
+  &__container {
+    width: 100%;
+    height: 10px;
+    background-color: b.$strokeColor;
+    position: relative;
+    border-radius: b.$defaultBorderRadius;
+
+    &__indicator {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background-color: b.$lightgreen;
+      transition: left 0.5s ease-out, transform 0.5s ease-out;
+      transform-origin: center center;
+
+      &__value {
+        color: b.$textColor;
+        font-weight: bold;
+        transform-origin: center center;
+        opacity: 0;
+        transition: transform 1s ease-in-out, opacity 1s ease-in-out; // expliciete overgang
+      }
+
+      &:hover {
+        transform: translate(-50%, -50%) scale(2.5);
+        cursor: pointer;
+      }
+
+      &:hover &__value {
+        transform: scale(0.5); // Counter-schaal zodat tekstgrootte gelijk blijft
+        font-size: b.$buttonText;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__numbers {
+    display: flex;
+    justify-content: space-between;
+    font-size: b.$buttonText;
+    color: b.$textColor;
+
+  }
+}

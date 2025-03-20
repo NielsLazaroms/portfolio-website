@@ -70,12 +70,15 @@
     left: 15%;
     width: 25%;
     top: 3%;
+    z-index: -1;
+
   }
 
   &__small-circle--right {
     right: 15%;
     width: 25%;
     top: 3%;
+    z-index: -1;
   }
 
   &__small-circle--bottom-left {

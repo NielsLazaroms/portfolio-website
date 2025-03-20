@@ -26,7 +26,7 @@
 }
 
 .about-me-section {
-  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
 
   &__container {
@@ -113,7 +113,7 @@
 }
 
 .my-skills-section {
-  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
   &__container {
     width: 100%;
@@ -122,38 +122,45 @@
     flex-direction: row;
 
     &__specific {
-      width: 70%;
+      width: 65%;
     }
 
     &__total {
+      padding: b.$defaultSectionSpacing;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      min-height: 35vh;
-      width: 30%;
+      height: 72.5vh;
+      width: 35%;
       border-radius: b.$defaultBorderRadius;
       border: 1px solid b.$strokeColor;
 
       &__data {
-        &__year {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        &__name {
           color: b.$lightgreen;
-          font-size: b.$yearText;
+          font-size: b.$nameTitle;
           font-weight: bold;
           text-align: center;
         }
 
-        &__text {
+        &__quote {
           color: b.$textColor;
-          font-size: b.$experienceText;
+          font-size: b.$navbarFont;
           font-weight: bold;
+          font-style: italic;
           text-align: center;
+          min-height: 5vh;
         }
       }
-
-      &__button {
-        width: 40%;
+      &__progress {
+        width: 100%;
       }
+
     }
   }
 
@@ -174,7 +181,7 @@
 }
 
 .projects-section {
-  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
 
   &__list {
@@ -195,8 +202,8 @@
     content: "";
     position: absolute;
     z-index: 3;
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(b.$lightgreen, 0.5), rgba(b.$darkgreen, 0.1) 70%);
     pointer-events: none;
@@ -214,7 +221,7 @@
 }
 
 .contact-section {
-  padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
+  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
 
   &__container {

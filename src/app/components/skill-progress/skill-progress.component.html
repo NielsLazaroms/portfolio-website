@@ -1,0 +1,12 @@
+<div class="skill-progress">
+  <div class="skill-progress__title">{{ title }}</div>
+  <div class="skill-progress__container">
+    <div class="skill-progress__container__indicator" [style.left.%]="percentage">
+      <span class="skill-progress__container__indicator__value">{{value}}</span>
+    </div>
+  </div>
+  <div class="skill-progress__numbers">
+    <span>{{min}}</span>
+    <span>{{max}}</span>
+  </div>
+</div>
