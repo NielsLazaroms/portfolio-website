@@ -13,24 +13,10 @@
                      [subtitleText]="'about me'"></app-section-title>
   <div class="about-me-section__container">
     <div class="about-me-section__container__information">
-      <p class="about-me-section__container__information__text">I am a 22 year old student. Living in Brabant, the
-        Netherlands.
-        Currently I am studying <span
-          class="about-me-section__container__information__text--green">ICT & Media Design</span> at
-        Fontys university of Applied Sciences. </p>
-      <p class="about-me-section__container__information__text">During my studies, I developed a strong passion for
-        interactive
-        design and development. I have experience working with various tools and frameworks, including<span
-          class="about-me-section__container__information__text--green"> Figma & Adobe</span>, but
-        my favourite framework is <span class="about-me-section__container__information__text--green">Angular</span>.
-      </p>
-      <p class="about-me-section__container__information__text">Additionally, I enjoy mountain biking, fitness, and
-        playing PC
-        games
-        in my free time, which I find both fun and relaxing.</p>
+      <p class="about-me-section__container__information__text" #imageTextContainer></p>
     </div>
-    <img class="about-me-section__container__about-me-image" src="assets/about-me-forward.svg"
-         alt="picture of me facing forward">
+    <app-image-rectangle
+      [images]="images" [isDisabled]="isAnimatingImage" (imageSelected)="setActiveImage($event)"></app-image-rectangle>
   </div>
 </section>
 <section class="my-skills-section">

@@ -41,7 +41,7 @@ export const skills: Skill[] = [
   {
     image: 'assets/git.svg',
     name: 'Git',
-    quote: 'My favorite version control tool.',
+    quote: 'My go to version control tool.',
     yearsExperience: 4,
     maxExperience: maxExperience,
     projectsMade: 50,

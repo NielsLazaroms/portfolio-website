@@ -6,13 +6,15 @@ import {SkillBoxComponent} from '../../components/skill-box/skill-box.component'
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {DownloadButtonComponent} from '../../components/download-button/download-button.component';
-import {Skill} from '../../interfaces/interface';
+import {Image, Skill} from '../../interfaces/interface';
 import {ProjectListComponent} from '../../components/project-list/project-list.component';
 import {SlidingTextComponent} from '../../components/sliding-text/sliding-text.component';
 import {SpotlightDirective} from '../../directives/spotlight.directive';
 import {FormsModule} from '@angular/forms';
 import {SkillProgressComponent} from '../../components/skill-progress/skill-progress.component';
 import {projects, secondWordList, skills, wordList} from '../../inputData';
+import {ImageRectangleComponent} from '../../components/image-rectangle/image-rectangle.component';
+import {images} from '../../inputData/inputData-image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +32,7 @@ gsap.registerPlugin(ScrollTrigger);
     SpotlightDirective,
     FormsModule,
     SkillProgressComponent,
+    ImageRectangleComponent,
   ],
   templateUrl: './home-page.component.html',
   standalone: true,
@@ -45,8 +48,11 @@ export class HomePageComponent implements AfterViewInit {
 
 
   activeSkill: Skill = skills[0];
+  activeImage: Image = images[0];
   isAnimating:boolean = false;
+  isAnimatingImage:boolean = false;
   @ViewChild('totalContainer') totalContainer!: ElementRef;
+  @ViewChild('imageTextContainer') imageTextContainer!: ElementRef;
 
 
 
@@ -55,16 +61,8 @@ export class HomePageComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    gsap.to("#years", {
-      scrollTrigger: {
-        trigger: ".my-skills-section",
-        start: "top center",
-        toggleActions: "play none none none"
-      },
-      innerText: 4,
-      duration: 3,
-      snap: "innerText"
-    });
+    this.imageTextContainer.nativeElement.innerHTML = this.activeImage.description; // Zet standaard tekst direct neer
+    this.animateText(this.activeImage.description); // Start eerste animatie
   }
 
   setActiveSkill(skill: Skill): void {
@@ -95,6 +93,39 @@ export class HomePageComponent implements AfterViewInit {
     );
   }
 
+  setActiveImage(image: Image): void {
+    if (this.isAnimatingImage || image === this.activeImage) {
+      return;
+    }
+    this.isAnimatingImage = true;
+
+    this.activeImage = image;
+    this.animateText(image.description);
+
+    this.isAnimatingImage = false;
+  }
+
+  animateText(text: string) {
+    const container = this.imageTextContainer.nativeElement;
+    container.innerHTML = '';
+
+    const chars = text.split('');
+
+    chars.forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.style.opacity = '0'; // Start invisible
+      span.style.display = 'inline-block';
+      container.appendChild(span);
+
+      gsap.to(span, {
+        opacity: 1,
+        duration: 0.01,
+        delay: i * 0.02,
+      });
+    });
+  }
+
   openMail() {
     const email = 'niels.lazaroms@live.nl';
     const subject = encodeURIComponent(this.formData.subject);
@@ -111,4 +142,5 @@ export class HomePageComponent implements AfterViewInit {
   protected readonly projects = projects;
   protected readonly wordList = wordList;
   protected readonly secondWordList = secondWordList;
+  protected readonly images = images;
 }

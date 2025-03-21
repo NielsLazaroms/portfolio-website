@@ -1,0 +1,9 @@
+<ul class="rotating-row">
+  <li *ngFor="let image of images ; let i = index"
+      (click)="setActive(i)"
+      [class.active]="i === activeIndex"
+      [class.disabled]="isDisabled" class="rotating-row__card">
+    <img class="rotating-row__card__img color" [src]="image.image" />
+    <img class="rotating-row__card__img bw" [src]="image.image" />
+  </li>
+</ul>

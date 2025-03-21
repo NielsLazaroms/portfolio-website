@@ -7,6 +7,7 @@ export interface ProjectInfo {
   url?: string;
   images?: string[];
   isExpanded?: boolean;
+  backgroundImage?: string;
 }
 export interface Skill {
   image: string;
@@ -18,4 +19,10 @@ export interface Skill {
   maxExperience: number;
   hoursPracticed: number;
   maxHoursPracticed: number;
+}
+
+export interface Image {
+  image: string;
+  description: string;
+
 }

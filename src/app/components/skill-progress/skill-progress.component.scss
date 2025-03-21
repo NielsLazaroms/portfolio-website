@@ -33,11 +33,13 @@
       width: 20px;
       border-radius: 50%;
       background-color: b.$lightgreen;
+      //background-color: b.$black;
+      //border: 1px solid b.$lightgreen;
       transition: left 0.5s ease-out, transform 0.5s ease-out;
       transform-origin: center center;
 
       &__value {
-        color: b.$textColor;
+        color: b.$black;
         font-weight: bold;
         transform-origin: center center;
         opacity: 0;

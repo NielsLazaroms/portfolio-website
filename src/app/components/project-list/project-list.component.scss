@@ -8,6 +8,9 @@
     border-right: 1px solid b.$strokeColor;
     overflow: hidden;
     padding: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     &:hover .project-card-list__item__header__container::before {
       opacity: 1;

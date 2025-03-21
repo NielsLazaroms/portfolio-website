@@ -6,7 +6,8 @@ export const projects: ProjectInfo[] = [
     description: 'Project description',
     skills: ['Angular','SCSS', 'GSAP'],
     year: 2024,
-    isExpanded: false
+    isExpanded: false,
+    backgroundImage: 'assets/testImage.png'
   },
   {
     name: 'LedenCentraal',

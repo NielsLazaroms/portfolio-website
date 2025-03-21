@@ -32,8 +32,7 @@
   &__container {
     margin-top: b.$defaultSectionSpacing;
     display: flex;
-    flex-direction: row;
-    height: 50vh;
+    flex-direction: column;
 
 
     &__information {
@@ -47,6 +46,12 @@
         color: b.$textColor;
         max-width: 60%;
         font-size: b.$navbarFont;
+        display: inline-block;
+        white-space: nowrap; // Prevents breaking in between letters
+        &span {
+          display: inline-block;
+          opacity: 0;
+        }
 
         &--green {
           color: b.$lightgreen;
@@ -380,3 +385,4 @@
     --bg-angle: 360deg;
   }
 }
+
