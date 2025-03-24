@@ -2,21 +2,45 @@
   <app-navbar></app-navbar>
   <app-top-view></app-top-view>
 </section>
-<section class="quote-section">
-  <p class="quote-section__quote">
-    Whether I’m on the trails or behind the screen,
-    it’s about the same thing momentum, precision, and the drive to keep improving.
-  </p>
+<section #quoteContainer class="quote-section">
+  <div  class="quote-section__container">
+    <div class="quote-section__container__top">
+      <img #followImg class="quote-section__container__top--left" src="assets/me-circle-image.jpg" alt="">
+      <img #followImg class="quote-section__container__top--right" src="assets/me-ski-image.jpg" alt="">
+    </div>
+
+    <!-- QUOTE -->
+    <p class="quote-section__container__quote">"Shaping ideas</p>
+    <p class="quote-section__container__quote">into reality"</p>
+    <p class="quote-section__container__highlight">I will keep exploring!</p>
+
+    <!-- BOTTOM IMAGES -->
+    <div class="quote-section__container__bottom">
+      <img #followImg class="quote-section__container__bottom--left" src="assets/me-hobby.jpg" alt="">
+      <img #followImg class="quote-section__container__bottom--right" src="assets/me-travel-image.jpg" alt="">
+    </div>
+  </div>
 </section>
-<section class="about-me-section">
+<section #aboutContainer class="about-me-section">
   <app-section-title class="about-me-section__title" [titleText]="'Some information'"
                      [subtitleText]="'about me'"></app-section-title>
-  <div class="about-me-section__container">
+  <div  class="about-me-section__container">
     <div class="about-me-section__container__information">
-      <p class="about-me-section__container__information__text" #imageTextContainer></p>
+      <p class="about-me-section__container__information__text">Hey there I’m Niels, a 22-year-old student from
+        Noord-Brabant, the
+        Netherlands. I’m currently studying ICT & Media Design at Fontys University of Applied Sciences.</p>
+
+      <p class="about-me-section__container__information__text">I have a strong passion for interactive design and love
+        creating digital experiences that feel natural and engaging. Finding the perfect balance between creativity and
+        simplicity is what excites me the most. I enjoy working on projects that bring ideas to life in a simple and
+        natural way.</p>
+      <p class="about-me-section__container__information__text">For me, design isn’t just about screens it’s about
+        energy and inspiration. When I’m not working on projects, you’ll find me mountain biking through the trails,
+        hitting the gym, or playing PC games to relax. Staying active helps me clear my mind and stay motivated.</p>
     </div>
-    <app-image-rectangle
-      [images]="images" [isDisabled]="isAnimatingImage" (imageSelected)="setActiveImage($event)"></app-image-rectangle>
+    <div class="about-me-section__container__about-me">
+      <img #aboutMeImage class="about-me-section__container__about-me__image" src="../../../assets/me-forrest.jpg">
+    </div>
   </div>
 </section>
 <section class="my-skills-section">

@@ -24,6 +24,7 @@
 
   &__list {
     width: 60%;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -37,6 +38,13 @@
     &__item {
       font-size: b.$navbarFont;
 
+      &--right {
+        font-size: b.$navbarFont;
+        position: absolute;
+        color: b.$textColor;
+
+        right: 2%;
+      }
 
       a {
         position: relative;
@@ -161,6 +169,13 @@
       justify-content: center;
       gap: 30px;
       padding: 20px;
+
+      &__item {
+        &--right {
+          position: relative;
+          right: 0;
+        }
+      }
     }
 
     &__list--open {

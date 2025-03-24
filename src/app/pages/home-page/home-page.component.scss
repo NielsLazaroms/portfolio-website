@@ -3,28 +3,81 @@
 
 .quote-section {
   width: 100%;
+  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
+  position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: center;
 
+  &__container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 18%;
+    margin-bottom: 18%;
+
+
+
   &__quote {
-    width: 30%;
+    font-size: b.$slidingText;
+    font-style: italic;
     text-align: center;
     color: b.$textColor;
-    font-size: b.$navbarFont;
-    padding: 0 b.$defaultSectionSpacing 0 b.$defaultSectionSpacing;
-    font-weight: bold;
+    width: 100%;
+    z-index: 2;
   }
+
+  &__highlight {
+    font-size: b.$nameTitle;
+    color: b.$lightgreen;
+    margin: 0;
+    z-index: 2;
+  }
+
+    img {
+    position: absolute;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  &__top--left {
+    top: -30%;
+    left: 5%;
+    width: 15%;
+  }
+ &__top--right {
+    top: -60%;
+    right: 20%;
+    width: 15%;
+  }
+  &__bottom--left {
+    bottom: -50%;
+    left: 20%;
+    width: 20%;
+  }
+  &__bottom--right {
+    bottom: -30%;
+    right: 5%;
+    width: 20%;
+  }
+    }
 
   @include u.respond-to(tablet) {
     .quote-section {
-      &__quote {
-        width: 100%;
+      &__container {
+        margin-top: 0;
+        margin-bottom: 0;
+        &__top, &__bottom {
+          display: none;
+        }
       }
     }
   }
 }
-
 .about-me-section {
   padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
@@ -32,40 +85,45 @@
   &__container {
     margin-top: b.$defaultSectionSpacing;
     display: flex;
-    flex-direction: column;
-
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10%;
+    height: auto;
+    width: 100%;
 
     &__information {
+      width: 60%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 65%;
-      gap: 40px;
+      justify-content: flex-start;
+      gap: 30px;
 
       &__text {
         color: b.$textColor;
-        max-width: 60%;
-        font-size: b.$navbarFont;
-        display: inline-block;
-        white-space: nowrap; // Prevents breaking in between letters
-        &span {
-          display: inline-block;
-          opacity: 0;
-        }
-
-        &--green {
-          color: b.$lightgreen;
-          font-weight: bold;
-        }
+        width: 100%;
+        font-size: b.$subTitle;
 
       }
     }
 
-    &__about-me-image {
-      width: 30%;
-      background-color: b.$darkBox;
-      height: auto;
+    &__about-me {
+      width: 40%;
+      height: 100%;
+      position: relative;
+      overflow: visible;
+      background-color: b.$lightgreen;
       border-radius: b.$defaultBorderRadius;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__image {
+        position: relative;
+        z-index: 1;
+        border-radius: b.$defaultBorderRadius;
+        width: 100%;
+      }
     }
 
   }
@@ -76,14 +134,12 @@
       &__container {
         &__information {
           width: 50%;
-          height: auto;
-
           &__text {
-            max-width: 90%;
+            width: 100%;
           }
         }
 
-        &__about-me-image {
+        &__about-me {
           width: 50%;
         }
       }
@@ -93,23 +149,22 @@
     .about-me-section {
       &__container {
         flex-direction: column;
-        min-height: 50vh;
         align-items: center;
         height: auto;
 
         &__information {
           width: 100%;
           height: auto;
-
-          &__text {
-            max-width: 100%;
-          }
         }
 
-        &__about-me-image {
+        &__about-me {
           margin-top: b.$defaultSectionSpacing;
-          width: 70%;
-          min-height: 300px;
+          width: 80%;
+          //min-height: 300px;
+
+          &__image {
+            width: 100%;
+          }
 
         }
       }
@@ -120,6 +175,7 @@
 .my-skills-section {
   padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
+
   &__container {
     width: 100%;
     margin-top: b.$defaultSectionSpacing;
@@ -136,7 +192,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      height: 72.5vh;
+      height: 100%;
       width: 35%;
       border-radius: b.$defaultBorderRadius;
       border: 1px solid b.$strokeColor;
@@ -146,6 +202,7 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+
         &__name {
           color: b.$lightgreen;
           font-size: b.$nameTitle;
@@ -162,6 +219,7 @@
           min-height: 5vh;
         }
       }
+
       &__progress {
         width: 100%;
       }
