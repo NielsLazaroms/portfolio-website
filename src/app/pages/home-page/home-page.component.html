@@ -1,12 +1,12 @@
-<section class="top-section mouse-spotlight-section" appSpotlight>
+<section id="top-section" class="top-section mouse-spotlight-section" appSpotlight>
   <app-navbar></app-navbar>
   <app-top-view></app-top-view>
 </section>
-<section #quoteContainer class="quote-section">
+<section id="quote-section" #quoteContainer class="quote-section">
   <div  class="quote-section__container">
     <div class="quote-section__container__top">
-      <img #followImg class="quote-section__container__top--left" src="assets/me-circle-image.jpg" alt="">
-      <img #followImg class="quote-section__container__top--right" src="assets/me-ski-image.jpg" alt="">
+      <img #followImg class="quote-section__container__top--left" src="assets/me-circle-image.jpg" alt="Picture of me">
+      <img #followImg class="quote-section__container__top--right" src="assets/me-ski-image.jpg" alt="Picture of me sking">
     </div>
 
     <p class="quote-section__container__quote">"Shaping ideas</p>
@@ -14,12 +14,12 @@
     <p class="quote-section__container__highlight">I will keep exploring!</p>
 
     <div class="quote-section__container__bottom">
-      <img #followImg class="quote-section__container__bottom--left" src="assets/me-hobby.jpg" alt="">
-      <img #followImg class="quote-section__container__bottom--right" src="assets/me-travel-image.jpg" alt="">
+      <img #followImg class="quote-section__container__bottom--left" src="assets/me-hobby.jpg" alt="Picture of me on a mountainbike">
+      <img #followImg class="quote-section__container__bottom--right" src="assets/me-travel-image.jpg" alt="Picture of me in Scotland">
     </div>
   </div>
 </section>
-<section #aboutContainer class="about-me-section">
+<section id="about-section" #aboutContainer class="about-me-section">
   <app-section-title class="about-me-section__title" [titleText]="'Some information'"
                      [subtitleText]="'about me'"></app-section-title>
   <div  class="about-me-section__container">
@@ -35,14 +35,14 @@
       <p class="about-me-section__container__information__text">For me, design isn’t just about screens it’s about
         energy and inspiration. When I’m not working on projects, you’ll find me mountain biking through the trails,
         hitting the gym, or playing PC games to relax. Staying active helps me clear my mind and stay motivated.</p>
-      <app-download-button class="about-me-section__container__information__button" [buttonText]="'Download resume'" ></app-download-button>
+      <app-download-button class="about-me-section__container__information__button" [fileToDownload]="'assets/docs/CV_Niels-Lazaroms.pdf'" [buttonText]="'Download resume'" ></app-download-button>
     </div>
     <div class="about-me-section__container__about-me">
-      <img #aboutMeImage class="about-me-section__container__about-me__image" src="../../../assets/me-forrest.jpg">
+      <img #aboutMeImage class="about-me-section__container__about-me__image" alt="Image where I am standing in a forrest" src="../../../assets/me-forrest.jpg">
     </div>
   </div>
 </section>
-<section class="my-skills-section">
+<section id="skills-section" class="my-skills-section">
   <app-section-title [titleText]="'These are'" [subtitleText]="'my skills'"></app-section-title>
   <div class="my-skills-section__container">
     <div class="my-skills-section__container__specific">
@@ -78,7 +78,7 @@
     </div>
   </div>
 </section>
-<section class="projects-section">
+<section id="projects-section" class="projects-section">
   <app-section-title [titleText]="'Here are'" [subtitleText]="'my projects'"></app-section-title>
   <div class="projects-section__list">
     <app-project-list [projects]="projects"></app-project-list>
@@ -89,7 +89,7 @@
   <app-sliding-text [words]="secondWordList" [direction]="'rtl'"></app-sliding-text>
 </section>
 
-<section class="contact-section mouse-spotlight-section" appSpotlight>
+<section id="contact-section" class="contact-section mouse-spotlight-section" appSpotlight>
   <app-section-title [titleText]="'Lets get'" [subtitleText]="'in touch!'"></app-section-title>
   <div class="contact-section__container">
     <div class="contact-section__container__image">
@@ -107,7 +107,8 @@
         Send
       </button>
     </form>
-
   </div>
 </section>
-
+<section>
+  <app-footer></app-footer>
+</section>

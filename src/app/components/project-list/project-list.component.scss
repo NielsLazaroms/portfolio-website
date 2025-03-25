@@ -3,9 +3,9 @@
 
 .project-card-list {
   &__item {
-    border-top: 1px solid b.$strokeColor;
-    border-left: 1px solid b.$strokeColor;
-    border-right: 1px solid b.$strokeColor;
+    border-top: 1px solid var(--strokeColor);
+    border-left: 1px solid var(--strokeColor);
+    border-right: 1px solid var(--strokeColor);
     overflow: hidden;
     padding: 20px;
     background-size: cover;
@@ -24,7 +24,7 @@
     &:nth-last-child(1) {
       border-bottom-right-radius: b.$defaultBorderRadius;
       border-bottom-left-radius: b.$defaultBorderRadius;
-      border-bottom: 1px solid b.$strokeColor;
+      border-bottom: 1px solid var(--strokeColor);
     }
 
     &__header {
@@ -51,7 +51,7 @@
           top: 50%;
           background: radial-gradient(
               ellipse at 50% 50%,
-              rgba(b.$lightgreen, 0.7) 10%,
+              rgba(var(--primaryColor-rgb), 0.7) 10%,
               transparent 60%
           );
           filter: blur(20px);
@@ -60,8 +60,8 @@
         }
 
         &__title {
-          color: b.$textColor;
-          font-size: 18px;
+          color: var(--textColor);
+          font-size: b.$navbarFont;
           position: relative;
           display: inline-block;
 
@@ -70,7 +70,7 @@
         .arrow {
           transition: transform 0.3s ease;
           font-size: 36px;
-          color: b.$lightgreen
+          color: var(--primaryColor)
         }
 
         .rotated {
@@ -80,8 +80,6 @@
     }
 
     &__content {
-      color: #ddd;
-      font-size: 14px;
       animation: fadeIn 0.3s ease-in-out;
 
       &__skills {
@@ -97,15 +95,15 @@
           padding: 16px;
           border-radius: b.$defaultBorderRadius;
           text-align: center;
-          font-size: 14px;
+          font-size: b.$buttonText;
           font-weight: bold;
-          color: b.$textColor;
-          border: 1px solid b.$lightgreen;
-          -webkit-text-stroke: 0.3px b.$lightgreen;
+          color: var(--textColor);
+          border: 1px solid var(--primaryColor);
+          -webkit-text-stroke: 0.3px var(--primaryColor);
         }
 
         &__year {
-          color: b.$textColor;
+          color: var(--textColor);
           margin-left: 10px;
           font-size: b.$buttonText;
           font-weight: bold;
@@ -115,6 +113,7 @@
     &__information {
       display: flex;
       flex-direction: column;
+      margin-top: b.$defaultSectionSpacing;
       gap: 20px;
 
       &__image-list {
@@ -137,7 +136,22 @@
         }
       }
       &__text {
-        color: b.$textColor;
+        width: 40%;
+        line-height: 1.2;
+        color: var(--textColor);
+        font-size: b.$buttonText
+      }
+      &__links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: b.$buttonText;
+
+        &--url, &--github {
+          text-decoration: underline;
+          color: var(--primaryColor);
+
+        }
       }
     }
   }
@@ -146,14 +160,24 @@
 @include u.respond-to(mobile) {
   .project-card-list {
     &__item {
-      &__header{}
-      &__content__skills{
+      &__header{
         flex-direction: column;
-        span {
-          width: 100%;;
+        &__container {
+          gap: 10px;
+          &__title {
+            min-width: 90%;
+          }
+        }
+      }
+      &__content__skills{
+        flex-direction: row;
+        justify-content: center;
+        &__year {
+          display: none;
         }
       }
       &__information {
+
         &__image-list {
           flex-direction: row;
           flex-wrap: wrap;

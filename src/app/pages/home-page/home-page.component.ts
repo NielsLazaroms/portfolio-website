@@ -13,6 +13,7 @@ import {SpotlightDirective} from '../../directives/spotlight.directive';
 import {FormsModule} from '@angular/forms';
 import {SkillProgressComponent} from '../../components/skill-progress/skill-progress.component';
 import {projects, secondWordList, skills, wordList} from '../../inputData';
+import {FooterComponent} from '../../components/footer/footer.component';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,7 @@ gsap.registerPlugin(ScrollTrigger);
     SpotlightDirective,
     FormsModule,
     SkillProgressComponent,
+    FooterComponent,
   ],
   templateUrl: './home-page.component.html',
   standalone: true,

@@ -8,5 +8,6 @@ import {Component, Input} from '@angular/core';
   styleUrl: './download-button.component.scss'
 })
 export class DownloadButtonComponent {
-@Input() buttonText: string = '';
+@Input()  buttonText: string = '';
+@Input()  fileToDownload: string = '';
 }

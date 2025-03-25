@@ -21,12 +21,12 @@
 
 
       &--textColor {
-        color: b.$textColor;
+        color: var(--textColor);
       }
 
       &--textColorStroke {
         color: transparent;
-        -webkit-text-stroke: 1px b.$textColor;
+        -webkit-text-stroke: 1px var(--textColor);
       }
     }
   }

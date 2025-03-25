@@ -34,7 +34,7 @@
   &__center-text {
     text-align: center;
     z-index: 2;
-    color: b.$textColor;
+    color: var(--textColor);
     font-size: b.$nameTitle;
     font-weight: bold;
     max-width: 60%;
@@ -42,8 +42,8 @@
 
   #typewriter {
     font-weight: bold;
-    color: b.$lightgreen;
-    border-right: 2px solid b.$lightgreen;
+    color: var(--primaryColor);
+    border-right: 2px solid var(--primaryColor);
     padding-right: 5px;
     animation: blink 0.8s infinite;
   }
@@ -55,7 +55,7 @@
   }
 
   .highlight {
-    color: b.$lightgreen;
+    color: var(--primaryColor);
     font-size: b.$highlightText;
     font-weight: 600;
   }

@@ -1,7 +1,10 @@
 @use './styles/base/index' as b;
+@import url("https://use.typekit.net/csb8lqw.css");
 
 html {
-  background-color: b.$black;
+  background-color: var(--mainColor);
+  font-family: "oso-sans-variable", sans-serif;
+;
 }
 
 ul {

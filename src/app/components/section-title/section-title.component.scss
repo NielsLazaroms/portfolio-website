@@ -4,10 +4,10 @@
   &__heading {
     font-size: b.$headingText;
     font-weight: bold;
-    color: b.$textColor;
+    color: var(--textColor);
 
     &--green {
-      color: b.$lightgreen
+      color: var(--primaryColor)
     }
   }
 }

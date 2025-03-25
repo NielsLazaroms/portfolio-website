@@ -18,6 +18,11 @@
         </li>
       </ul>
       <p class="project-card-list__item__information__text">{{ project.description }}</p>
+      <div class="project-card-list__item__information__links">
+      <a *ngIf="project.url" class="project-card-list__item__information__links--url" [href]="project.url" target="_blank">See it live <fa-icon [icon]="faExternalLink"></fa-icon> </a>
+      <a *ngIf="project.githubLink" class="project-card-list__item__information__links--github" [href]="project.githubLink" target="_blank">See the source code <fa-icon [icon]="faExternalLink"></fa-icon></a>
+
+      </div>
 
     </div>
   </li>

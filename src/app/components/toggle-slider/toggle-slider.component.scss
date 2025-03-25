@@ -21,7 +21,7 @@
   display: inline-block;
   width: 46px;
   height: 24px;
-  background-color: b.$textColor;
+  background-color: var(--textColor);
   border-radius: 22px;
   transition: all 0.3s;
 
@@ -34,7 +34,7 @@
   width: 22px;
   height: 22px;
   border-radius: 22px;
-  background-color: b.$black;
+  background-color: var(--mainColor);
   top: 1px;
   left: 1px;
   transition: all 0.3s;

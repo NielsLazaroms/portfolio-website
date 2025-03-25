@@ -4,22 +4,22 @@
 .download-button {
   width: 100%;
   padding: b.$buttonPadding;
-  color: b.$textColor;
+  color: var(--textColor);
   font-size: b.$buttonText;
   border-radius: b.$defaultBorderRadius;
   animation: spin 2.5s infinite linear paused;
   background:
     linear-gradient(
         to bottom,
-        b.$black,
-        b.$black
+        var(--mainColor),
+        var(--mainColor)
     ) padding-box,
     conic-gradient(
         from var(--bg-angle),
-        b.$lightgreen,
-        b.$darkgreen 100%
+        var(--primaryColor),
+        var(--secondaryColor) 100%
     ) border-box;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
 
   &:hover {
     animation-play-state: running;

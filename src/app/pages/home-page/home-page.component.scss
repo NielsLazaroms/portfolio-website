@@ -26,14 +26,14 @@
     font-size: b.$slidingText;
     font-style: italic;
     text-align: center;
-    color: b.$textColor;
+    color: var(--textColor);
     width: 100%;
     z-index: 2;
   }
 
   &__highlight {
     font-size: b.$nameTitle;
-    color: b.$lightgreen;
+    color: var(--primaryColor);
     margin: 0;
     z-index: 2;
   }
@@ -100,12 +100,14 @@
       gap: 30px;
 
       &__text {
-        color: b.$textColor;
+        color: var(--textColor);
         width: 100%;
         font-size: b.$subTitle;
       }
       &__button {
+        margin-top: 10px;
         width: 40%;
+
       }
     }
 
@@ -114,7 +116,7 @@
       height: 100%;
       position: relative;
       overflow: visible;
-      background-color: b.$lightgreen;
+      background-color: var(--primaryColor);
       border-radius: b.$defaultBorderRadius;
       display: flex;
       justify-content: center;
@@ -206,7 +208,7 @@
       height: 100%;
       width: 35%;
       border-radius: b.$defaultBorderRadius;
-      border: 1px solid b.$strokeColor;
+      border: 1px solid var(--strokeColor);
 
       &__data {
         width: 100%;
@@ -215,14 +217,14 @@
         gap: 20px;
 
         &__name {
-          color: b.$lightgreen;
+          color: var(--primaryColor);
           font-size: b.$nameTitle;
           font-weight: bold;
           text-align: center;
         }
 
         &__quote {
-          color: b.$textColor;
+          color: var(--textColor);
           font-size: b.$navbarFont;
           font-weight: bold;
           font-style: italic;
@@ -279,7 +281,7 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(b.$lightgreen, 0.5), rgba(b.$darkgreen, 0.1) 70%);
+    background: radial-gradient(circle, rgba(var(--primaryColor-rgb), 0.5), rgba(var(--secondaryColor-rgb), 0.1) 70%);
     pointer-events: none;
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -315,13 +317,13 @@
 
     &__form {
       position: relative;
-      color: b.$textColor;
-      background-color: b.$black;
+      color: var(--textColor);
+      background-color: var(--mainColor);
       display: flex;
       z-index: 4;
       flex-direction: column;
       align-items: center;
-      border: 1px solid b.$strokeColor;
+      border: 1px solid var(--strokeColor);
       border-radius: b.$defaultBorderRadius;
       width: 40%;
       padding: b.$defaultSectionSpacing;
@@ -331,22 +333,23 @@
         align-self: flex-start;
         margin: 1rem 0 0.25rem;
         font-weight: 500;
-        color: b.$textColor
+        color: var(--textColor)
       }
 
       input,
       textarea {
+        font-family: "oso-sans-variable", sans-serif;
         width: 100%;
         padding: b.$buttonPadding;
-        border: 1px solid b.$strokeColor;
+        border: 1px solid var(--strokeColor);
         background-color: transparent;
-        color: b.$textColor;
+        color: var(--textColor);
         font-size: 1rem;
         outline: none;
         border-radius: b.$defaultBorderRadius;
 
         &:focus {
-          border-color: b.$lightgreen;
+          border-color: var(--primaryColor);
         }
       }
 
@@ -357,7 +360,7 @@
       &__button {
         width: 100%;
         margin-top: b.$defaultSectionSpacing;
-        color: b.$textColor;
+        color: var(--textColor);
         padding: b.$buttonPadding;
         border-radius: b.$defaultBorderRadius;
         font-weight: bold;
@@ -365,13 +368,13 @@
         animation: spin 2.5s infinite linear paused;
         background: linear-gradient(
             to bottom,
-            b.$black,
-            b.$black
+            var(--mainColor),
+            var(--mainColor)
         ) padding-box,
         conic-gradient(
             from var(--bg-angle),
-            b.$lightgreen,
-            b.$darkgreen 100%
+            var(--primaryColor),
+            var(--secondaryColor) 100%
         ) border-box;
         border: 1px solid transparent;
 
@@ -385,13 +388,13 @@
           animation-play-state: paused;
           background: linear-gradient(
               to bottom,
-              b.$black,
-              b.$black
+              var(--mainColor),
+              var(--mainColor)
           ) padding-box,
           conic-gradient(
               from var(--bg-angle),
-              b.$white,
-              b.$strokeColor 100%
+              var(--white),
+              var(--strokeColor) 100%
           ) border-box;
           border: 1px solid transparent;
         }

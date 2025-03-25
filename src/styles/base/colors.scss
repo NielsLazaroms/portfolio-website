@@ -1,7 +1,27 @@
-$lightgreen: #18B65C;
-$darkgreen: #094422;
-$black: #151515;
-$textColor: #DCDCDC;
-$darkBox: #1A1A1B;
-$strokeColor: #8A8A8A;
-$white: #FFFFFF;
+:root {
+  --primaryColor: #18B65C;
+  --primaryColor-rgb: 28, 182, 92;
+  --secondaryColor: #094422;
+  --secondaryColor-rgb: 9, 68, 34;
+  --mainColor: #151515;
+  --mainColor-rgb: 21, 21, 21;
+  --textColor: #DCDCDC;
+  --cardBox: #1A1A1B;
+  --strokeColor: #8A8A8A;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+:root[data-theme="light"] {
+  --primaryColor: #01803a;
+  --primaryColor-rgb: 0, 119, 51;
+  --secondaryColor: #05381b;
+  --secondaryColor-rgb: 9, 68, 34;
+  --mainColor: #e1e1e1;
+  --mainColor-rgb: 255, 255, 255;
+  --textColor: #1A1A1B;
+  --cardBox: #F2F2F3;
+  --strokeColor: #464646;
+  --white: #FFFFFF;
+  --black: #000000;
+}
