@@ -102,7 +102,7 @@
       &__text {
         color: var(--textColor);
         width: 100%;
-        font-size: b.$subTitle;
+        font-size: b.$navbarFont;
       }
       &__button {
         margin-top: 10px;
@@ -361,6 +361,7 @@
         width: 100%;
         margin-top: b.$defaultSectionSpacing;
         color: var(--textColor);
+        font-size: b.$buttonText;
         padding: b.$buttonPadding;
         border-radius: b.$defaultBorderRadius;
         font-weight: bold;
@@ -445,6 +446,10 @@
 
   }
 }
+.footer-section {
+  margin-top: b.$sectionSpacing;
+}
+
 
 @property --bg-angle {
   inherits: false;
