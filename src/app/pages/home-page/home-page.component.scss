@@ -103,7 +103,9 @@
         color: b.$textColor;
         width: 100%;
         font-size: b.$subTitle;
-
+      }
+      &__button {
+        width: 40%;
       }
     }
 
@@ -132,15 +134,23 @@
     .about-me-section {
 
       &__container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
         &__information {
-          width: 50%;
+          width: 100%;
           &__text {
             width: 100%;
+          }
+          &__button {
+            width: 50%;
           }
         }
 
         &__about-me {
-          width: 50%;
+          width: 100%;
+          margin-top: b.$defaultSectionSpacing;
+
         }
       }
     }
@@ -148,19 +158,20 @@
   @include u.respond-to(mobile) {
     .about-me-section {
       &__container {
-        flex-direction: column;
-        align-items: center;
-        height: auto;
+
 
         &__information {
           width: 100%;
           height: auto;
+
+          &__button {
+            width: 80%;
+          }
         }
 
         &__about-me {
           margin-top: b.$defaultSectionSpacing;
           width: 80%;
-          //min-height: 300px;
 
           &__image {
             width: 100%;

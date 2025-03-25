@@ -11,10 +11,14 @@
       </div>
     </div>
 
-    <div class="project-card-list__item__content" *ngIf="project.isExpanded">
-      <p>{{ project.description }}</p>
+    <div class="project-card-list__item__information" *ngIf="project.isExpanded">
+      <ul class="project-card-list__item__information__image-list">
+        <li class="project-card-list__item__information__image-list__item"  *ngFor="let img of project.images" >
+          <img class="project-card-list__item__information__image-list__item__image" [src]="img" alt="Project Image">
+        </li>
+      </ul>
+      <p class="project-card-list__item__information__text">{{ project.description }}</p>
 
-      <img *ngFor="let img of project.images" [src]="img" alt="Project Image">
     </div>
   </li>
 </ul>

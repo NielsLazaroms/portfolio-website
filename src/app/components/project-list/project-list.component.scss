@@ -15,15 +15,17 @@
     &:hover .project-card-list__item__header__container::before {
       opacity: 1;
     }
-  &:nth-child(1) {
-    border-top-right-radius: b.$defaultBorderRadius;
-    border-top-left-radius: b.$defaultBorderRadius;
-  }
-  &:nth-last-child(1) {
-    border-bottom-right-radius: b.$defaultBorderRadius;
-    border-bottom-left-radius: b.$defaultBorderRadius;
-    border-bottom: 1px solid b.$strokeColor;
-  }
+
+    &:nth-child(1) {
+      border-top-right-radius: b.$defaultBorderRadius;
+      border-top-left-radius: b.$defaultBorderRadius;
+    }
+
+    &:nth-last-child(1) {
+      border-bottom-right-radius: b.$defaultBorderRadius;
+      border-bottom-left-radius: b.$defaultBorderRadius;
+      border-bottom: 1px solid b.$strokeColor;
+    }
 
     &__header {
       display: flex;
@@ -64,11 +66,13 @@
           display: inline-block;
 
         }
+
         .arrow {
           transition: transform 0.3s ease;
           font-size: 36px;
           color: b.$lightgreen
         }
+
         .rotated {
           transform: rotate(90deg);
         }
@@ -83,6 +87,7 @@
       &__skills {
         margin-top: 8px;
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         gap: 6px;
@@ -91,12 +96,14 @@
           background: transparent;
           padding: 16px;
           border-radius: b.$defaultBorderRadius;
+          text-align: center;
           font-size: 14px;
           font-weight: bold;
           color: b.$textColor;
           border: 1px solid b.$lightgreen;
           -webkit-text-stroke: 0.3px b.$lightgreen;
         }
+
         &__year {
           color: b.$textColor;
           margin-left: 10px;
@@ -104,16 +111,52 @@
           font-weight: bold;
         }
       }
+    }
+    &__information {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
-      img {
-        margin-top: 10px;
+      &__image-list {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
         width: 100%;
-        max-width: 300px;
-        border-radius: 6px;
-        transition: transform 0.3s ease;
 
-        &:hover {
-          transform: scale(1.05);
+        &__item {
+          flex: 1;
+          min-width: 0;
+
+          &__image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: b.$defaultBorderRadius;
+          }
+        }
+      }
+      &__text {
+        color: b.$textColor;
+      }
+    }
+  }
+}
+
+@include u.respond-to(mobile) {
+  .project-card-list {
+    &__item {
+      &__header{}
+      &__content__skills{
+        flex-direction: column;
+        span {
+          width: 100%;;
+        }
+      }
+      &__information {
+        &__image-list {
+          flex-direction: row;
+          flex-wrap: wrap;
         }
       }
     }

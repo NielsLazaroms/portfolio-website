@@ -7,7 +7,6 @@ export interface ProjectInfo {
   url?: string;
   images?: string[];
   isExpanded?: boolean;
-  backgroundImage?: string;
 }
 export interface Skill {
   image: string;
