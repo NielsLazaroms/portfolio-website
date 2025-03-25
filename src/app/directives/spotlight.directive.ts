@@ -1,9 +1,8 @@
-// src/app/directives/spotlight.directive.ts
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appSpotlight]',
-  standalone: true // Als je met standalone components werkt
+  standalone: true
 })
 export class SpotlightDirective {
   constructor(private el: ElementRef<HTMLElement>) {}

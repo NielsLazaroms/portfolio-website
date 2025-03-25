@@ -1,10 +1,12 @@
 import {Component, HostListener} from '@angular/core';
 import {NgIf} from '@angular/common';
+import {ToggleSliderComponent} from '../toggle-slider/toggle-slider.component';
 
 @Component({
   selector: 'app-navbar',
   imports: [
-    NgIf
+    NgIf,
+    ToggleSliderComponent
   ],
   templateUrl: './navbar.component.html',
   standalone: true,

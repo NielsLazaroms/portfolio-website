@@ -1,0 +1,49 @@
+@use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
+
+.toggle-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &__flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  background-color: b.$textColor;
+  border-radius: 22px;
+  transition: all 0.3s;
+
+
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 22px;
+  background-color: b.$black;
+  top: 1px;
+  left: 1px;
+  transition: all 0.3s;
+}
+.checkbox {
+  display: none;
+}
+
+input[type='checkbox']:checked + .switch::after {
+  transform: translateX(22px);
+}
+
