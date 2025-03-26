@@ -49,7 +49,7 @@
       <app-skill-box [skills]="skills" [isDisabled]="isAnimating"
                      (skillSelected)="setActiveSkill($event)"></app-skill-box>
     </div>
-    <div class="my-skills-section__container__total">
+    <div class="my-skills-section__container__total" #skillsContainer>
       <div class="my-skills-section__container__total__data" #totalContainer>
         <p id="" class="my-skills-section__container__total__data__name">{{ activeSkill.name }}</p>
         <p class="my-skills-section__container__total__data__quote">"{{ activeSkill.quote }}"</p>

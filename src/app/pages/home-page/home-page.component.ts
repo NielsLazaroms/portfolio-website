@@ -49,6 +49,7 @@ export class HomePageComponent implements AfterViewInit{
   activeSkill: Skill = skills[0];
   isAnimating:boolean = false;
   @ViewChild('totalContainer') totalContainer!: ElementRef;
+  @ViewChild('skillsContainer') skillsContainer!: ElementRef;
   @ViewChild('aboutMeImage') aboutMeImage!: ElementRef;
   @ViewChild('aboutContainer') aboutContainer!: ElementRef<HTMLElement>;
   @ViewChild('quoteContainer') quoteContainer!: ElementRef<HTMLElement>;
@@ -85,6 +86,15 @@ export class HomePageComponent implements AfterViewInit{
     }
     this.isAnimating = true;
 
+    if (window.matchMedia('(max-width: 1024px)').matches) {
+      const navbar = document.querySelector('nav');
+      const navbarHeight = navbar?.clientHeight ?? 0;
+      const elementTop = this.skillsContainer.nativeElement.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementTop - navbarHeight,
+        behavior: 'smooth'
+      });
+    }
     const tl = gsap.timeline({
       defaults: { ease: 'power3.out', duration: 1.2 },
       onComplete: () => {
