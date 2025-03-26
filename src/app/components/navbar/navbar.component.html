@@ -1,11 +1,11 @@
 <nav class="navbar" [class.navbar--open]="menuOpen">
     <div class="navbar__logo">
-      <a (click)="scrollToSection('top-section')">Niels Lazaroms</a>
+      <p (click)="scrollToSection('top-section')">Niels Lazaroms</p>
     </div>
     <ul class="navbar__list" [class.navbar__list--open]="menuOpen">
-      <li class="navbar__list__item"><a (click)="scrollToSection('about-section')">About</a></li>
-      <li class="navbar__list__item"><a (click)="scrollToSection('skills-section')">Skills</a></li>
-      <li class="navbar__list__item"><a (click)="scrollToSection('projects-section')">Projects</a></li>
+      <li class="navbar__list__item"><p (click)="scrollToSection('about-section')">About</p></li>
+      <li class="navbar__list__item"><p (click)="scrollToSection('skills-section')">Skills</p></li>
+      <li class="navbar__list__item"><p (click)="scrollToSection('projects-section')">Projects</p></li>
       <li class="navbar__list__item--right"><app-toggle-slider></app-toggle-slider></li>
 
       <div class="navbar__contact" *ngIf="menuOpen">
@@ -13,7 +13,7 @@
       </div>
     </ul>
     <div class="navbar__contact" *ngIf="!menuOpen">
-      <a (click)="scrollToSection('contact-section')">Contact</a>
+      <p (click)="scrollToSection('contact-section')">Contact</p>
     </div>
   <div class="navbar__toggle" (click)="toggleMenu()" [class.navbar__toggle--open]="menuOpen">
     <span></span>
