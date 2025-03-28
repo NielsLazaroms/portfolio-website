@@ -55,11 +55,18 @@ export class HomePageComponent implements AfterViewInit{
   @ViewChild('quoteContainer') quoteContainer!: ElementRef<HTMLElement>;
 
   @ViewChildren('followImg') followImages!: QueryList<ElementRef<HTMLImageElement>>;
+  birthData: string = '2002-11-18'
+  age: number;
 
+  constructor() {
+    this.age = this.calculateAge(this.birthData);
+  }
   ngAfterViewInit(): void {
     this.setupParallax(this.quoteContainer.nativeElement, this.followImages.toArray().map(r => r.nativeElement));
     this.setupParallax(this.aboutContainer.nativeElement, [this.aboutMeImage.nativeElement]);
   }
+
+
 
   private setupParallax(host: HTMLElement, images: HTMLImageElement[]): void {
     host.addEventListener('mousemove', (e: MouseEvent) => {
@@ -78,6 +85,17 @@ export class HomePageComponent implements AfterViewInit{
       );
     });
   }
+  calculateAge(birthDate: string): number {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const birthdayThisYear = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+    if (today < birthdayThisYear) {
+      age--;
+    }
+    return age;
+  }
+
 
 
   setActiveSkill(skill: Skill): void {
