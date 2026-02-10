@@ -1,10 +1,12 @@
 <div class="sliding-text-container">
   <div class="sliding-text-container__text">
     <div #textWrapper class="sliding-text-container__text__wrapper">
-        <span *ngFor="let word of marqueeWords; let i = index"
-              [ngClass]="i % 2 === 0 ? 'sliding-text-container__text__wrapper--textColor' : 'sliding-text-container__text__wrapper--textColorStroke'">
+      @for (word of marqueeWords; track word; let i = $index) {
+        <span
+          [ngClass]="i % 2 === 0 ? 'sliding-text-container__text__wrapper--textColor' : 'sliding-text-container__text__wrapper--textColorStroke'">
           {{ word }} &nbsp;&nbsp;
         </span>
+      }
     </div>
   </div>
 </div>

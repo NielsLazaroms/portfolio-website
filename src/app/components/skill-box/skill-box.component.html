@@ -1,10 +1,11 @@
 <ul class="skill-box-list">
-  <li class="skill-box-list__item"
-      *ngFor="let skill of skills; let i = index"
+  @for (skill of skills; track skill; let i = $index) {
+    <li class="skill-box-list__item"
       (click)="setActive(i)"
       [class.active]="i === activeIndex"
       [class.disabled]="isDisabled"
-  >
-    <img class="skill-box-list__image" [src]="skill.image" [alt]="skill.name + ' icon'">
-  </li>
+      >
+      <img class="skill-box-list__image" [src]="skill.image" [alt]="skill.name + ' icon'">
+    </li>
+  }
 </ul>

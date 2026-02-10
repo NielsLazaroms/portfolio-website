@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NgClass, NgForOf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import gsap from 'gsap';
 
 @Component({
   selector: 'app-sliding-text',
   standalone: true,
-  imports: [NgForOf, NgClass],
+  imports: [NgClass],
   templateUrl: './sliding-text.component.html',
   styleUrls: ['./sliding-text.component.scss']
 })

@@ -1,20 +1,24 @@
 <nav class="navbar" [class.navbar--open]="menuOpen">
-    <div class="navbar__logo">
-      <a (click)="scrollToSection('top-section')">Niels Lazaroms</a>
-    </div>
-    <ul class="navbar__list" [class.navbar__list--open]="menuOpen">
-      <li class="navbar__list__item"><a (click)="scrollToSection('about-section')">About</a></li>
-      <li class="navbar__list__item"><a (click)="scrollToSection('skills-section')">Skills</a></li>
-      <li class="navbar__list__item"><a (click)="scrollToSection('projects-section')">Projects</a></li>
-      <li class="navbar__list__item--right"><app-toggle-slider></app-toggle-slider></li>
+  <div class="navbar__logo">
+    <a (click)="scrollToSection('top-section')">Niels Lazaroms</a>
+  </div>
+  <ul class="navbar__list" [class.navbar__list--open]="menuOpen">
+    <li class="navbar__list__item"><a (click)="scrollToSection('about-section')">About</a></li>
+    <li class="navbar__list__item"><a (click)="scrollToSection('skills-section')">Skills</a></li>
+    <li class="navbar__list__item"><a (click)="scrollToSection('projects-section')">Projects</a></li>
+    <li class="navbar__list__item--right"><app-toggle-slider></app-toggle-slider></li>
 
-      <div class="navbar__contact" *ngIf="menuOpen">
+    @if (menuOpen) {
+      <div class="navbar__contact">
         <a (click)="scrollToSection('contact-section')">Contact</a>
       </div>
-    </ul>
-    <div class="navbar__contact" *ngIf="!menuOpen">
+    }
+  </ul>
+  @if (!menuOpen) {
+    <div class="navbar__contact">
       <a (click)="scrollToSection('contact-section')">Contact</a>
     </div>
+  }
   <div class="navbar__toggle" (click)="toggleMenu()" [class.navbar__toggle--open]="menuOpen">
     <span></span>
     <span></span>
