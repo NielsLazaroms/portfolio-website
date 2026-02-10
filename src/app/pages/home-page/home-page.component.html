@@ -24,7 +24,7 @@
                      [subtitleText]="'about me'"></app-section-title>
   <div  class="about-me-section__container">
     <div class="about-me-section__container__information">
-      <p class="about-me-section__container__information__text">Hey there I’m Niels, a 22-year-old student from
+      <p class="about-me-section__container__information__text">Hey there I’m Niels, a {{age}}-year-old student from
         Noord-Brabant, the
         Netherlands. I’m currently studying ICT & Media Design at Fontys University of Applied Sciences.</p>
 
@@ -49,7 +49,7 @@
       <app-skill-box [skills]="skills" [isDisabled]="isAnimating"
                      (skillSelected)="setActiveSkill($event)"></app-skill-box>
     </div>
-    <div class="my-skills-section__container__total">
+    <div class="my-skills-section__container__total" #skillsContainer>
       <div class="my-skills-section__container__total__data" #totalContainer>
         <p id="" class="my-skills-section__container__total__data__name">{{ activeSkill.name }}</p>
         <p class="my-skills-section__container__total__data__quote">"{{ activeSkill.quote }}"</p>
