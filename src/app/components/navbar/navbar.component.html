@@ -6,7 +6,9 @@
     <li class="navbar__list__item"><a (click)="scrollToSection('about-section')">About</a></li>
     <li class="navbar__list__item"><a (click)="scrollToSection('skills-section')">Skills</a></li>
     <li class="navbar__list__item"><a (click)="scrollToSection('projects-section')">Projects</a></li>
-    <li class="navbar__list__item--right"><app-toggle-slider></app-toggle-slider></li>
+    <li class="navbar__list__item--right">
+      <app-toggle-slider></app-toggle-slider>
+    </li>
 
     @if (menuOpen) {
       <div class="navbar__contact">

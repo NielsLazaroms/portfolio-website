@@ -149,7 +149,7 @@ export class HomePageComponent implements AfterViewInit{
   }
 
   protected readonly skills = skills;
-  protected readonly projects = projects;
+  protected projects = projects.sort((a, b) => b.year - a.year);
   protected readonly wordList = wordList;
   protected readonly secondWordList = secondWordList;
 }

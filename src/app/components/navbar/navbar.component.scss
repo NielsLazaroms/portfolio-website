@@ -16,15 +16,19 @@
   &__logo {
     width: 20%;
     font-size: b.$navbarFont;
-    color: var(--textColor);
     font-weight: bold;
     padding: 40px;
     z-index: 3;
     transition: color 0.3s ease-in-out;
 
-    &:hover {
-      cursor: pointer;
-      color: var(--primaryColor)
+    a {
+      color: var(--textColor);
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+        color: var(--primaryColor)
+      }
     }
   }
 
@@ -55,6 +59,7 @@
         position: relative;
         color: var(--textColor);
         transition: color 0.3s ease-in-out;
+        display: inline-block;
 
         &::after {
           content: "";
@@ -105,8 +110,17 @@
     font-size: b.$navbarFont;
     text-align: center;
     position: relative;
-    color: var(--textColor);
     transition: color 0.3s ease-in-out;
+
+    a {
+      color: var(--textColor);
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+        color: var(--primaryColor);
+      }
+    }
 
     &::after {
       content: "";
@@ -118,12 +132,6 @@
       background: radial-gradient(circle, var(--primaryColor), var(--secondaryColor));
       border-radius: 2px;
     }
-
-    &:hover {
-      cursor: pointer;
-      color: var(--primaryColor);
-    }
-
   }
 
   &__toggle {

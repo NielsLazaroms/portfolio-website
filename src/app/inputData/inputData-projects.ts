@@ -48,4 +48,31 @@ export const projects: ProjectInfo[] = [
     year: 2024,
     isExpanded: false
   },
+  {
+    name: 'Slope works',
+    description: 'Slopeworks helps skiers plan and book well-organized ski trips to the world’s best mountain destinations.',
+    skills: ['Typescript', 'Angular', 'Tailwind', 'MnLib'],
+    images: ['assets/slopeworks_1.png', "assets/slopeworks_2.png"],
+    url: 'https://www.slopeworks.nl/',
+    githubLink: 'https://github.com/NielsLazaroms/SlopeWorks',
+    year: 2026,
+    isExpanded: false
+  },
+  {
+    name: 'MnLib',
+    description: 'mnlib is a reusable component library built to create consistent, accessible, and scalable user interfaces.',
+    skills: ['Typescript', 'Angular', 'Tailwind'],
+    githubLink: 'https://github.com/Mxndarijn/MnLib',
+    year: 2026,
+    isExpanded: false
+  },
+  {
+    name: 'Gym with Ai',
+    description: 'Gym with AI analyzes your form in real time and gives smart feedback to help you train better and safer.',
+    skills: ['Typescript', 'Angular', 'SCSS', 'Python'],
+    images: ['assets/gym_1.png', "assets/gym_2.png", "assets/gym_3.png"],
+    githubLink: 'https://github.com/NielsLazaroms/PoseDetection',
+    year: 2026,
+    isExpanded: false
+  },
 ]
