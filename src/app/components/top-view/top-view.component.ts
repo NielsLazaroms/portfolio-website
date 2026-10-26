@@ -1,8 +1,40 @@
-import {afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, viewChild} from '@angular/core';
-import {prefersReducedMotion} from '../../utils/motion';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {scrollBehavior} from '../../utils/motion';
 
-const EASE = 'cubic-bezier(.215, .61, .355, 1)';
+interface MapPoint {
+  x: number;
+  y: number;
+  label?: string;
+  year?: string;
+  /** Where the label sits, relative to the point. */
+  side?: 'right' | 'left' | 'above';
+  isNow?: boolean;
+}
 
+interface MapRoute {
+  points: MapPoint[];
+  d: string;
+}
+
+/** A smooth line through all points (Catmull-Rom turned into cubic curves). */
+function smoothPath(points: MapPoint[]): string {
+  let d = `M${points[0].x} ${points[0].y}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[Math.max(0, i - 1)], p1 = points[i], p2 = points[i + 1], p3 = points[Math.min(points.length - 1, i + 2)];
+    const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+
+const route = (points: MapPoint[]): MapRoute => ({points, d: smoothPath(points)});
+
+/**
+ * The hero: name and intro, with my route drawn on the contour map behind it.
+ * Both maps use the same viewBox and right-aligned slicing as the hero's contour lamp,
+ * so the route always ends on the map's highest peak: Essent, where I am now.
+ */
 @Component({
   selector: 'app-top-view',
   templateUrl: './top-view.component.html',
@@ -10,60 +42,32 @@ const EASE = 'cubic-bezier(.215, .61, .355, 1)';
   styleUrl: './top-view.component.scss'
 })
 export class TopViewComponent {
-  readonly words: string[] = ['Web Designer', 'Creative Developer'];
-  private readonly typewriter = viewChild.required<ElementRef<HTMLElement>>('typewriter');
-  private readonly ring = viewChild.required<ElementRef<HTMLElement>>('ring');
-  private timer?: ReturnType<typeof setTimeout>;
-  private onScreen = true;
+  /** Landscape screens: the route climbs on the right, next to the intro. */
+  protected readonly wide = route([
+    {x: 1010, y: 690, label: 'Fontys', year: '2021', side: 'right'},
+    {x: 1075, y: 605, label: 'ASML internship', year: '2024', side: 'right'},
+    {x: 1125, y: 525, label: 'ASML part-time', year: '2024', side: 'right'},
+    {x: 1190, y: 450, label: 'Social Deal', year: '2025', side: 'right'},
+    {x: 1225, y: 350, label: 'Graduated', year: '2026', side: 'right'},
+    {x: 1296, y: 224, label: 'Essent', year: 'Now', side: 'left', isNow: true},
+  ]);
 
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-    destroyRef.onDestroy(() => clearTimeout(this.timer));
-    afterNextRender(() => {
-      if (prefersReducedMotion()) {
-        this.typewriter().nativeElement.textContent = this.words[0];
-        return;
-      }
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(entries => this.onScreen = entries.some(e => e.isIntersecting));
-        observer.observe(this.typewriter().nativeElement);
-        destroyRef.onDestroy(() => observer.disconnect());
-      }
-      this.playIntro();
-      this.type(0, 0, false);
-    });
-  }
+  /** Portrait screens only show the right edge of the map; the route climbs to the same peak from the right. */
+  protected readonly narrow = route([
+    {x: 1480, y: 400, label: 'Fontys, 2021', side: 'left'},
+    {x: 1425, y: 362},
+    {x: 1445, y: 323},
+    {x: 1385, y: 293},
+    {x: 1360, y: 260},
+    {x: 1296, y: 224, label: 'Essent, now', side: 'right', isNow: true},
+  ]);
 
-  /** The ring draws itself once, the glow comes up, then the name fades in. */
-  private playIntro(): void {
-    const ring = this.ring().nativeElement;
-    const [outer, main] = Array.from(ring.querySelectorAll('circle'));
-    main.animate([{strokeDashoffset: 1}, {strokeDashoffset: 0}], {duration: 1600, easing: EASE});
-    outer.animate([{strokeDashoffset: -1, opacity: 0}, {strokeDashoffset: 0, opacity: .4}], {duration: 2000, delay: 200, easing: EASE, fill: 'backwards'});
-    ring.querySelector('.ring__glow')?.animate([{opacity: 0, transform: 'scale(.92)'}, {opacity: 1, transform: 'none'}], {duration: 1200, delay: 700, easing: EASE, fill: 'backwards'});
-    ring.querySelector('.ring__text')?.animate([{opacity: 0, transform: 'translateY(8px)'}, {opacity: 1, transform: 'none'}], {duration: 900, delay: 900, easing: EASE, fill: 'backwards'});
-  }
-
-  /** Types and erases the words. The element is hidden from screen readers; they get the static text instead. */
-  private type(wordIndex: number, charIndex: number, deleting: boolean): void {
-    const element = this.typewriter().nativeElement;
-    const word = this.words[wordIndex];
-    // Off screen: check again later instead of typing for nobody.
-    if (!this.onScreen) {
-      this.timer = setTimeout(() => this.type(wordIndex, charIndex, deleting), 500);
-      return;
-    }
-
-    if (!deleting && charIndex < word.length) {
-      element.textContent = word.slice(0, charIndex + 1);
-      this.timer = setTimeout(() => this.type(wordIndex, charIndex + 1, false), 140);
-    } else if (deleting && charIndex > 0) {
-      element.textContent = word.slice(0, charIndex - 1);
-      this.timer = setTimeout(() => this.type(wordIndex, charIndex - 1, true), 70);
-    } else if (!deleting) {
-      this.timer = setTimeout(() => this.type(wordIndex, charIndex, true), 1400);
-    } else {
-      this.timer = setTimeout(() => this.type((wordIndex + 1) % this.words.length, 0, false), 300);
-    }
+  protected go(sectionId: string, event: Event): void {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+    section.scrollIntoView({behavior: scrollBehavior(), block: 'start'});
+    section.setAttribute('tabindex', '-1');
+    section.focus({preventScroll: true});
   }
 }

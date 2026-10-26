@@ -3,17 +3,16 @@
     <h2 class="contact__title">Let's get in touch.</h2>
     <p class="contact__lead">A project, a question, or just want to talk front-end? Send me a message.</p>
     <div class="contact__mail">
-      <span class="contact__address">{{ email }}</span>
-      <button type="button" class="icon-btn" (click)="copyEmail()"
-              [attr.aria-label]="copied() ? 'Copied' : 'Copy email address'"
-              [attr.title]="copied() ? 'Copied' : 'Copy email address'">
+      <a class="contact__address" [href]="'mailto:' + email">{{ email }}</a>
+      <button type="button" class="btn" (click)="copyEmail()">
         @if (copied()) {
-          <svg lucideCheck></svg>
+          <svg lucideCheck></svg>Copied
         } @else {
-          <svg lucideCopy></svg>
+          <svg lucideCopy></svg>Copy address
         }
       </button>
     </div>
+    <p class="contact__status" aria-live="polite">{{ copyStatus() }}</p>
     <div class="contact__socials">
       <a class="btn" href="https://www.linkedin.com/in/niels-lazaroms-608664242/" target="_blank" rel="noopener">
         <app-linkedin-icon/>LinkedIn<span class="sr-only"> (opens in a new tab)</span>
@@ -40,6 +39,6 @@
     <button class="btn btn--primary" type="submit" [disabled]="contactForm.invalid">
       <svg lucideMail></svg>Open in my email app
     </button>
-    <p class="form__status" aria-live="polite">{{ status() }}</p>
+    <p class="form__status" aria-live="polite">{{ formStatus() }}</p>
   </form>
 </div>

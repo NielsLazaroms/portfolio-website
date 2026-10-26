@@ -9,6 +9,11 @@
   overflow: hidden;
 }
 
+// The hero map carries the route, so it's a little stronger than the one behind Contact.
+.top-section {
+  --topo-base-opacity: .13;
+}
+
 .page-section {
   // Nothing that moves (the photo deck, the orbit) may widen the page on phones.
   overflow-x: clip;
