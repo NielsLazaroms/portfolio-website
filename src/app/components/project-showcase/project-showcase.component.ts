@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, untracked, viewChild} from '@angular/core';
+import {afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, signal, untracked, viewChild} from '@angular/core';
 import {LucideExternalLink, LucideLock, LucideX} from '@lucide/angular';
 import {projectKindLabels, projects} from '../../inputData';
 import {ProjectInfo, ProjectKind} from '../../interfaces/interface';
@@ -60,9 +60,30 @@ export class ProjectShowcaseComponent {
 
   private readonly tintCache = new Map<string, string>();
   private hoverTimer?: ReturnType<typeof setTimeout>;
+  private swapTimer?: ReturnType<typeof setTimeout>;
+  /** Project the preview is fading towards, so a second request for it is ignored. */
+  private pending: ProjectInfo | null = null;
 
   constructor() {
-    inject(PreloaderService).preload(projects.flatMap(p => p.images));
+    // Load the other screenshots only once Projects comes close, not with the rest of the page.
+    const preloader = inject(PreloaderService);
+    const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => {
+      clearTimeout(this.hoverTimer);
+      clearTimeout(this.swapTimer);
+    });
+    afterNextRender(() => {
+      const preloadAll = () => preloader.preload(projects.flatMap(p => p.images));
+      if (!('IntersectionObserver' in window)) return preloadAll();
+      const observer = new IntersectionObserver(entries => {
+        if (!entries.some(e => e.isIntersecting)) return;
+        observer.disconnect();
+        preloadAll();
+      }, {rootMargin: '800px 0px'});
+      observer.observe(host);
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
 
     // Another section asked to open a project.
     effect(() => {
@@ -122,20 +143,28 @@ export class ProjectShowcaseComponent {
   }
 
   protected show(project: ProjectInfo, animate = true): void {
-    if (project === this.current()) return;
+    if (project === (this.pending ?? this.current())) return;
+    // A newer request replaces one that is still fading.
+    clearTimeout(this.swapTimer);
     if (!animate || prefersReducedMotion()) {
-      this.current.set(project);
-      this.shot.set(0);
-      this.aspect.set(null);
+      this.pending = null;
+      this.setProject(project);
+      this.swapping.set(false);
       return;
     }
+    this.pending = project;
     this.swapping.set(true);
-    setTimeout(() => {
-      this.current.set(project);
-      this.shot.set(0);
-      this.aspect.set(null);
-      setTimeout(() => this.swapping.set(false), 20);
+    this.swapTimer = setTimeout(() => {
+      this.pending = null;
+      this.setProject(project);
+      this.swapTimer = setTimeout(() => this.swapping.set(false), 20);
     }, 200);
+  }
+
+  private setProject(project: ProjectInfo): void {
+    this.current.set(project);
+    this.shot.set(0);
+    this.aspect.set(null);
   }
 
   /** Lets the frame take the exact shape of the screenshot, so nothing is cropped. */

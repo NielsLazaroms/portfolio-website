@@ -33,7 +33,7 @@ export class ContactSectionComponent {
     const subject = encodeURIComponent(this.formData.subject);
     const body = encodeURIComponent(`Dear Niels,\n\n${this.formData.message}\n\nKind regards,\n${this.formData.name}`);
     window.location.href = `mailto:${this.email}?subject=${subject}&body=${body}`;
-    this.status.set('Your email app should open now with the message filled in.');
-    this.formData = {name: '', subject: '', message: ''};
+    // The form keeps its text: if no email app opens, nothing is lost.
+    this.status.set(`Your email app should open with the message filled in. If it doesn't, copy the address and send it to ${this.email}.`);
   }
 }

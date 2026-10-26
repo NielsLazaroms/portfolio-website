@@ -1,4 +1,4 @@
-import {afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal} from '@angular/core';
+import {afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, signal} from '@angular/core';
 import {LucidePause, LucidePlay} from '@lucide/angular';
 import {prefersReducedMotion} from '../../utils/motion';
 
@@ -40,17 +40,27 @@ export class PhotoDeckComponent {
   private readonly reduce = prefersReducedMotion();
   private timer?: ReturnType<typeof setInterval>;
   private hovering = false;
+  private onScreen = false;
 
   constructor() {
     const destroyRef = inject(DestroyRef);
+    const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
     destroyRef.onDestroy(() => clearInterval(this.timer));
     afterNextRender(() => {
       if (this.reduce) {
         this.paused.set(true);
         return;
       }
+      // Only deal while the deck is on screen.
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => this.onScreen = entries.some(e => e.isIntersecting));
+        observer.observe(host);
+        destroyRef.onDestroy(() => observer.disconnect());
+      } else {
+        this.onScreen = true;
+      }
       this.timer = setInterval(() => {
-        if (!this.paused() && !this.hovering && document.visibilityState === 'visible') this.next();
+        if (!this.paused() && !this.hovering && this.onScreen && document.visibilityState === 'visible') this.next();
       }, INTERVAL);
     });
   }

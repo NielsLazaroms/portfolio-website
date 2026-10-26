@@ -1,4 +1,4 @@
-<nav class="nav" [class.is-scrolled]="scrolled()" [class.is-open]="menuOpen()" aria-label="Main">
+<nav #nav class="nav" [class.is-scrolled]="scrolled()" [class.is-open]="menuOpen()" aria-label="Main">
   <a class="nav__brand" href="#top-section" (click)="go('top-section', $event)">
     Niels Lazaroms
   </a>
@@ -14,7 +14,7 @@
     <li><a class="btn btn--primary nav__contact" href="#contact-section" (click)="go('contact-section', $event)">Contact</a></li>
   </ul>
 
-  <button class="nav__toggle" type="button" (click)="toggleMenu()"
+  <button #toggle class="nav__toggle" type="button" (click)="toggleMenu()"
           [attr.aria-expanded]="menuOpen()" aria-controls="main-menu"
           [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'">
     @if (menuOpen()) {

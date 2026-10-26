@@ -14,13 +14,20 @@ export class TopViewComponent {
   private readonly typewriter = viewChild.required<ElementRef<HTMLElement>>('typewriter');
   private readonly ring = viewChild.required<ElementRef<HTMLElement>>('ring');
   private timer?: ReturnType<typeof setTimeout>;
+  private onScreen = true;
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => clearTimeout(this.timer));
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => clearTimeout(this.timer));
     afterNextRender(() => {
       if (prefersReducedMotion()) {
         this.typewriter().nativeElement.textContent = this.words[0];
         return;
+      }
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => this.onScreen = entries.some(e => e.isIntersecting));
+        observer.observe(this.typewriter().nativeElement);
+        destroyRef.onDestroy(() => observer.disconnect());
       }
       this.playIntro();
       this.type(0, 0, false);
@@ -41,6 +48,11 @@ export class TopViewComponent {
   private type(wordIndex: number, charIndex: number, deleting: boolean): void {
     const element = this.typewriter().nativeElement;
     const word = this.words[wordIndex];
+    // Off screen: check again later instead of typing for nobody.
+    if (!this.onScreen) {
+      this.timer = setTimeout(() => this.type(wordIndex, charIndex, deleting), 500);
+      return;
+    }
 
     if (!deleting && charIndex < word.length) {
       element.textContent = word.slice(0, charIndex + 1);

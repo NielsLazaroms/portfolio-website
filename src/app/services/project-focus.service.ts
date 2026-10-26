@@ -1,4 +1,5 @@
 import {Injectable, signal} from '@angular/core';
+import {scrollBehavior} from '../utils/motion';
 
 export interface ProjectFocusRequest {
   /** Project to show; when missing, Projects shows the newest project for the skill. */
@@ -26,18 +27,14 @@ export class ProjectFocusService {
   /** Scrolls back to Skills and moves focus there. */
   backToSkills(): void {
     const section = document.getElementById('skills-section');
-    section?.scrollIntoView({behavior: this.behavior(), block: 'start'});
+    section?.scrollIntoView({behavior: scrollBehavior(), block: 'start'});
     document.getElementById('skills-heading')?.focus({preventScroll: true});
   }
 
   private go(request: Omit<ProjectFocusRequest, 'n'>): void {
     this.request.set({...request, n: ++this.count});
-    document.getElementById('projects-section')?.scrollIntoView({behavior: this.behavior(), block: 'start'});
+    document.getElementById('projects-section')?.scrollIntoView({behavior: scrollBehavior(), block: 'start'});
     // Keyboard and screen reader users continue from Projects, not from the button they left behind.
     document.getElementById('projects-heading')?.focus({preventScroll: true});
-  }
-
-  private behavior(): ScrollBehavior {
-    return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
   }
 }
