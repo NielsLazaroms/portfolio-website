@@ -1,219 +1,163 @@
 @use '../../../styles/base/index' as b;
 @use '../../../styles/utils/index' as u;
 
-.navbar {
+.nav {
   position: fixed;
+  inset: 0 0 auto;
   z-index: 100;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  width: 100%;
-  height: 80px;
-  border-bottom: 1px solid var(--strokeColor);
-  background-color: rgba(var(--mainColor-rgb), 0.8);
-  transition: background 0.3s ease-in-out;
+  gap: 24px;
+  height: 72px;
+  padding: 0 b.$defaultSideSpacing;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s, border-color .3s, backdrop-filter .3s;
 
-  &__logo {
-    width: 20%;
-    font-size: b.$navbarFont;
-    font-weight: bold;
-    padding: 40px;
-    z-index: 3;
-    transition: color 0.3s ease-in-out;
-
-    a {
-      color: var(--textColor);
-      transition: color 0.3s ease-in-out;
-
-      &:hover {
-        cursor: pointer;
-        color: var(--primaryColor)
-      }
-    }
+  // Clear over the hero; gets a background once you scroll.
+  &.is-scrolled {
+    background: rgba(var(--mainColor-rgb), .82);
+    border-color: var(--line);
+    backdrop-filter: blur(12px);
   }
 
-  &__list {
-    width: 60%;
-    position: relative;
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+    min-height: 44px;
+    font-weight: bold;
+    font-size: 1.0625rem;
+  }
+
+  &__links {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 40px;
-    transition: transform 0.3s ease-in-out;
-    border-left: 1px solid var(--strokeColor);
-    border-right: 1px solid var(--strokeColor);
-    padding: 28px 0;
+    align-items: center;
+    gap: 28px;
+  }
 
+  &__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--muted);
+    transition: color .2s;
 
-    &__item {
-      font-size: b.$navbarFont;
+    &:hover {
+      color: var(--textColor);
+    }
 
-      &--right {
-        font-size: b.$navbarFont;
-        position: absolute;
-        color: var(--textColor);
-        right: 2%;
+    // The green bar from the original site: grows from the centre on hover, with a soft glow.
+    // It sits on the nav's bottom edge (the link is 44px tall in a 72px bar) and also marks the section you are in.
+    &::after, &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 0;
+      transition: width .3s ease-in-out, left .3s ease-in-out, opacity .2s ease-in-out;
+    }
+
+    &::after {
+      bottom: -14px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--primaryColor);
+    }
+
+    &::before {
+      bottom: -13px;
+      height: 10px;
+      background: rgba(var(--primaryColor-rgb), .8);
+      filter: blur(6px);
+      opacity: 0;
+    }
+
+    &:hover, &[aria-current="location"] {
+      color: var(--textColor);
+
+      &::after, &::before {
+        left: 0;
+        width: 100%;
       }
 
-      a {
-        position: relative;
-        color: var(--textColor);
-        transition: color 0.3s ease-in-out;
-        display: inline-block;
-
-        &::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          bottom: -27px;
-          width: 0;
-          height: 3px;
-          background: var(--primaryColor);
-          border-radius: 2px;
-          transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          left: 50%;
-          bottom: -26px;
-          width: 0;
-          height: 10px;
-          background: rgba(var(--primaryColor-rgb), 0.8);
-          filter: blur(6px);
-          opacity: 0;
-          transition: width 0.3s ease-in-out, left 0.3s ease-in-out, opacity 0.2s ease-in-out;
-        }
-
-        &:hover {
-          color: var(--primaryColor);
-          cursor: pointer;
-
-          &::after {
-            width: 100%;
-            left: 0;
-          }
-
-          &::before {
-            width: 100%;
-            left: 0;
-            opacity: 1;
-          }
-        }
+      &::before {
+        opacity: 1;
       }
+    }
+
+    &:hover {
+      color: var(--primaryColor);
     }
   }
 
   &__contact {
-    width: 20%;
-    font-size: b.$navbarFont;
-    text-align: center;
-    position: relative;
-    transition: color 0.3s ease-in-out;
-
-    a {
-      color: var(--textColor);
-      transition: color 0.3s ease-in-out;
-
-      &:hover {
-        cursor: pointer;
-        color: var(--primaryColor);
-      }
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -28px;
-      width: 101%;
-      height: 3px;
-      background: radial-gradient(circle, var(--primaryColor), var(--secondaryColor));
-      border-radius: 2px;
-    }
+    min-height: 40px;
+    padding: 8px 18px;
   }
 
   &__toggle {
     display: none;
-    flex-direction: column;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--mainColor);
+    color: var(--textColor);
     cursor: pointer;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
 
-    span {
-      width: 30px;
-      height: 4px;
-      background: var(--textColor);
-      border-radius: 3px;
-      transition: all 0.3s ease-in-out;
+    svg {
+      width: 22px;
+      height: 22px;
     }
   }
 
-  @include u.respond-to(tablet) {
-    justify-content: space-between;
-  }
-
+  // Phones and small tablets: a menu button that opens a full-screen sheet.
   @include u.respond-to(mobile) {
-    flex-direction: row;
-    padding: 10px 15px;
+    padding: 0 20px;
 
     &__toggle {
-      display: flex;
+      display: inline-grid;
+      position: relative;
+      z-index: 2;
     }
 
-    &__logo {
-      width: 80%;
+    &__brand {
+      position: relative;
+      z-index: 2;
     }
-    &__list {
+
+    &__links {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      flex-direction: column;
-      background: rgba(var(--mainColor-rgb), 0.9);
+      inset: 0;
       display: none;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 30px;
-      padding: 20px;
-
-      &__item {
-        &--right {
-          position: relative;
-          right: 0;
-        }
-      }
+      text-align: center;
+      gap: 8px;
+      padding: 96px 28px 40px;
+      background: rgba(var(--mainColor-rgb), .97);
+      backdrop-filter: blur(12px);
     }
 
-    &__list--open {
+    &.is-open &__links {
       display: flex;
     }
 
-    &__contact {
-      position: absolute;
-      bottom: 40px;
-      font-size: 18px;
-      display: none;
+    &__link {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--textColor);
+
+      &::after, &::before {
+        bottom: 2px;
+      }
     }
 
-    &--open &__contact {
-      display: block;
-    }
-    &--open &__toggle {
-      span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-      }
-      span:nth-child(2) {
-        opacity: 0;
-      }
-      span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-      }
+    &__theme {
+      margin: 16px 0 8px;
     }
   }
 }

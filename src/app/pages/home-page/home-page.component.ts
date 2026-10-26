@@ -1,156 +1,40 @@
-import {AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {LucidePause, LucidePlay} from '@lucide/angular';
 import {TopViewComponent} from '../../components/top-view/top-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
-import {SectionTitleComponent} from '../../components/section-title/section-title.component';
-import {SkillBoxComponent} from '../../components/skill-box/skill-box.component';
-import gsap from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
-import {DownloadButtonComponent} from '../../components/download-button/download-button.component';
-import {Image, Skill} from '../../interfaces/interface';
-import {ProjectListComponent} from '../../components/project-list/project-list.component';
 import {SlidingTextComponent} from '../../components/sliding-text/sliding-text.component';
-import {SpotlightDirective} from '../../directives/spotlight.directive';
-import {FormsModule} from '@angular/forms';
-import {SkillProgressComponent} from '../../components/skill-progress/skill-progress.component';
-import {projects, secondWordList, skills, wordList} from '../../inputData';
 import {FooterComponent} from '../../components/footer/footer.component';
-
-gsap.registerPlugin(ScrollTrigger);
-
+import {ContourLampComponent} from '../../components/contour-lamp/contour-lamp.component';
+import {AboutSectionComponent} from '../../components/about-section/about-section.component';
+import {SkillsOrbitComponent} from '../../components/skills-orbit/skills-orbit.component';
+import {ProjectShowcaseComponent} from '../../components/project-showcase/project-showcase.component';
+import {ContactSectionComponent} from '../../components/contact-section/contact-section.component';
+import {secondWordList, wordList} from '../../inputData';
+import {CONTACT_PEAKS} from '../../utils/contour-map';
 
 @Component({
   selector: 'app-home-page',
   imports: [
-    TopViewComponent,
     NavbarComponent,
-    SectionTitleComponent,
-    SkillBoxComponent,
-    DownloadButtonComponent,
-    ProjectListComponent,
+    TopViewComponent,
+    ContourLampComponent,
+    AboutSectionComponent,
+    SkillsOrbitComponent,
+    ProjectShowcaseComponent,
     SlidingTextComponent,
-    SpotlightDirective,
-    FormsModule,
-    SkillProgressComponent,
+    ContactSectionComponent,
     FooterComponent,
+    LucidePause,
+    LucidePlay,
   ],
   templateUrl: './home-page.component.html',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent implements AfterViewInit{
-
-  formData = {
-    name: '',
-    subject: '',
-    chat: ''
-  };
-
-
-  activeSkill: Skill = skills[0];
-  isAnimating:boolean = false;
-  @ViewChild('totalContainer') totalContainer!: ElementRef;
-  @ViewChild('skillsContainer') skillsContainer!: ElementRef;
-  @ViewChild('aboutMeImage') aboutMeImage!: ElementRef;
-  @ViewChild('aboutContainer') aboutContainer!: ElementRef<HTMLElement>;
-  @ViewChild('quoteContainer') quoteContainer!: ElementRef<HTMLElement>;
-
-  @ViewChildren('followImg') followImages!: QueryList<ElementRef<HTMLImageElement>>;
-  birthData: string = '2002-11-18'
-  age: number;
-
-  constructor() {
-    this.age = this.calculateAge(this.birthData);
-  }
-  ngAfterViewInit(): void {
-    this.setupParallax(this.quoteContainer.nativeElement, this.followImages.toArray().map(r => r.nativeElement));
-    this.setupParallax(this.aboutContainer.nativeElement, [this.aboutMeImage.nativeElement]);
-  }
-
-
-
-  private setupParallax(host: HTMLElement, images: HTMLImageElement[]): void {
-    host.addEventListener('mousemove', (e: MouseEvent) => {
-      images.forEach(img => {
-        const { left, top, width, height } = img.getBoundingClientRect();
-        const moveX = (e.clientX - (left + width / 2)) * 0.02;
-        const moveY = (e.clientY - (top + height / 2)) * 0.02;
-
-        gsap.to(img, { x: moveX, y: moveY, duration: 0.3, ease: 'power2.out' });
-      });
-    });
-
-    host.addEventListener('mouseleave', () => {
-      images.forEach(img =>
-        gsap.to(img, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' })
-      );
-    });
-  }
-  calculateAge(birthDate: string): number {
-    const birth = new Date(birthDate);
-    const today = new Date();
-    let age = today.getFullYear() - birth.getFullYear();
-    const birthdayThisYear = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
-    if (today < birthdayThisYear) {
-      age--;
-    }
-    return age;
-  }
-
-
-
-  setActiveSkill(skill: Skill): void {
-    if (this.isAnimating || skill === this.activeSkill) {
-      return;
-    }
-    this.isAnimating = true;
-
-    if (window.matchMedia('(max-width: 1024px)').matches) {
-      const navbar = document.querySelector('nav');
-      const navbarHeight = navbar?.clientHeight ?? 0;
-      const elementTop = this.skillsContainer.nativeElement.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: elementTop - navbarHeight,
-        behavior: 'smooth'
-      });
-    }
-    const tl = gsap.timeline({
-      defaults: { ease: 'power3.out', duration: 1.2 },
-      onComplete: () => {
-        this.isAnimating = false;
-      }
-    });
-
-    tl.to(this.totalContainer.nativeElement, {
-      opacity: '0',
-      onComplete: () => {
-        this.activeSkill = skill;
-
-      }
-    });
-
-    tl.to(this.totalContainer.nativeElement, {
-      opacity: '1',
-    },
-      "+=0.7"
-    );
-  }
-
-
-  openMail() {
-    const email = 'niels.lazaroms@live.nl';
-    const subject = encodeURIComponent(this.formData.subject);
-    const body = encodeURIComponent(
-      `Dear Niels,\n\n${this.formData.chat}\n\n Kind regards,\n${this.formData.name}`
-    );
-
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    this.formData = { name: '', subject: '', chat: '' };
-
-  }
-
-  protected readonly skills = skills;
-  protected projects = projects.sort((a, b) => b.year - a.year);
+export class HomePageComponent {
   protected readonly wordList = wordList;
   protected readonly secondWordList = secondWordList;
+  protected readonly allWords = [...wordList, ...secondWordList].join(', ');
+  protected readonly contactPeaks = CONTACT_PEAKS;
+  protected readonly wordsPaused = signal(false);
 }

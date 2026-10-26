@@ -9,6 +9,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    position: relative;
+    min-height: 44px;
 
     &:hover {
       cursor: pointer;
@@ -39,11 +41,25 @@
   left: 1px;
   transition: all 0.3s;
 }
+// Visually hidden but still focusable, so keyboard users can switch themes.
 .checkbox {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
 }
 
-input[type='checkbox']:checked + .switch::after {
+.checkbox:focus-visible ~ .switch {
+  outline: 2px solid var(--primaryColor);
+  outline-offset: 3px;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
+
+input[type='checkbox']:checked ~ .switch::after {
   transform: translateX(22px);
 }
 

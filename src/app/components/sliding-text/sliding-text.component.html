@@ -1,12 +1,5 @@
-<div class="sliding-text-container">
-  <div class="sliding-text-container__text">
-    <div #textWrapper class="sliding-text-container__text__wrapper">
-      @for (word of marqueeWords; track word; let i = $index) {
-        <span
-          [ngClass]="i % 2 === 0 ? 'sliding-text-container__text__wrapper--textColor' : 'sliding-text-container__text__wrapper--textColorStroke'">
-          {{ word }} &nbsp;&nbsp;
-        </span>
-      }
-    </div>
-  </div>
+<div class="row" [class.row--ltr]="direction() === 'ltr'" [style.animation-duration]="duration() + 's'">
+  @for (word of loop(); track $index) {
+    <span [class.outlined]="($index + offset()) % 2 === 1">{{ word }}</span>
+  }
 </div>

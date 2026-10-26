@@ -4,7 +4,12 @@
 html {
   background-color: var(--mainColor);
   font-family: "oso-sans-variable", sans-serif;
-;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--textColor);
+  line-height: 1.55;
 }
 
 ul {
@@ -13,4 +18,165 @@ ul {
 
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primaryColor);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+// Sections receive focus from the nav links (so keyboard users continue from there); no ring on the whole section.
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+// Visually hidden, still read by screen readers.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--primaryColor);
+  color: var(--on-accent);
+  font-weight: 600;
+  transition: top .2s;
+
+  &:focus {
+    top: 16px;
+  }
+}
+
+// Shared section heading used by the redesigned sections.
+.section-heading {
+  font-size: b.$headingText;
+  font-weight: bold;
+  line-height: 1.05;
+  margin-bottom: clamp(24px, 4vw, 44px);
+}
+
+// Shared buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--mainColor);
+  color: var(--textColor);
+  cursor: pointer;
+  transition: border-color .2s, background-color .2s;
+
+  &:hover {
+    border-color: var(--primaryColor);
+  }
+
+  &--primary {
+    background: var(--primaryColor);
+    border-color: var(--primaryColor);
+    color: var(--on-accent);
+    font-weight: 600;
+
+    &:hover {
+      background: rgba(var(--primaryColor-rgb), .85);
+    }
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--mainColor);
+  color: var(--textColor);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+
+  &:hover {
+    border-color: var(--primaryColor);
+    color: var(--primaryColor);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Pause/play control for anything that keeps moving (WCAG 2.2.2).
+// Small round play/pause control for anything that moves by itself (WCAG 2.2.2).
+.motion-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--mainColor);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+
+  &:hover {
+    color: var(--textColor);
+    border-color: var(--primaryColor);
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.is-paused, .is-paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }

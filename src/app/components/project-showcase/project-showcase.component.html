@@ -1,0 +1,102 @@
+<div class="filters" role="group" aria-label="Filter projects">
+  @for (f of filters; track f) {
+    <button type="button" [attr.aria-pressed]="filter() === f && !skillFilter()" (click)="setFilter(f)">
+      {{ f === 'All' ? 'All' : kindLabels[f] }}<span class="filters__count">{{ counts()[f] }}</span>
+    </button>
+  }
+  @if (skillFilter(); as skill) {
+    <button type="button" class="filters__skill" (click)="clearSkill()" [attr.aria-label]="'Remove filter: ' + skill">
+      {{ skill }}<svg lucideX aria-hidden="true"></svg>
+    </button>
+  }
+  @if (fromSkills()) {
+    <button type="button" class="filters__back" (click)="backToSkills()">Back to Skills</button>
+  }
+</div>
+
+<div class="showcase">
+  <nav class="index" aria-label="Projects" (pointerleave)="cancelHover()">
+    @for (group of groups(); track group.year) {
+      <h3 class="index__year">{{ group.year }}</h3>
+      <ul>
+        @for (project of group.items; track project.id) {
+          <li>
+            <button type="button" class="index__item" aria-controls="project-stage"
+                    [attr.aria-current]="project === current() ? 'true' : null"
+                    [style.--tint]="project === current() ? tint() : null"
+                    (click)="select(project)" (pointerenter)="onHover(project, $event)" (pointerleave)="cancelHover()">
+              <span class="index__name">
+                {{ project.name }}
+                @if (project.isNew) {
+                  <span class="new">New</span>
+                }
+              </span>
+              <span class="index__kind">{{ kindLabels[project.kind] }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </nav>
+
+  <div class="stage" id="project-stage" #stage>
+    <div class="stage__media" [style.--tint]="tint()">
+      <div class="frame" [class.frame--phone]="current().frame === 'phone'" [class.frame--browser]="current().frame === 'browser'"
+           [class.is-swapping]="swapping()">
+        @if (current().frame === 'browser') {
+          <div class="frame__bar" aria-hidden="true"><span class="frame__url">{{ current().urlLabel ?? current().name }}</span></div>
+        }
+        <div class="shot" [style.aspect-ratio]="aspect()">
+          @for (src of current().images; track src; let i = $index) {
+            <img [src]="src" [class.is-on]="i === shot()" (load)="onImageLoad($event, i)"
+                 [attr.alt]="current().name + ', screenshot ' + (i + 1) + ' of ' + current().images.length"
+                 [attr.aria-hidden]="i !== shot()">
+          }
+        </div>
+      </div>
+      <!-- Always present, so projects with one screenshot keep the same height. -->
+      <div class="strip" role="group" [attr.aria-label]="current().name + ' screenshots'">
+        @if (current().images.length > 1) {
+          @for (src of current().images; track src; let i = $index) {
+            <button type="button" [attr.aria-current]="i === shot() ? 'true' : null"
+                    [attr.aria-label]="'Show screenshot ' + (i + 1)" (click)="setShot(i)">
+              <img [src]="src" alt="">
+            </button>
+          }
+
+        }
+      </div>
+    </div>
+
+    <div class="stage__info">
+      <h3 class="stage__title">
+        {{ current().name }}
+        @if (current().isNew) {
+          <span class="new">New</span>
+        }
+      </h3>
+      <p class="stage__meta">{{ current().year }}, {{ kindLabels[current().kind] }}</p>
+      <p>{{ current().description }}</p>
+      <ul class="stack" aria-label="Built with">
+        @for (skill of current().skills; track skill) {
+          <li>{{ skill }}</li>
+        }
+      </ul>
+      <div class="links">
+        @if (current().url) {
+          <a class="btn btn--primary" [href]="current().url" target="_blank" rel="noopener">
+            <svg lucideExternalLink></svg>Visit site<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        }
+        @if (current().githubLink) {
+          <a class="btn" [href]="current().githubLink" target="_blank" rel="noopener">
+            <app-github-icon/>View code on GitHub<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        }
+        @if (current().note) {
+          <span class="links__note"><svg lucideLock></svg>{{ current().note }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</div>

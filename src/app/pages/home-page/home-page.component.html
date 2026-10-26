@@ -1,114 +1,46 @@
-<section id="top-section" class="top-section mouse-spotlight-section" appSpotlight>
-  <app-navbar></app-navbar>
+<a class="skip-link" href="#about-section">Skip to content</a>
+<app-navbar></app-navbar>
+
+<header id="top-section" class="top-section">
+  <app-contour-lamp></app-contour-lamp>
   <app-top-view></app-top-view>
-</section>
-<section id="quote-section" #quoteContainer class="quote-section">
-  <div  class="quote-section__container">
-    <div class="quote-section__container__top">
-      <img #followImg class="quote-section__container__top--left" src="assets/me-circle-image.jpg" alt="Picture of me">
-      <img #followImg class="quote-section__container__top--right" src="assets/me-ski-image.jpg" alt="Picture of me sking">
-    </div>
+</header>
 
-    <p class="quote-section__container__quote">"Shaping ideas</p>
-    <p class="quote-section__container__quote">into reality"</p>
-    <p class="quote-section__container__highlight">I will keep exploring!</p>
+<main>
+  <section id="about-section" class="page-section" aria-label="About me">
+    <app-about-section></app-about-section>
+  </section>
 
-    <div class="quote-section__container__bottom">
-      <img #followImg class="quote-section__container__bottom--left" src="assets/me-hobby.jpg" alt="Picture of me on a mountainbike">
-      <img #followImg class="quote-section__container__bottom--right" src="assets/me-travel-image.jpg" alt="Picture of me in Scotland">
-    </div>
-  </div>
-</section>
-<section id="about-section" #aboutContainer class="about-me-section">
-  <app-section-title class="about-me-section__title" [titleText]="'Some information'"
-                     [subtitleText]="'about me'"></app-section-title>
-  <div  class="about-me-section__container">
-    <div class="about-me-section__container__information">
-      <p class="about-me-section__container__information__text">Hey there I’m Niels, a {{age}}-year-old student from
-        Noord-Brabant, the
-        Netherlands. I’m currently studying ICT & Media Design at Fontys University of Applied Sciences.</p>
+  <section id="skills-section" class="page-section" aria-labelledby="skills-heading">
+    <h2 id="skills-heading" class="section-heading" tabindex="-1">What I work with</h2>
+    <app-skills-orbit></app-skills-orbit>
+  </section>
 
-      <p class="about-me-section__container__information__text">I have a strong passion for interactive design and love
-        creating digital experiences that feel natural and engaging. Finding the perfect balance between creativity and
-        simplicity is what excites me the most. I enjoy working on projects that bring ideas to life in a simple and
-        natural way.</p>
-      <p class="about-me-section__container__information__text">For me, design isn’t just about screens it’s about
-        energy and inspiration. When I’m not working on projects, you’ll find me mountain biking through the trails,
-        hitting the gym, or playing PC games to relax. Staying active helps me clear my mind and stay motivated.</p>
-      <app-download-button class="about-me-section__container__information__button" [fileToDownload]="'assets/docs/CV_Niels_Lazaroms.pdf'" [buttonText]="'Download resume'" ></app-download-button>
-    </div>
-    <div class="about-me-section__container__about-me">
-      <img #aboutMeImage class="about-me-section__container__about-me__image" alt="Image where I am standing in a forrest" src="../../../assets/me-forrest.jpg">
-    </div>
-  </div>
-</section>
-<section id="skills-section" class="my-skills-section">
-  <app-section-title [titleText]="'These are'" [subtitleText]="'my skills'"></app-section-title>
-  <div class="my-skills-section__container">
-    <div class="my-skills-section__container__specific">
-      <app-skill-box [skills]="skills" [isDisabled]="isAnimating"
-                     (skillSelected)="setActiveSkill($event)"></app-skill-box>
-    </div>
-    <div class="my-skills-section__container__total" #skillsContainer>
-      <div class="my-skills-section__container__total__data" #totalContainer>
-        <p id="" class="my-skills-section__container__total__data__name">{{ activeSkill.name }}</p>
-        <p class="my-skills-section__container__total__data__quote">"{{ activeSkill.quote }}"</p>
-      </div>
-      <div class="my-skills-section__container__total__progress">
-        <app-skill-progress
-          [title]="'Years Experience'"
-          [min]="0"
-          [max]="activeSkill.maxExperience"
-          [value]="activeSkill.yearsExperience">
-        </app-skill-progress>
+  <section id="projects-section" class="page-section" aria-labelledby="projects-heading">
+    <h2 id="projects-heading" class="section-heading" tabindex="-1">Projects</h2>
+    <app-project-showcase></app-project-showcase>
+  </section>
 
-        <app-skill-progress
-          [title]="'Projects made'"
-          [min]="0"
-          [max]="activeSkill.maxProjects"
-          [value]="activeSkill.projectsMade">
-        </app-skill-progress>
-        <app-skill-progress
-          [title]="'Hours practiced'"
-          [min]="0"
-          [max]="activeSkill.maxHoursPracticed"
-          [value]="activeSkill.hoursPracticed">
-        </app-skill-progress>
-      </div>
+  <section class="words-section" aria-label="How I like to work">
+    <div class="words-section__rows" [class.is-paused]="wordsPaused()">
+      <app-sliding-text [words]="wordList" direction="ltr" [duration]="38"></app-sliding-text>
+      <app-sliding-text [words]="secondWordList" direction="rtl" [duration]="46" [offset]="1"></app-sliding-text>
     </div>
-  </div>
-</section>
-<section id="projects-section" class="projects-section">
-  <app-section-title [titleText]="'Here are'" [subtitleText]="'my projects'"></app-section-title>
-  <div class="projects-section__list">
-    <app-project-list [projects]="projects"></app-project-list>
-  </div>
-</section>
-<section class="sliding-text-section">
-  <app-sliding-text [words]="wordList" [direction]="'ltr'"></app-sliding-text>
-  <app-sliding-text [words]="secondWordList" [direction]="'rtl'"></app-sliding-text>
-</section>
+    <p class="sr-only">{{ allWords }}</p>
+    <button type="button" class="motion-btn words-section__pause" [attr.aria-pressed]="wordsPaused()" (click)="wordsPaused.set(!wordsPaused())"
+            [attr.aria-label]="wordsPaused() ? 'Play sliding words' : 'Pause sliding words'" [title]="wordsPaused() ? 'Play sliding words' : 'Pause sliding words'">
+      @if (wordsPaused()) {
+        <svg lucidePlay></svg>
+      } @else {
+        <svg lucidePause></svg>
+      }
+    </button>
+  </section>
 
-<section id="contact-section" class="contact-section mouse-spotlight-section" appSpotlight>
-  <app-section-title [titleText]="'Lets get'" [subtitleText]="'in touch!'"></app-section-title>
-  <div class="contact-section__container">
-    <div class="contact-section__container__image">
-      <img src="assets/contact-me-image.svg" class="contact-section__container__image__size" alt="Contact Image">
-    </div>
-    <form #contactForm="ngForm" class="contact-section__container__form">
-      <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Name" [(ngModel)]="formData.name" name="name" required/>
-      <label for="subject">Subject</label>
-      <input type="text" id="subject" placeholder="Subject" [(ngModel)]="formData.subject" name="subject" required/>
-      <label for="chat">Chat</label>
-      <textarea id="chat" placeholder="Type your message..." [(ngModel)]="formData.chat" name="chat"
-                required></textarea>
-      <button class="contact-section__container__form__button" (click)="openMail()" [disabled]="contactForm.invalid">
-        Send
-      </button>
-    </form>
-  </div>
-</section>
-<section class="footer-section">
-  <app-footer></app-footer>
-</section>
+  <section id="contact-section" class="contact-section" aria-label="Contact">
+    <app-contour-lamp [peaks]="contactPeaks" [levels]="20"></app-contour-lamp>
+    <app-contact-section></app-contact-section>
+  </section>
+</main>
+
+<app-footer></app-footer>

@@ -1,476 +1,53 @@
 @use '../../../styles/base/index' as b;
 @use '../../../styles/utils/index' as u;
 
-.quote-section {
-  width: 100%;
-  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
-  margin-top: b.$sectionSpacing;
+// Sections with a contour lamp: the lamp sits at z-index -2 inside this stacking context.
+.top-section,
+.contact-section {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-
-  &__container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 18%;
-    margin-bottom: 18%;
-
-
-    &__quote {
-      font-size: b.$slidingText;
-      font-style: italic;
-      text-align: center;
-      color: var(--textColor);
-      width: 100%;
-      z-index: 2;
-    }
-
-    &__highlight {
-      font-size: b.$nameTitle;
-      color: var(--primaryColor);
-      margin: 0;
-      z-index: 2;
-    }
-
-    img {
-      position: absolute;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    &__top--left {
-      top: -30%;
-      left: 5%;
-      width: 15%;
-    }
-
-    &__top--right {
-      top: -60%;
-      right: 20%;
-      width: 15%;
-    }
-
-    &__bottom--left {
-      bottom: -50%;
-      left: 20%;
-      width: 20%;
-    }
-
-    &__bottom--right {
-      bottom: -30%;
-      right: 5%;
-      width: 20%;
-    }
-  }
-
-  @include u.respond-to(tablet) {
-    .quote-section {
-      &__container {
-        margin-top: 0;
-        margin-bottom: 0;
-
-        &__top, &__bottom {
-          display: none;
-        }
-      }
-    }
-  }
 }
 
-.about-me-section {
-  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
+.page-section {
+  // Nothing that moves (the photo deck, the orbit) may widen the page on phones.
+  overflow-x: clip;
+  padding: 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
+  scroll-margin-top: 96px;
 
-  &__container {
-    margin-top: b.$defaultSectionSpacing;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 10%;
-    height: auto;
-    width: 100%;
-
-    &__information {
-      width: 60%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 30px;
-
-      &__text {
-        color: var(--textColor);
-        width: 100%;
-        font-size: b.$navbarFont;
-      }
-
-      &__button {
-        margin-top: 10px;
-        width: 40%;
-
-      }
-    }
-
-    &__about-me {
-      width: 40%;
-      height: 100%;
-      position: relative;
-      overflow: visible;
-      background-color: var(--primaryColor);
-      border-radius: b.$defaultBorderRadius;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &__image {
-        position: relative;
-        z-index: 1;
-        border-radius: b.$defaultBorderRadius;
-        width: 100%;
-      }
-    }
-
-  }
-
-  @include u.respond-to(tablet) {
-    .about-me-section {
-
-      &__container {
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-
-        &__information {
-          width: 100%;
-
-          &__text {
-            width: 100%;
-          }
-
-          &__button {
-            width: 50%;
-          }
-        }
-
-        &__about-me {
-          width: 100%;
-          margin-top: b.$defaultSectionSpacing;
-
-        }
-      }
-    }
-  }
   @include u.respond-to(mobile) {
-    .about-me-section {
-      &__container {
-
-
-        &__information {
-          width: 100%;
-          height: auto;
-
-          &__button {
-            width: 80%;
-          }
-        }
-
-        &__about-me {
-          margin-top: b.$defaultSectionSpacing;
-          width: 80%;
-
-          &__image {
-            width: 100%;
-          }
-
-        }
-      }
-    }
+    padding: 0 20px;
+    margin-top: 120px;
   }
 }
 
-.my-skills-section {
-  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
-  margin-top: b.$sectionSpacing;
-
-  &__container {
-    width: 100%;
-    margin-top: b.$defaultSectionSpacing;
-    display: flex;
-    flex-direction: row;
-
-    &__specific {
-      width: 65%;
-    }
-
-    &__total {
-      padding: b.$defaultSectionSpacing;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      height: 100%;
-      width: 35%;
-      border-radius: b.$defaultBorderRadius;
-      border: 1px solid var(--strokeColor);
-
-      &__data {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        &__name {
-          color: var(--primaryColor);
-          font-size: b.$nameTitle;
-          font-weight: bold;
-          text-align: center;
-        }
-
-        &__quote {
-          color: var(--textColor);
-          font-size: b.$navbarFont;
-          font-weight: bold;
-          font-style: italic;
-          text-align: center;
-          min-height: 5vh;
-        }
-      }
-
-      &__progress {
-        width: 100%;
-      }
-
-    }
-  }
-
-  @include u.respond-to(tablet) {
-    &__container {
-      flex-direction: column;
-
-      &__specific {
-        width: 100%;
-      }
-
-      &__total {
-        margin-top: b.$defaultSectionSpacing;
-        width: 100%;
-      }
-    }
-  }
-}
-
-.projects-section {
-  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
-  margin-top: b.$sectionSpacing;
-
-  &__list {
-    margin-top: b.$defaultSectionSpacing;
-
-  }
-}
-
-.sliding-text-section {
-  margin-top: b.$sectionSpacing;
-}
-
-.mouse-spotlight-section {
+.words-section {
   position: relative;
-  overflow: hidden;
+  margin-top: b.$sectionSpacing;
+  padding-bottom: 64px;
 
-  @media (hover: hover) and (pointer: fine) {
-    &::before {
-      content: "";
-      position: absolute;
-      z-index: 3;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(var(--primaryColor-rgb), 0.5), rgba(var(--secondaryColor-rgb), 0.1) 70%);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      top: var(--spotlight-y, 50%);
-      left: var(--spotlight-x, 50%);
-    }
+  &__pause {
+    position: absolute;
+    right: b.$defaultSideSpacing;
+    bottom: 0;
+  }
 
-    &:hover::before {
-      opacity: 1;
-      cursor: pointer;
+  @include u.respond-to(mobile) {
+    margin-top: 120px;
+
+    &__pause {
+      right: 20px;
     }
   }
 }
 
 .contact-section {
-  padding: 0 b.$defaultSideSpacing 0 b.$defaultSideSpacing;
   margin-top: b.$sectionSpacing;
-
-  &__container {
-    margin-top: b.$defaultSectionSpacing;
-    display: flex;
-    flex-direction: row;
-
-    &__image {
-      width: 60%;
-      z-index: 4;
-
-
-      &__size {
-        width: 50%;
-      }
-    }
-
-    &__form {
-      position: relative;
-      color: var(--textColor);
-      background-color: var(--mainColor);
-      display: flex;
-      z-index: 4;
-      flex-direction: column;
-      align-items: center;
-      border: 1px solid var(--strokeColor);
-      border-radius: b.$defaultBorderRadius;
-      width: 40%;
-      padding: b.$defaultSectionSpacing;
-
-      label {
-        display: block;
-        align-self: flex-start;
-        margin: 1rem 0 0.25rem;
-        font-weight: 500;
-        color: var(--textColor)
-      }
-
-      input,
-      textarea {
-        font-family: "oso-sans-variable", sans-serif;
-        width: 100%;
-        padding: b.$buttonPadding;
-        border: 1px solid var(--strokeColor);
-        background-color: transparent;
-        color: var(--textColor);
-        font-size: 1rem;
-        outline: none;
-        border-radius: b.$defaultBorderRadius;
-
-        &:focus {
-          border-color: var(--primaryColor);
-        }
-      }
-
-      textarea {
-        height: 40%;
-      }
-
-      &__button {
-        width: 100%;
-        margin-top: b.$defaultSectionSpacing;
-        color: var(--textColor);
-        font-size: b.$buttonText;
-        padding: b.$buttonPadding;
-        border-radius: b.$defaultBorderRadius;
-        font-weight: bold;
-        transition: background 0.3s ease-in-out;
-        animation: spin 2.5s infinite linear paused;
-        background: linear-gradient(
-            to bottom,
-            var(--mainColor),
-            var(--mainColor)
-        ) padding-box,
-        conic-gradient(
-            from var(--bg-angle),
-            var(--primaryColor),
-            var(--secondaryColor) 100%
-        ) border-box;
-        border: 1px solid transparent;
-
-        &:hover {
-          animation-play-state: running;
-          cursor: pointer;
-        }
-
-        &:disabled {
-          cursor: default;
-          animation-play-state: paused;
-          background: linear-gradient(
-              to bottom,
-              var(--mainColor),
-              var(--mainColor)
-          ) padding-box,
-          conic-gradient(
-              from var(--bg-angle),
-              var(--white),
-              var(--strokeColor) 100%
-          ) border-box;
-          border: 1px solid transparent;
-        }
-      }
-    }
-  }
-
-  @include u.respond-to(tablet) {
-    &__container {
-      &__image {
-        width: 50%;
-
-        &__size {
-          width: 80%;
-        }
-      }
-
-      &__form {
-        width: 50%;
-
-        textarea {
-          height: 20%;
-        }
-
-      }
-    }
-  }
+  padding: clamp(48px, 7vw, 96px) b.$defaultSideSpacing;
 
   @include u.respond-to(mobile) {
-    &__container {
-      flex-direction: column-reverse;
-
-      &__image {
-        margin-top: b.$defaultSectionSpacing;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-
-        &__size {
-          width: 50%;
-        }
-      }
-
-      &__form {
-        width: 100%;
-      }
-    }
-
+    margin-top: 120px;
+    padding: 56px 20px;
   }
 }
-
-.footer-section {
-  margin-top: b.$sectionSpacing;
-}
-
-
-@property --bg-angle {
-  inherits: false;
-  initial-value: 0deg;
-  syntax: "<angle>";
-}
-
-@keyframes spin {
-  to {
-    --bg-angle: 360deg;
-  }
-}
-

@@ -1,0 +1,373 @@
+:host {
+  display: block;
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+
+  &__col {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    // The turning layers are squares; their corners would stick out past the screen edge on phones.
+    overflow: clip;
+    overflow-clip-margin: 24px;
+  }
+
+  // Fixed minimum height, so picking another skill doesn't make the page jump.
+  &__side {
+    --brand: var(--primaryColor);
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    min-height: 168px;
+  }
+}
+
+.orbit {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 580px);
+  aspect-ratio: 1;
+
+  &__ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--r) * 2cqw);
+    height: calc(var(--r) * 2cqw);
+    border-radius: 50%;
+    border: 1px dashed rgba(var(--primaryColor-rgb), .25);
+    transform: translate(-50%, -50%);
+  }
+
+  // Ring name tag, riding along on its ring.
+  &__tag {
+    display: block;
+    white-space: nowrap;
+    padding: 3px 10px;
+    border: 1px dashed rgba(var(--primaryColor-rgb), .45);
+    border-radius: 999px;
+    background: var(--mainColor);
+    color: var(--muted);
+    font-size: clamp(.625rem, 1.9cqw, .75rem);
+  }
+
+  // Centre circle, styled like the hero ring but in the skill's colour.
+  &__disc {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 40cqw;
+    height: 40cqw;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, var(--mainColor) 80%, var(--brand, var(--primaryColor)) 100%);
+    transition: background .4s;
+
+    img {
+      width: 9cqw;
+      height: 9cqw;
+    }
+
+    .mono {
+      font-size: 6cqw;
+      font-weight: 800;
+    }
+
+    h3 {
+      font-size: clamp(1rem, 5.4cqw, 2.2rem);
+      font-weight: bold;
+      line-height: 1.1;
+    }
+
+    p {
+      font-size: clamp(.75rem, 2.5cqw, .95rem);
+      color: var(--muted);
+    }
+  }
+
+  &__disc-inner {
+    display: grid;
+    justify-items: center;
+    gap: .8cqw;
+    max-width: 30cqw;
+  }
+
+  &__rot {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: spin var(--dur) linear infinite;
+
+    &--reverse {
+      animation-direction: reverse;
+    }
+  }
+
+  &__item {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: rotate(var(--a)) translateX(calc(var(--r) * 1cqw)) rotate(calc(var(--a) * -1));
+  }
+
+  // Turns the other way so logos stay upright.
+  &__face {
+    position: absolute;
+    translate: -50% -50%;
+    animation: spin var(--dur) linear infinite reverse;
+  }
+
+  &__rot--reverse &__face {
+    animation-direction: normal;
+  }
+
+  &__logo {
+    --brand: var(--primaryColor);
+    pointer-events: auto;
+    display: grid;
+    place-items: center;
+    width: clamp(40px, 8.6cqw, 50px);
+    height: clamp(40px, 8.6cqw, 50px);
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1.5px solid color-mix(in srgb, var(--brand) 45%, var(--line));
+    cursor: pointer;
+    transition: transform .2s, border-color .2s, background-color .2s;
+
+    img {
+      width: 58%;
+      height: 58%;
+    }
+
+    .mono {
+      font-size: clamp(11px, 2.6cqw, 14px);
+      font-weight: 800;
+    }
+
+    &:hover, &[aria-pressed="true"] {
+      transform: scale(1.15);
+      border-color: var(--brand);
+      background: color-mix(in srgb, var(--brand) 20%, var(--surface));
+    }
+  }
+
+  &__tip {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 4px);
+    translate: -50% 0;
+    white-space: nowrap;
+    font-size: .75rem;
+    background: var(--mainColor);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 1px 8px;
+    opacity: 0;
+    transition: opacity .15s;
+    pointer-events: none;
+  }
+
+  &__face:hover &__tip, &__logo:focus-visible + &__tip {
+    opacity: 1;
+  }
+
+  // Hovering or tabbing into the orbit pauses it.
+  &:hover, &:focus-within {
+    .orbit__rot, .orbit__face {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.panel__title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  span {
+    font-size: .875rem;
+    font-weight: normal;
+    color: var(--muted);
+  }
+}
+
+.panel__what {
+  max-width: 42ch;
+  line-height: 1.5;
+}
+
+.panel__used {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--textColor);
+  font-size: .875rem;
+  cursor: pointer;
+  transition: border-color .2s, background-color .2s;
+
+  &:hover {
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 12%, var(--surface));
+  }
+
+  &__year {
+    font-size: .75rem;
+    color: var(--muted);
+  }
+
+  &--all {
+    border-style: dashed;
+    background: none;
+    color: var(--muted);
+
+    &:hover {
+      color: var(--textColor);
+    }
+  }
+
+  @media (pointer: coarse) {
+    min-height: 44px;
+  }
+}
+
+// Phone only: the chip rows.
+.skills__rows {
+  display: none;
+}
+
+.ring-row {
+  display: grid;
+  gap: 10px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  // Three dots: how close to the centre this ring is.
+  &__dots {
+    display: inline-flex;
+    gap: 3px;
+
+    span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid var(--primaryColor);
+    }
+
+    .is-on {
+      background: var(--primaryColor);
+    }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 6px 14px 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--textColor);
+  font-size: .9375rem;
+  cursor: pointer;
+
+  img, .mono {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mono {
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 18%, var(--surface));
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__rot, .orbit__face {
+    animation: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .skills {
+    gap: 28px;
+  }
+
+  .skills__col {
+    display: none;
+  }
+
+  .skills__rows {
+    display: grid;
+    gap: 22px;
+  }
+
+  .skills__side {
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+}

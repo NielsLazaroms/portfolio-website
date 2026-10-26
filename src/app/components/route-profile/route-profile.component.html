@@ -1,0 +1,14 @@
+<svg [attr.viewBox]="viewBox" class="profile" [class.is-drawn]="drawn()" role="group" aria-label="My route from Fontys to Essent">
+  <path class="profile__area" [attr.d]="area()"/>
+  <path class="profile__line" [attr.d]="line()" pathLength="1"/>
+  @for (w of waypoints(); track w.step.title) {
+    <g class="profile__point" [class.is-now]="w.step.isNow" [class.is-selected]="w.step === selected()"
+       tabindex="0" role="button" [attr.aria-pressed]="w.step === selected()"
+       [attr.aria-label]="w.step.year + ': ' + w.step.title"
+       (click)="select.emit(w.step)" (keydown)="onKey($event, w.step)">
+      <circle [attr.cx]="w.x" [attr.cy]="w.y" r="6.5"/>
+      <text [attr.x]="w.labelX" [attr.y]="w.labelY" [attr.text-anchor]="w.anchor">{{ w.step.title }}</text>
+      <text class="profile__year" [attr.x]="w.labelX" [attr.y]="w.yearY" [attr.text-anchor]="w.anchor">{{ w.step.isNow ? 'Now' : w.step.year }}</text>
+    </g>
+  }
+</svg>

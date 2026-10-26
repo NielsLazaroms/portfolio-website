@@ -1,0 +1,19 @@
+<button type="button" class="deck" (click)="next()" (pointerenter)="setHover(true)" (pointerleave)="setHover(false)"
+        [attr.aria-label]="'Show next photo. Now showing: ' + top().caption">
+  @for (photo of photos; track photo.src; let i = $index) {
+    <img [src]="photo.src" [alt]="i === order()[0] ? photo.alt : ''" loading="lazy"
+         class="deck__card" [attr.data-pos]="positionOf(i)" [class.is-leaving]="leaving() === i"
+         [attr.aria-hidden]="i !== order()[0]">
+  }
+</button>
+<div class="deck__footer">
+  <span class="deck__caption">{{ top().caption }}</span>
+  <button type="button" class="deck__pause" (click)="togglePause()" [attr.aria-pressed]="paused()"
+          [attr.aria-label]="paused() ? 'Play photos' : 'Pause photos'">
+    @if (paused()) {
+      <svg lucidePlay></svg>
+    } @else {
+      <svg lucidePause></svg>
+    }
+  </button>
+</div>

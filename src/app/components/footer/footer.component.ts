@@ -1,24 +1,14 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {GithubIconComponent} from '../brand-icons/github-icon.component';
+import {LinkedinIconComponent} from '../brand-icons/linkedin-icon.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [GithubIconComponent, LinkedinIconComponent],
   templateUrl: './footer.component.html',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-  currentYear: number;
-  constructor() {
-    this.currentYear = new Date().getFullYear();
-  }
-
-  scrollToSection(sectionId: string) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
+  readonly currentYear = new Date().getFullYear();
 }

@@ -1,33 +1,42 @@
 @use '../../../styles/base/index' as b;
-@use '../../../styles/utils/index' as u;
 
-.sliding-text-container {
+:host {
+  display: block;
   overflow: hidden;
-  white-space: nowrap;
-  position: relative;
+}
 
+.row {
+  display: flex;
+  width: max-content;
+  animation: slide 40s linear infinite;
 
-  &__text {
-    display: flex;
-    line-height: 1.2;
+  &--ltr {
+    animation-direction: reverse;
+  }
+
+  span {
+    padding-right: .6em;
     font-size: b.$slidingText;
     font-weight: bold;
-    will-change: transform;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--textColor);
+  }
 
+  .outlined {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--textColor);
+  }
+}
 
-    &__wrapper {
-      display: flex;
-      min-width: max-content;
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
 
-
-      &--textColor {
-        color: var(--textColor);
-      }
-
-      &--textColorStroke {
-        color: transparent;
-        -webkit-text-stroke: 1px var(--textColor);
-      }
-    }
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    animation: none;
   }
 }

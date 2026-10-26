@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  overflow-x: auto;
+}
+
+.profile {
+  display: block;
+  width: 100%;
+  min-width: 720px; // keeps the labels readable on tablets; phones get a list instead
+  height: auto;
+  overflow: visible;
+
+  &__area {
+    fill: var(--accent-soft);
+    opacity: 0;
+    transition: opacity 1s .9s;
+  }
+
+  &__line {
+    fill: none;
+    stroke: var(--primaryColor);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.8s cubic-bezier(.215, .61, .355, 1);
+  }
+
+  &.is-drawn &__line {
+    stroke-dashoffset: 0;
+  }
+
+  &.is-drawn &__area {
+    opacity: 1;
+  }
+
+  &__point {
+    cursor: pointer;
+    outline: none;
+
+    circle {
+      fill: var(--mainColor);
+      stroke: var(--primaryColor);
+      stroke-width: 2.5;
+      transition: r .2s;
+    }
+
+    text {
+      fill: var(--textColor);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .profile__year {
+      fill: var(--muted);
+      font-weight: 400;
+      font-size: 12.5px;
+    }
+
+    &.is-now circle {
+      fill: var(--primaryColor);
+    }
+
+    &:hover circle, &.is-selected circle {
+      r: 9;
+    }
+
+    &:focus-visible circle {
+      r: 9;
+      stroke-width: 4;
+    }
+
+    &.is-selected text:not(.profile__year), &:focus-visible text:not(.profile__year) {
+      fill: var(--primaryColor);
+    }
+  }
+}
