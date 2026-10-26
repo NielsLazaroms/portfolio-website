@@ -1,8 +1,8 @@
-<svg class="topo topo--base" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+<svg class="topo topo--base" viewBox="0 0 1600 800" [attr.preserveAspectRatio]="align() + ' slice'" focusable="false">
   <path class="topo__minor" [attr.d]="paths().minor"/>
   <path class="topo__major" [attr.d]="paths().major"/>
 </svg>
-<svg class="topo topo--lamp" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+<svg class="topo topo--lamp" viewBox="0 0 1600 800" [attr.preserveAspectRatio]="align() + ' slice'" focusable="false">
   <path class="topo__minor" [attr.d]="paths().minor"/>
   <path class="topo__major" [attr.d]="paths().major"/>
 </svg>

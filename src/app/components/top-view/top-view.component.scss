@@ -1,89 +1,137 @@
 @use '../../../styles/base/index' as b;
+@use '../../../styles/utils/index' as u;
 
 .top-view {
-  display: grid;
-  place-items: center;
-  height: max(560px, 100vh);
-  padding-top: 80px; // room for the fixed navbar
-}
-
-// One circle around the name: a soft green rim with a see-through centre,
-// so the contour map runs through it, plus a thin contour line just outside.
-.ring {
   position: relative;
   display: grid;
-  place-items: center;
-  width: min(86vw, 62vh, 520px);
-  aspect-ratio: 1;
-  text-align: center;
+  align-items: center;
+  height: max(560px, 100vh);
+  padding: 80px b.$defaultSideSpacing 0; // room for the fixed navbar
+}
 
-  &__glow {
-    position: absolute;
-    inset: 4%; // its edge sits on the main ring (r = 92 of 100)
-    border-radius: 50%;
-    background: radial-gradient(closest-side,
-      transparent 66%,
-      rgba(var(--primaryColor-rgb), .1) 80%,
-      rgba(var(--primaryColor-rgb), .55) 94%,
-      var(--primaryColor) 100%);
+// The route on the contour map. Same viewBox and slicing as the contour lamp, so they line up.
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  &__line {
+    fill: none;
+    stroke: var(--primaryColor);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
   }
 
-  &__lines {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-
+  &__point {
     circle {
-      fill: none;
+      fill: var(--mainColor);
       stroke: var(--primaryColor);
-      stroke-dasharray: 1;
-      stroke-dashoffset: 0;
-      transform: rotate(-90deg);
-      transform-origin: center;
+      stroke-width: 2.5;
+      vector-effect: non-scaling-stroke;
+    }
+
+    text {
+      fill: var(--textColor);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    &.is-now {
+      circle {
+        fill: var(--primaryColor);
+      }
+
+      text {
+        fill: var(--primaryColor);
+      }
     }
   }
 
-  &__main {
-    stroke-width: 1.6;
-    filter: drop-shadow(0 0 6px rgba(var(--primaryColor-rgb), .55));
+  &__year {
+    fill: var(--muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
   }
 
-  &__outer {
-    stroke-width: .45;
-    opacity: .4;
+  &--narrow {
+    display: none;
+  }
+}
+
+// The one moment of motion: the route draws itself once, from Fontys up to Essent.
+@media (prefers-reduced-motion: no-preference) {
+  .map__line {
+    animation: draw-route 2.2s .2s cubic-bezier(.215, .61, .355, 1) backwards;
   }
 
-  &__text {
-    position: relative;
-    display: grid;
-    gap: 6px;
-    max-width: 80%;
-
-    h1 {
-      font-size: b.$nameTitle;
-      font-weight: bold;
-      line-height: 1.1;
+  @keyframes draw-route {
+    from {
+      stroke-dashoffset: 1;
     }
   }
 }
 
-.highlight {
-  min-height: 1.3em;
-  color: var(--primaryColor);
-  font-size: b.$highlightText;
-  font-weight: 600;
+.intro {
+  position: relative;
+  display: grid;
+  gap: clamp(14px, 2vw, 22px);
+  max-width: min(560px, 40vw);
+
+  &__name {
+    font-size: clamp(3rem, 7.5vw, 7rem);
+    font-weight: 800;
+    line-height: .92;
+    letter-spacing: -.01em;
+  }
+
+  &__role {
+    max-width: 34ch;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 1.6vw, 1.375rem);
+    line-height: 1.45;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+  }
 }
 
-.typewriter {
-  border-right: 2px solid var(--primaryColor);
-  padding-right: 5px;
-  animation: blink .8s infinite;
+// Portrait and near-square screens (up to about 4:3): there's no room for the route next to the
+// intro, so the route climbs at the top right and the intro sits below it.
+@media (max-aspect-ratio: 27/20) {
+  .top-view {
+    align-items: end;
+    padding: 80px b.$defaultSideSpacing clamp(40px, 7vh, 72px);
+
+    @include u.respond-to(mobile) {
+      padding-inline: 20px;
+    }
+  }
+
+  .map--wide {
+    display: none;
+  }
+
+  .map--narrow {
+    display: block;
+  }
+
+  .intro {
+    max-width: 560px;
+  }
 }
 
-@keyframes blink {
-  50% {
-    border-color: transparent;
+// Very short phones: the intro reaches up to the start of the route, so drop that one label.
+@media (max-aspect-ratio: 27/20) and (max-height: 600px) {
+  .map--narrow .map__point:first-of-type text {
+    display: none;
   }
 }

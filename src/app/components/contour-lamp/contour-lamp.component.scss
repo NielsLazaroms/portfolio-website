@@ -29,7 +29,7 @@
 
   &--base {
     color: var(--textColor);
-    opacity: .07;
+    opacity: var(--topo-base-opacity, .07);
   }
 
   &--lamp {

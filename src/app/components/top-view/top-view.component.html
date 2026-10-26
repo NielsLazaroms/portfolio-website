@@ -1,14 +1,31 @@
 <div class="top-view">
-  <div class="ring" #ring>
-    <div class="ring__glow" aria-hidden="true"></div>
-    <svg class="ring__lines" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-      <circle class="ring__outer" cx="100" cy="100" r="98" pathLength="1"/>
-      <circle class="ring__main" cx="100" cy="100" r="92" pathLength="1"/>
+  @for (map of [wide, narrow]; track $index) {
+    <svg class="map" [class.map--wide]="map === wide" [class.map--narrow]="map === narrow"
+         viewBox="0 0 1600 800" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">
+      <path class="map__line" [attr.d]="map.d" pathLength="1"/>
+      @for (p of map.points; track $index) {
+        <g class="map__point" [class.is-now]="p.isNow">
+          <circle [attr.cx]="p.x" [attr.cy]="p.y" [attr.r]="p.isNow ? 9 : 6.5"/>
+          @if (p.label) {
+            <text [attr.x]="p.side === 'right' ? p.x + 16 : p.side === 'left' ? p.x - 18 : p.x"
+                  [attr.y]="p.side === 'above' ? p.y - 22 : p.y + 5"
+                  [attr.text-anchor]="p.side === 'right' ? 'start' : p.side === 'left' ? 'end' : 'middle'">{{ p.label }}</text>
+            @if (p.year) {
+              <text class="map__year" [attr.x]="p.side === 'right' ? p.x + 16 : p.x - 18" [attr.y]="p.y + 23"
+                    [attr.text-anchor]="p.side === 'right' ? 'start' : 'end'">{{ p.year }}</text>
+            }
+          }
+        </g>
+      }
     </svg>
-    <div class="ring__text">
-      <h1>Niels Lazaroms</h1>
-      <p class="highlight" aria-hidden="true"><span class="typewriter" #typewriter></span></p>
-      <p class="sr-only">Web Designer and Creative Developer</p>
+  }
+
+  <div class="intro">
+    <h1 class="intro__name">Niels<br>Lazaroms</h1>
+    <p class="intro__role">Full-stack developer at Essent. I design screens and build them myself, mostly in Angular.</p>
+    <div class="intro__actions">
+      <a class="btn btn--primary" href="#projects-section" (click)="go('projects-section', $event)">See projects</a>
+      <a class="btn" href="#contact-section" (click)="go('contact-section', $event)">Get in touch</a>
     </div>
   </div>
 </div>

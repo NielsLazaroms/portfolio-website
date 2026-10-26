@@ -1,36 +1,55 @@
-@use '../../../styles/base/index' as b;
-
 :host {
   display: block;
 }
 
+// Text left, photos right.
 .about {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px); // same as Skills
   align-items: center;
+
+  // Bigger than the deck's own default. It starts right after the gap, so the space
+  // between text and photos stays the same as in Skills on every screen width.
+  &__photos {
+    justify-self: start;
+    width: min(100%, 400px);
+  }
 
   &__text {
     display: grid;
-    gap: 16px;
-    max-width: 60ch;
-    font-size: 1.0625rem;
+    gap: 20px;
+
+    .section-heading {
+      max-width: 14ch;
+      margin-bottom: 0;
+    }
   }
 
-  &__title {
-    font-size: clamp(2.6rem, 7vw, 5rem);
-    font-weight: bold;
-    line-height: .95;
+  &__lead {
+    max-width: 52ch;
+    font-size: clamp(1.15rem, 1.6vw, 1.375rem);
+    line-height: 1.55;
   }
 
-  &__now {
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+
+  // Project names read as part of the sentence, but open the project.
+  &__project {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--primaryColor);
+    font: inherit;
     font-weight: 600;
-    line-height: 1.2;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: .18em;
+    text-decoration-color: rgba(var(--primaryColor-rgb), .4);
+    cursor: pointer;
+    transition: text-decoration-color .2s;
 
-    b {
-      color: var(--primaryColor);
-      font-weight: 600;
+    &:hover {
+      text-decoration-color: var(--primaryColor);
     }
   }
 
@@ -38,130 +57,44 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 6px;
+    margin-top: 4px;
   }
-
 }
 
-.about__photos {
-  justify-self: center;
-}
-
-.route {
-  margin-top: clamp(32px, 4vw, 48px);
+// Short personal facts, easy to scan.
+.facts {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 32px;
+  margin: 8px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
 
-  &__title {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  &__hint {
-    margin-left: 8px;
-    color: var(--muted);
-    font-size: .8125rem;
-    font-weight: 400;
-  }
-
-  &__detail {
+  > div {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 4px 14px;
-    align-items: baseline;
-    padding: 12px 16px;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: var(--surface);
-
-    strong {
-      font-weight: 600;
-    }
-
-    p {
-      grid-column: 2;
-      color: var(--muted);
-      max-width: 75ch;
-    }
+    gap: 2px;
+    align-content: start;
   }
 
-  &__year {
-    color: var(--primaryColor);
+  dt {
+    color: var(--muted);
+    font-size: .875rem;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.0625rem;
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  &__list {
-    display: none;
-    margin-top: 8px;
-
-    li {
-      position: relative;
-      padding: 0 0 16px 30px;
-
-      // Line between steps
-      &::before {
-        content: "";
-        position: absolute;
-        left: 6px;
-        top: 18px;
-        bottom: -4px;
-        width: 2px;
-        background: rgba(var(--primaryColor-rgb), .45);
-      }
-
-      &:last-child::before {
-        display: none;
-      }
-
-      // Step marker
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 4px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        border: 2.5px solid var(--primaryColor);
-        background: var(--mainColor);
-      }
-
-      &.is-now::after {
-        background: var(--primaryColor);
-      }
-    }
-
-    h4 {
-      margin: 2px 0 2px;
-      font-size: 1.125rem;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-
-    p {
-      color: var(--muted);
-    }
+    line-height: 1.35;
   }
 }
 
-
-
-@media (max-width: 760px) {
+@media (max-width: 860px) {
   .about {
     grid-template-columns: 1fr;
   }
 
-}
-
-@media (max-width: 640px) {
-  .route {
-    &__profile, &__detail, &__hint {
-      display: none;
-    }
-
-    &__list {
-      display: block;
-    }
+  .about__photos {
+    justify-self: center;
   }
 }

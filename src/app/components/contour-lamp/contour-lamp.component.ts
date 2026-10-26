@@ -17,6 +17,8 @@ import {prefersReducedMotion} from '../../utils/motion';
 export class ContourLampComponent {
   readonly peaks = input<Peak[]>(HERO_PEAKS);
   readonly levels = input(24);
+  /** Which part of the map stays in view when the screen is narrower than the map. */
+  readonly align = input<'xMidYMid' | 'xMaxYMid'>('xMidYMid');
   protected readonly paths = computed(() => buildContourPaths(this.peaks(), this.levels()));
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
