@@ -381,10 +381,26 @@
     margin-top: 6px;
     padding: 16px 16px 18px;
     border-radius: 18px;
-    border: 1px solid color-mix(in srgb, var(--brand) 45%, var(--line));
-    background: color-mix(in srgb, var(--brand) 7%, var(--surface));
+    border: 1px solid var(--brand);
+    background: var(--surface);
     animation: panel-in .25s ease-out;
     scroll-margin-bottom: 16px;
+
+    // One project per line: names and years line up, and every row is the same width.
+    .pills {
+      display: grid;
+    }
+
+    .pill {
+      width: 100%;
+      justify-content: space-between;
+      background: var(--mainColor);
+    }
+
+    .pill--all {
+      justify-content: center;
+      background: none;
+    }
   }
 }
 
