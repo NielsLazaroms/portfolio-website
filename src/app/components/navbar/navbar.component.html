@@ -1,30 +1,26 @@
-<nav class="navbar" [class.navbar--open]="menuOpen">
-  <div class="navbar__logo">
-    <a (click)="scrollToSection('top-section')">Niels Lazaroms</a>
-  </div>
-  <ul class="navbar__list" [class.navbar__list--open]="menuOpen">
-    <li class="navbar__list__item"><a (click)="scrollToSection('about-section')">About</a></li>
-    <li class="navbar__list__item"><a (click)="scrollToSection('skills-section')">Skills</a></li>
-    <li class="navbar__list__item"><a (click)="scrollToSection('projects-section')">Projects</a></li>
-    <li class="navbar__list__item--right">
-      <app-toggle-slider></app-toggle-slider>
-    </li>
+<nav class="nav" [class.is-scrolled]="scrolled()" [class.is-open]="menuOpen()" aria-label="Main">
+  <a class="nav__brand" href="#top-section" (click)="go('top-section', $event)">
+    Niels Lazaroms
+  </a>
 
-    @if (menuOpen) {
-      <div class="navbar__contact">
-        <a (click)="scrollToSection('contact-section')">Contact</a>
-      </div>
+  <ul class="nav__links" id="main-menu">
+    @for (link of links; track link.id) {
+      <li>
+        <a class="nav__link" [href]="'#' + link.id" (click)="go(link.id, $event)"
+           [attr.aria-current]="active() === link.id ? 'location' : null">{{ link.label }}</a>
+      </li>
     }
+    <li class="nav__theme"><app-toggle-slider></app-toggle-slider></li>
+    <li><a class="btn btn--primary nav__contact" href="#contact-section" (click)="go('contact-section', $event)">Contact</a></li>
   </ul>
-  @if (!menuOpen) {
-    <div class="navbar__contact">
-      <a (click)="scrollToSection('contact-section')">Contact</a>
-    </div>
-  }
-  <div class="navbar__toggle" (click)="toggleMenu()" [class.navbar__toggle--open]="menuOpen">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
 
+  <button class="nav__toggle" type="button" (click)="toggleMenu()"
+          [attr.aria-expanded]="menuOpen()" aria-controls="main-menu"
+          [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'">
+    @if (menuOpen()) {
+      <svg lucideX></svg>
+    } @else {
+      <svg lucideMenu></svg>
+    }
+  </button>
 </nav>

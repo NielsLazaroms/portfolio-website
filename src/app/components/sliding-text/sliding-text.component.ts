@@ -1,67 +1,19 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { NgClass } from '@angular/common';
-import gsap from 'gsap';
+import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core';
 
+/** One row of large words that slides endlessly. Decorative: the parent offers the words as plain text too. */
 @Component({
   selector: 'app-sliding-text',
-  standalone: true,
-  imports: [NgClass],
   templateUrl: './sliding-text.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrls: ['./sliding-text.component.scss']
+  styleUrls: ['./sliding-text.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {'aria-hidden': 'true'},
 })
-export class SlidingTextComponent implements OnInit, AfterViewInit {
-  @Input() words: string[] = [];
-  @Input() direction: 'rtl' | 'ltr' = 'rtl';
-  marqueeWords: string[] = [];
-  @ViewChild('textWrapper', { static: true }) textWrapper!: ElementRef;
-
-  ngOnInit() {
-    this.marqueeWords = [...this.words, ...this.words];
-  }
-
-  ngAfterViewInit() {
-    this.createMarqueeEffect();
-  }
-
-  private createMarqueeEffect() {
-    if (!this.textWrapper) return;
-    const wrapper = this.textWrapper.nativeElement;
-
-    setTimeout(() => {
-      const totalWidth = wrapper.scrollWidth;
-      const halfWidth = totalWidth / 2;
-      const duration = 50;
-
-      if (this.direction === 'rtl') {
-        gsap.fromTo(
-          wrapper,
-          { x: 0 },
-          {
-            x: -halfWidth,
-            duration,
-            ease: 'none',
-            repeat: -1,
-            onRepeat: () => {
-              gsap.set(wrapper, { x: 0 });
-            }
-          }
-        );
-      } else {
-        gsap.fromTo(
-          wrapper,
-          { x: -halfWidth },
-          {
-            x: 0,
-            duration,
-            ease: 'none',
-            repeat: -1,
-            onRepeat: () => {
-              gsap.set(wrapper, { x: -halfWidth });
-            }
-          }
-        );
-      }
-    }, 0);
-  }
+export class SlidingTextComponent {
+  readonly words = input<string[]>([]);
+  readonly direction = input<'rtl' | 'ltr'>('rtl');
+  readonly duration = input(40);
+  /** Shift which words are outlined, so two rows don't line up. */
+  readonly offset = input(0);
+  /** Two copies, so the row can loop seamlessly. */
+  protected readonly loop = computed(() => [...this.words(), ...this.words()]);
 }

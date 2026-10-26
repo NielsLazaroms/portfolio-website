@@ -30,5 +30,8 @@ export class ThemeService {
 
   private activateTheme(theme: Theme) {
     document.documentElement.setAttribute("data-theme", theme);
+    // Match the phone browser bar to the page background.
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === Theme.LIGHT ? '#EDF1EA' : '#151515');
   }
 }

@@ -1,125 +1,89 @@
 @use '../../../styles/base/index' as b;
-@use '../../../styles/utils/index' as u;
 
 .top-view {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  place-items: center;
+  height: max(560px, 100vh);
+  padding-top: 80px; // room for the fixed navbar
+}
+
+// One circle around the name: a soft green rim with a see-through centre,
+// so the contour map runs through it, plus a thin contour line just outside.
+.ring {
   position: relative;
-  height: 90vh;
-  width: 100%;
-  align-items: center;
-  top: 90px;
-  justify-content: center;
-  perspective: 800px;
+  display: grid;
+  place-items: center;
+  width: min(86vw, 62vh, 520px);
+  aspect-ratio: 1;
+  text-align: center;
 
-  &__center {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70%;
-    height: 70%;
-    transform-style: preserve-3d;
-
+  &__glow {
+    position: absolute;
+    inset: 4%; // its edge sits on the main ring (r = 92 of 100)
+    border-radius: 50%;
+    background: radial-gradient(closest-side,
+      transparent 66%,
+      rgba(var(--primaryColor-rgb), .1) 80%,
+      rgba(var(--primaryColor-rgb), .55) 94%,
+      var(--primaryColor) 100%);
   }
 
-  &__center-image {
+  &__lines {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    z-index: 1;
-  }
+    overflow: visible;
 
-  &__center-text {
-    text-align: center;
-    z-index: 2;
-    color: var(--textColor);
-    font-size: b.$nameTitle;
-    font-weight: bold;
-    max-width: 60%;
-  }
-
-  #typewriter {
-    font-weight: bold;
-    color: var(--primaryColor);
-    border-right: 2px solid var(--primaryColor);
-    padding-right: 5px;
-    animation: blink 0.8s infinite;
-  }
-
-  @keyframes blink {
-    50% {
-      border-color: transparent;
+    circle {
+      fill: none;
+      stroke: var(--primaryColor);
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+      transform: rotate(-90deg);
+      transform-origin: center;
     }
   }
 
-  .highlight {
-    color: var(--primaryColor);
-    font-size: b.$highlightText;
-    font-weight: 600;
+  &__main {
+    stroke-width: 1.6;
+    filter: drop-shadow(0 0 6px rgba(var(--primaryColor-rgb), .55));
   }
 
-  &__small-circle {
-    position: absolute;
-    display: block;
-    z-index: 0;
+  &__outer {
+    stroke-width: .45;
+    opacity: .4;
   }
 
-  &__small-circle--left {
-    left: 15%;
-    width: 25%;
-    top: 3%;
-    z-index: -1;
+  &__text {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    max-width: 80%;
 
-  }
-
-  &__small-circle--right {
-    right: 15%;
-    width: 25%;
-    top: 3%;
-    z-index: -1;
-  }
-
-  &__small-circle--bottom-left {
-    left: 0;
-    bottom: 0;
-  }
-
-  &__small-circle--bottom-right {
-    right: 0;
-    bottom: 0;
-  }
-  @include u.respond-to(tablet) {
-    &__small-circle--right {
-      top: 7%;
-      right: 1%;
-      width: 40%;
-    }
-    &__small-circle--left {
-      top: 7%;
-      left: 1%;
-      width: 40%;
-    }
-
-    &__small-circle--bottom-left,
-    &__small-circle--bottom-right {
-      display: none;
+    h1 {
+      font-size: b.$nameTitle;
+      font-weight: bold;
+      line-height: 1.1;
     }
   }
+}
 
-  @include u.respond-to(mobile) {
-    &__small-circle {
-      display: none;
-    }
+.highlight {
+  min-height: 1.3em;
+  color: var(--primaryColor);
+  font-size: b.$highlightText;
+  font-weight: 600;
+}
 
-    &__center {
-      width: 90%;
-      height: 90%;
-    }
+.typewriter {
+  border-right: 2px solid var(--primaryColor);
+  padding-right: 5px;
+  animation: blink .8s infinite;
+}
 
-    &__center-text {
-      max-width: 80%;
-    }
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
 }

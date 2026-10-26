@@ -1,0 +1,49 @@
+// Sits behind the section content. The parent section needs `position: relative` and `isolation: isolate`.
+:host {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.topo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  path {
+    fill: none;
+    stroke: currentColor;
+    vector-effect: non-scaling-stroke;
+  }
+
+  &__minor {
+    stroke-width: .8;
+  }
+
+  &__major {
+    stroke-width: 1.5;
+  }
+
+  &--base {
+    color: var(--textColor);
+    opacity: .07;
+  }
+
+  &--lamp {
+    color: var(--primaryColor);
+    -webkit-mask-image: radial-gradient(circle var(--lamp-r, 0px) at var(--lamp-x, 50%) var(--lamp-y, 50%), #000 0%, rgba(0, 0, 0, .6) 45%, transparent 100%);
+    mask-image: radial-gradient(circle var(--lamp-r, 0px) at var(--lamp-x, 50%) var(--lamp-y, 50%), #000 0%, rgba(0, 0, 0, .6) 45%, transparent 100%);
+  }
+}
+
+// Touch screens and reduced motion: show the green lines still and dimmed.
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .topo--lamp {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: .25;
+  }
+}

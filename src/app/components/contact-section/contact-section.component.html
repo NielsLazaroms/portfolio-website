@@ -1,0 +1,45 @@
+<div class="contact">
+  <div>
+    <h2 class="contact__title">Let's get in touch.</h2>
+    <p class="contact__lead">A project, a question, or just want to talk front-end? Send me a message.</p>
+    <div class="contact__mail">
+      <span class="contact__address">{{ email }}</span>
+      <button type="button" class="icon-btn" (click)="copyEmail()"
+              [attr.aria-label]="copied() ? 'Copied' : 'Copy email address'"
+              [attr.title]="copied() ? 'Copied' : 'Copy email address'">
+        @if (copied()) {
+          <svg lucideCheck></svg>
+        } @else {
+          <svg lucideCopy></svg>
+        }
+      </button>
+    </div>
+    <div class="contact__socials">
+      <a class="btn" href="https://www.linkedin.com/in/niels-lazaroms-608664242/" target="_blank" rel="noopener">
+        <app-linkedin-icon/>LinkedIn<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a class="btn" href="https://github.com/NielsLazaroms" target="_blank" rel="noopener">
+        <app-github-icon/>GitHub<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+  </div>
+
+  <form #contactForm="ngForm" class="form" (ngSubmit)="openMail()">
+    <label for="contact-name">Name
+      <input type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your name"
+             [(ngModel)]="formData.name" required/>
+    </label>
+    <label for="contact-subject">Subject
+      <input type="text" id="contact-subject" name="subject" placeholder="What's it about?"
+             [(ngModel)]="formData.subject" required/>
+    </label>
+    <label for="contact-message">Message
+      <textarea id="contact-message" name="message" placeholder="Type your message"
+                [(ngModel)]="formData.message" required></textarea>
+    </label>
+    <button class="btn btn--primary" type="submit" [disabled]="contactForm.invalid">
+      <svg lucideMail></svg>Open in my email app
+    </button>
+    <p class="form__status" aria-live="polite">{{ status() }}</p>
+  </form>
+</div>

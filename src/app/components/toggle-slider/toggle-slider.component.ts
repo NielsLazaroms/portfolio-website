@@ -1,12 +1,11 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {LucideMoon, LucideSun} from '@lucide/angular';
 import {Theme, ThemeService} from '../../services/theme.service';
 
 @Component({
   selector: 'app-toggle-slider',
-  imports: [
-    FormsModule
-  ],
+  imports: [FormsModule, LucideSun, LucideMoon],
   templateUrl: './toggle-slider.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.Eager,

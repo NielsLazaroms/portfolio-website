@@ -1,0 +1,91 @@
+$ease: cubic-bezier(.215, .61, .355, 1);
+
+:host {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  width: min(100%, 280px);
+}
+
+.deck {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 18px;
+
+  &:focus-visible {
+    outline-offset: 8px;
+  }
+}
+
+.deck__card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, .6);
+  transition: transform .6s $ease, opacity .6s $ease;
+
+  // The cards behind fan out slightly, so you can see it is a pile.
+  &[data-pos="0"] { z-index: 4; transform: none; }
+  &[data-pos="1"] { z-index: 3; transform: translate(10px, -6px) rotate(4deg); }
+  &[data-pos="2"] { z-index: 2; transform: translate(-12px, -4px) rotate(-5deg); }
+  &[data-pos="3"] { z-index: 1; transform: translate(4px, -10px) rotate(2deg); opacity: .8; }
+
+  // The top card swings out to the right and slides to the back of the pile.
+  &.is-leaving {
+    animation: deal .9s $ease forwards;
+  }
+}
+
+@keyframes deal {
+  0% { z-index: 4; transform: none; }
+  45% { z-index: 4; transform: translate(72%, -4%) rotate(14deg); }
+  55% { z-index: 0; transform: translate(72%, -4%) rotate(14deg); }
+  100% { z-index: 0; transform: translate(4px, -10px) rotate(2deg); }
+}
+
+.deck__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deck__caption {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.deck__pause {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--mainColor);
+  color: var(--textColor);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--primaryColor);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (pointer: coarse) {
+  .deck__pause {
+    width: 44px;
+    height: 44px;
+  }
+}

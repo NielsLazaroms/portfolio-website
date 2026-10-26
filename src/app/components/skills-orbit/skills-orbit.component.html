@@ -1,0 +1,116 @@
+<div class="skills">
+  <div class="skills__col">
+    <div class="orbit" [class.is-paused]="paused()" role="group" aria-label="Skills. The closer the ring to the centre, the more I use it.">
+      @for (ring of rings; track ring) {
+        <div class="orbit__ring" [style.--r]="radii[ring]" aria-hidden="true"></div>
+      }
+
+      <div class="orbit__disc" [style.--brand]="selected().brand" aria-live="polite">
+        <div class="orbit__disc-inner">
+          @if (selected().image) {
+            <img [src]="selected().image" alt="">
+          } @else {
+            <span class="mono" [style.color]="selected().brand">{{ selected().mono }}</span>
+          }
+          <h3>{{ selected().name }}</h3>
+        </div>
+      </div>
+
+      @for (ring of rings; track ring) {
+        <div class="orbit__rot" [class.orbit__rot--reverse]="ring === 2" [style.--dur]="durations[ring] + 's'">
+          <!-- The ring's own name tag travels with it, so it never gets covered by a logo. -->
+          <div class="orbit__item" [style.--a]="tagAngles[ring] + 'deg'" [style.--r]="radii[ring]" aria-hidden="true">
+            <div class="orbit__face" [style.--dur]="durations[ring] + 's'">
+              <span class="orbit__tag">{{ ringLabels[ring] }}</span>
+            </div>
+          </div>
+          @for (item of itemsByRing()[ring]; track item.skill.name) {
+            <div class="orbit__item" [style.--a]="item.angle + 'deg'" [style.--r]="radii[ring]">
+              <div class="orbit__face" [style.--dur]="durations[ring] + 's'">
+                <button type="button" class="orbit__logo" [style.--brand]="item.skill.brand"
+                        [attr.aria-pressed]="item.skill === selected()"
+                        [attr.aria-label]="item.skill.name + ', ' + ringLabels[item.skill.ring].toLowerCase()"
+                        (click)="selected.set(item.skill)">
+                  @if (item.skill.image) {
+                    <img [src]="item.skill.image" alt="">
+                  } @else {
+                    <span class="mono" [style.color]="item.skill.brand">{{ item.skill.mono }}</span>
+                  }
+                </button>
+                <span class="orbit__tip" aria-hidden="true">{{ item.skill.name }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="button" class="motion-btn" [attr.aria-pressed]="paused()" (click)="togglePause()"
+            [attr.aria-label]="paused() ? 'Play rotation' : 'Pause rotation'" [title]="paused() ? 'Play rotation' : 'Pause rotation'">
+      @if (paused()) {
+        <svg lucidePlay></svg>
+      } @else {
+        <svg lucidePause></svg>
+      }
+    </button>
+  </div>
+
+  <!-- On phones the orbit is too busy; the same rings become three rows of chips. -->
+  <div class="skills__rows">
+    @for (ring of rings; track ring) {
+      <section class="ring-row" [attr.aria-labelledby]="'ring-row-' + ring">
+        <h3 class="ring-row__title" [id]="'ring-row-' + ring">
+          <span class="ring-row__dots" aria-hidden="true">
+            @for (dot of rings; track dot) {
+              <span [class.is-on]="dot <= 4 - ring"></span>
+            }
+          </span>
+          {{ ringLabels[ring] }}
+        </h3>
+        <ul class="ring-row__chips">
+          @for (item of itemsByRing()[ring]; track item.skill.name) {
+            <li>
+              <button type="button" class="chip" [style.--brand]="item.skill.brand"
+                      [attr.aria-pressed]="item.skill === selected()" (click)="selected.set(item.skill)">
+                @if (item.skill.image) {
+                  <img [src]="item.skill.image" alt="">
+                } @else {
+                  <span class="mono" [style.color]="item.skill.brand" aria-hidden="true">{{ item.skill.mono }}</span>
+                }
+                {{ item.skill.name }}
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+
+  <div class="skills__side" [style.--brand]="selected().brand">
+    <h3 class="panel__title">{{ selected().name }} <span>{{ ringLabels[selected().ring] }}</span></h3>
+    <p class="panel__what">{{ selected().description }}</p>
+
+    @if (selected().everywhere) {
+      <p class="panel__used">Used in every project.</p>
+    } @else if (projectsForSelected().length) {
+      <ul class="pills" [attr.aria-label]="'Projects with ' + selected().name">
+        @for (project of pills(); track project.id) {
+          <li>
+            <button type="button" class="pill" (click)="openProject(project.id)">
+              {{ project.name }}<span class="pill__year">{{ project.year }}</span>
+            </button>
+          </li>
+        }
+        @if (projectsForSelected().length > pills().length) {
+          <li>
+            <button type="button" class="pill pill--all" (click)="showAll()">
+              All {{ projectsForSelected().length }} {{ selected().name }} projects
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="panel__used">Used at work.</p>
+    }
+  </div>
+</div>

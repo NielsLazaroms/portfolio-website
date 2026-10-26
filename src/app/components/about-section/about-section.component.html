@@ -1,0 +1,42 @@
+<div class="about">
+  <div class="about__text">
+    <h2 class="about__title">Hi, I'm Niels.</h2>
+    <p class="about__now">Full-stack developer at <b>Essent</b>, through <b>Harvest</b>.</p>
+    <p>I'm {{ age }} and from Noord-Brabant. I graduated in ICT &amp; Media Design at Fontys in 2026, after working
+      part-time as a front-end developer at ASML and interning at Social Deal. I design a screen first, then build it
+      myself, mostly in Angular and TypeScript.</p>
+    <p>I like interfaces that react the way you expect them to. When I'm not at a keyboard I'm on a mountain bike, in
+      the gym, or on the slopes.</p>
+    <div class="about__actions">
+      <a class="btn btn--primary" href="assets/docs/CV_Niels_Lazaroms.pdf" target="_blank" rel="noopener">
+        <svg lucideDownload></svg>Download resume (PDF)
+      </a>
+      <a class="btn" href="#contact-section" (click)="scrollToContact($event)">
+        <svg lucideMail></svg>Get in touch
+      </a>
+    </div>
+  </div>
+  <!-- Your portrait plus the photos from the old quote section, as a pile that deals itself. -->
+  <app-photo-deck class="about__photos"></app-photo-deck>
+</div>
+
+<div class="route">
+  <h3 class="route__title">How I got here <span class="route__hint">Click a step to read more.</span></h3>
+  <app-route-profile class="route__profile" [steps]="route" [selected]="selected()" (select)="selected.set($event)"/>
+  <div class="route__detail" aria-live="polite">
+    <span class="route__year">{{ selected().year }}</span>
+    <strong>{{ selected().title }}</strong>
+    <p>{{ selected().description }}</p>
+  </div>
+
+  <!-- Phones: a vertical timeline. -->
+  <ol class="route__list">
+    @for (step of route; track step.title) {
+      <li [class.is-now]="step.isNow">
+        <span class="route__year">{{ step.isNow ? step.year + ', now' : step.year }}</span>
+        <h4>{{ step.title }}</h4>
+        <p>{{ step.description }}</p>
+      </li>
+    }
+  </ol>
+</div>

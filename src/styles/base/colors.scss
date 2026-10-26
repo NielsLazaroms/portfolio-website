@@ -10,18 +10,35 @@
   --strokeColor: #8A8A8A;
   --white: #FFFFFF;
   --black: #000000;
+
+  // Redesign tokens
+  --surface: var(--cardBox);
+  --surface-2: #222423;
+  --line: #2C2E2C;
+  --muted: #8E918E;
+  --accent-soft: rgba(var(--primaryColor-rgb), 0.14);
+  --on-accent: #0D1F14;
+  color-scheme: dark;
 }
 
 :root[data-theme="light"] {
-  --primaryColor: #00933f;
-  --primaryColor-rgb: 0, 147, 63;
-  --secondaryColor: #05381b;
-  --secondaryColor-rgb: 9, 68, 34;
-  --mainColor: #F9FAFB;
-  --mainColor-rgb: 249, 250, 251;
-  --textColor: #1A1A1B;
-  --cardBox: #F2F2F3;
-  --strokeColor: #464646;
+  // Sage "map paper" with deep green ink. Every text colour passes 4.5:1 on all three surfaces.
+  --primaryColor: #0B6B37;
+  --primaryColor-rgb: 11, 107, 55;
+  --secondaryColor: #05381B;
+  --secondaryColor-rgb: 5, 56, 27;
+  --mainColor: #EDF1EA;
+  --mainColor-rgb: 237, 241, 234;
+  --textColor: #17211A;
+  --cardBox: #F7F9F4;
+  --strokeColor: #46504A;
   --white: #FFFFFF;
   --black: #000000;
+
+  --surface-2: #E1E7DC;
+  --line: #CDD6C8;
+  --muted: #505C52;
+  --accent-soft: rgba(var(--primaryColor-rgb), 0.12);
+  --on-accent: #FFFFFF;
+  color-scheme: light;
 }

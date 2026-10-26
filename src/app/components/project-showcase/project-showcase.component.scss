@@ -1,0 +1,419 @@
+$ease: cubic-bezier(.215, .61, .355, 1);
+
+:host {
+  display: block;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 22px;
+
+  button {
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: none;
+    font-size: .875rem;
+    cursor: pointer;
+
+    &[aria-pressed="true"] {
+      background: var(--textColor);
+      color: var(--mainColor);
+      border-color: var(--textColor);
+    }
+  }
+
+  &__skill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--textColor) !important;
+    color: var(--mainColor);
+    border-color: var(--textColor) !important;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__back {
+    border-style: dashed !important;
+    color: var(--muted);
+
+    &:hover {
+      color: var(--textColor);
+    }
+  }
+
+  &__count {
+    margin-left: 6px;
+    opacity: .7;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+
+.index {
+  &__year {
+    padding: 10px 0 2px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  // Name and type on one line keeps the list short.
+  &__item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    width: 100%;
+    min-height: 40px;
+    padding: 6px 12px 6px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color .25s;
+
+    // Coloured bar for the open project
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      bottom: 9px;
+      width: 3px;
+      border-radius: 3px;
+      background: var(--tint, var(--primaryColor));
+      transform: scaleY(0);
+      transition: transform .25s $ease;
+    }
+
+    &:hover .index__name {
+      transform: translateX(4px);
+    }
+
+    // While the pointer rests on a project, its bar grows in; when it is full the preview switches.
+    @media (hover: hover) {
+      &:not([aria-current="true"]):hover::before {
+        background: var(--muted);
+        transform: scaleY(1);
+        transition: transform .45s linear;
+      }
+    }
+
+    &[aria-current="true"] {
+      background: var(--surface);
+
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+  }
+
+  &__name {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    transition: transform .25s $ease;
+  }
+
+  &__kind {
+    flex: none;
+    color: var(--muted);
+    font-size: .75rem;
+  }
+}
+
+.new {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--primaryColor);
+  border: 1px solid var(--primaryColor);
+  border-radius: 999px;
+  padding: 0 7px;
+}
+
+.stage {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  scroll-margin-top: 96px;
+
+  // Fixed height, worked out from the available width so desktop screenshots fill the frame.
+  // Narrower screenshots (phones) get a narrower frame; the height never changes.
+  &__media {
+    container-type: inline-size;
+    --shot-h: min(calc((100cqw - 2px) / 1.6), 52vh, 520px); // 100cqw is the inner width; 2px for the frame border
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 44px;
+    align-content: center;
+    gap: 16px;
+    justify-items: center;
+    padding: clamp(18px, 3vw, 36px) clamp(18px, 3vw, 36px) 18px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--tint, var(--surface-2)) 55%, transparent), transparent 70%), var(--surface);
+  }
+
+  &__info {
+    display: grid;
+    gap: 10px;
+
+    p {
+      max-width: 62ch;
+    }
+  }
+
+  &__title {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: baseline;
+    font-size: clamp(1.75rem, 3.4vw, 2.4rem);
+    font-weight: bold;
+  }
+
+  &__meta {
+    color: var(--muted);
+    font-size: .875rem;
+  }
+}
+
+.frame {
+  position: relative;
+  max-width: 100%;
+  transition: opacity .3s, transform .45s $ease;
+
+  &.is-swapping {
+    opacity: 0;
+    transform: translateY(14px) scale(.985);
+  }
+
+  &--browser {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--mainColor);
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .6);
+  }
+
+  &--phone {
+    padding: 9px;
+    border-radius: 38px;
+    background: #0B0B0B;
+    border: 1px solid #2A2A2A;
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .7);
+
+    .shot {
+      border-radius: 30px;
+      overflow: hidden;
+      // Every phone frame is the same size, whatever shape the screenshot has.
+      // Same outer height as the browser frame (its bar is 42px, the phone padding and border 20px).
+      height: calc(var(--shot-h) + 24px);
+      aspect-ratio: 390 / 844 !important;
+      background: #000;
+    }
+  }
+
+  &__bar {
+    display: flex;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  &__url {
+    flex: 1;
+    min-width: 0;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: var(--mainColor);
+    color: var(--muted);
+    font-size: .75rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.shot {
+  position: relative;
+  height: var(--shot-h);
+  max-width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  transition: aspect-ratio .35s $ease;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity .4s;
+
+    &.is-on {
+      opacity: 1;
+    }
+  }
+}
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+
+  button {
+    width: 54px;
+    height: 44px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    overflow: hidden;
+    background: var(--mainColor);
+    opacity: .6;
+    cursor: pointer;
+    transition: opacity .2s, border-color .2s;
+
+    &:hover, &[aria-current="true"] {
+      opacity: 1;
+    }
+
+    &[aria-current="true"] {
+      border-color: var(--textColor);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  li {
+    padding: 2px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: .8125rem;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+
+  &__note {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    color: var(--muted);
+    font-size: .875rem;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// Narrow screens: the index becomes a row of swipeable buttons above the preview.
+@media (max-width: 860px) {
+  .stage__media {
+    --shot-h: min(calc((100cqw - 2px) / 1.6), 300px);
+  }
+
+  .showcase {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .stage {
+    position: static;
+  }
+
+  .index {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 6px;
+
+    &__year {
+      display: none;
+    }
+
+    ul {
+      display: flex;
+      gap: 8px;
+    }
+
+    li {
+      flex: none;
+      scroll-snap-align: start;
+    }
+
+    &__item {
+      min-height: 44px;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      white-space: nowrap;
+
+      &::before {
+        display: none;
+      }
+
+      &[aria-current="true"] {
+        border-color: var(--primaryColor);
+      }
+    }
+
+    &__name {
+      font-size: .9375rem;
+    }
+
+    &__kind {
+      display: none;
+    }
+  }
+}
