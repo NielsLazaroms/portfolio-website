@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import gsap from 'gsap';
 
@@ -7,6 +7,7 @@ import gsap from 'gsap';
   standalone: true,
   imports: [NgClass],
   templateUrl: './sliding-text.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./sliding-text.component.scss']
 })
 export class SlidingTextComponent implements OnInit, AfterViewInit {

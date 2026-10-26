@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import gsap from 'gsap';
 
 @Component({
@@ -6,6 +6,7 @@ import gsap from 'gsap';
   imports: [],
   templateUrl: './top-view.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './top-view.component.scss'
 })
 export class TopViewComponent implements OnInit {

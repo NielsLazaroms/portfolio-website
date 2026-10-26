@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'app-skill-progress',
   imports: [],
   templateUrl: './skill-progress.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './skill-progress.component.scss'
 })
 export class SkillProgressComponent {

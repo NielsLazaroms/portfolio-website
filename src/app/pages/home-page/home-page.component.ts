@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy} from '@angular/core';
 import {TopViewComponent} from '../../components/top-view/top-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {SectionTitleComponent} from '../../components/section-title/section-title.component';
@@ -35,6 +35,7 @@ gsap.registerPlugin(ScrollTrigger);
   ],
   templateUrl: './home-page.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements AfterViewInit{
