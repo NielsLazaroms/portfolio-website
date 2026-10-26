@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Theme, ThemeService} from '../../services/theme.service';
 
@@ -9,6 +9,7 @@ import {Theme, ThemeService} from '../../services/theme.service';
   ],
   templateUrl: './toggle-slider.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toggle-slider.component.scss'
 })
 export class ToggleSliderComponent {

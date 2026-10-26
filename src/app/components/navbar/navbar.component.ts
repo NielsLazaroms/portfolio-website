@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, ChangeDetectionStrategy} from '@angular/core';
 
 import {ToggleSliderComponent} from '../toggle-slider/toggle-slider.component';
 
@@ -9,6 +9,7 @@ import {ToggleSliderComponent} from '../toggle-slider/toggle-slider.component';
 ],
   templateUrl: './navbar.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {

@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'app-download-button',
   imports: [],
   templateUrl: './download-button.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './download-button.component.scss'
 })
 export class DownloadButtonComponent {

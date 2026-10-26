@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 
 import {Skill} from '../../interfaces/interface';
 
@@ -7,6 +7,7 @@ import {Skill} from '../../interfaces/interface';
   imports: [],
   templateUrl: './skill-box.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './skill-box.component.scss'
 })
 export class SkillBoxComponent implements OnInit {

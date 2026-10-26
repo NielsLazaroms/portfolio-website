@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ProjectInfo} from '../../interfaces/interface';
 import { NgClass } from '@angular/common';
 import { faExternalLink } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,7 @@ import {PreloaderService} from '../../services/preloader.service';
 ],
   templateUrl: './project-list.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './project-list.component.scss'
 })
 export class ProjectListComponent implements OnInit{
