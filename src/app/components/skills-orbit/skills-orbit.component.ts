@@ -1,8 +1,10 @@
-import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal} from '@angular/core';
+import {NgTemplateOutlet} from '@angular/common';
 import {LucidePause, LucidePlay} from '@lucide/angular';
 import {projects, skillRingLabels, skills} from '../../inputData';
 import {Skill, SkillRing} from '../../interfaces/interface';
 import {ProjectFocusService} from '../../services/project-focus.service';
+import {scrollBehavior} from '../../utils/motion';
 
 interface OrbitItem {
   skill: Skill;
@@ -24,13 +26,14 @@ const START_ANGLES: Record<SkillRing, number> = {1: -45, 2: -90, 3: -60};
  */
 @Component({
   selector: 'app-skills-orbit',
-  imports: [LucidePause, LucidePlay],
+  imports: [LucidePause, LucidePlay, NgTemplateOutlet],
   templateUrl: './skills-orbit.component.html',
   styleUrl: './skills-orbit.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsOrbitComponent {
   private readonly projectFocus = inject(ProjectFocusService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
 
   protected readonly ringLabels = skillRingLabels;
   protected readonly rings: SkillRing[] = [1, 2, 3];
@@ -60,6 +63,12 @@ export class SkillsOrbitComponent {
 
   /** The newest few, shown as buttons; the rest sit behind "All N projects". */
   protected readonly pills = computed(() => this.projectsForSelected().slice(0, MAX_PILLS));
+
+  /** Phone rows: choose the skill, then make sure its panel (under the row) is fully in view. */
+  protected selectFromRow(skill: Skill): void {
+    this.selected.set(skill);
+    setTimeout(() => this.host.querySelector('.ring-row__panel')?.scrollIntoView({behavior: scrollBehavior(), block: 'nearest'}));
+  }
 
   protected togglePause(): void {
     this.paused.update(p => !p);
