@@ -30,7 +30,7 @@
                 <button type="button" class="orbit__logo" [style.--brand]="item.skill.brand"
                         [attr.aria-pressed]="item.skill === selected()"
                         [attr.aria-label]="item.skill.name + ', ' + ringLabels[item.skill.ring].toLowerCase()"
-                        (click)="selected.set(item.skill)">
+                        (click)="selectFromRow(item.skill)">
                   @if (item.skill.image) {
                     <img [src]="item.skill.image" alt="">
                   } @else {
@@ -71,7 +71,7 @@
           @for (item of itemsByRing()[ring]; track item.skill.name) {
             <li>
               <button type="button" class="chip" [style.--brand]="item.skill.brand"
-                      [attr.aria-pressed]="item.skill === selected()" (click)="selected.set(item.skill)">
+                      [attr.aria-pressed]="item.skill === selected()" (click)="selectFromRow(item.skill)">
                 @if (item.skill.image) {
                   <img [src]="item.skill.image" alt="">
                 } @else {
@@ -82,35 +82,46 @@
             </li>
           }
         </ul>
+        <!-- The panel opens under the row you tapped, so it's in view straight away. -->
+        @if (selected().ring === ring) {
+          <div class="ring-row__panel" [style.--brand]="selected().brand">
+            <ng-container *ngTemplateOutlet="panel; context: {$implicit: 4}"/>
+          </div>
+        }
       </section>
     }
   </div>
 
   <div class="skills__side" [style.--brand]="selected().brand">
-    <h3 class="panel__title">{{ selected().name }} <span>{{ ringLabels[selected().ring] }}</span></h3>
-    <p class="panel__what">{{ selected().description }}</p>
-
-    @if (selected().everywhere) {
-      <p class="panel__used">Used in every project.</p>
-    } @else if (projectsForSelected().length) {
-      <ul class="pills" [attr.aria-label]="'Projects with ' + selected().name">
-        @for (project of pills(); track project.id) {
-          <li>
-            <button type="button" class="pill" (click)="openProject(project.id)">
-              {{ project.name }}<span class="pill__year">{{ project.year }}</span>
-            </button>
-          </li>
-        }
-        @if (projectsForSelected().length > pills().length) {
-          <li>
-            <button type="button" class="pill pill--all" (click)="showAll()">
-              All {{ projectsForSelected().length }} {{ selected().name }} projects
-            </button>
-          </li>
-        }
-      </ul>
-    } @else {
-      <p class="panel__used">Used at work.</p>
-    }
+    <ng-container *ngTemplateOutlet="panel; context: {$implicit: 3}"/>
   </div>
 </div>
+
+<!-- What I do with the chosen skill and its projects. Used next to the orbit, and on phones right under the tapped row. -->
+<ng-template #panel let-level>
+  <p class="panel__title" role="heading" [attr.aria-level]="level">{{ selected().name }} <span>{{ ringLabels[selected().ring] }}</span></p>
+  <p class="panel__what">{{ selected().description }}</p>
+
+  @if (selected().everywhere) {
+    <p class="panel__used">Used in every project.</p>
+  } @else if (projectsForSelected().length) {
+    <ul class="pills" [attr.aria-label]="'Projects with ' + selected().name">
+      @for (project of pills(); track project.id) {
+        <li>
+          <button type="button" class="pill" (click)="openProject(project.id)">
+            {{ project.name }}<span class="pill__year">{{ project.year }}</span>
+          </button>
+        </li>
+      }
+      @if (projectsForSelected().length > pills().length) {
+        <li>
+          <button type="button" class="pill pill--all" (click)="showAll()">
+            All {{ projectsForSelected().length }} {{ selected().name }} projects
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="panel__used">Used at work.</p>
+  }
+</ng-template>
